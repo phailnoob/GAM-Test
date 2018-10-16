@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{4be3c774-82e0-4635-b345-79a8518c1ba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{e0fbe39e-dbc3-461d-9238-1e4de0e10fbc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Codes\Main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\Game.c">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\Input.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\Console.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\SpriteReference.c">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\Array Reader.c">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\Data Storage.c">
+      <Filter>Engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Codes\Input.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Console.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\SpriteReference.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Array Reader.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Data Storage.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
