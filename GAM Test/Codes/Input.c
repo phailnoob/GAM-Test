@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "Input.h"
 #include "Game.h"
+#include "Enemy.h"
 
 static int keyPress, keyDown;
 static bool keyPressed;

@@ -11,8 +11,6 @@ Possibly included will be text file reading and parsing into resizeable array.
 */
 
 #include "Game.h"
-#include<stdio.h>
-#include<conio.h>
 
 int main()
 {

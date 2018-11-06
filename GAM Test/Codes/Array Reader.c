@@ -3,6 +3,7 @@
 #include "Console.h"
 #include "SpriteReference.h"
 #include "Data Storage.h"
+#include "Enemy.h"
 
 static char *array;
 static int width, height, i ,j, playerX, playerY, fogStart, fogEnd, distance, g, f;
@@ -53,6 +54,15 @@ void arrayReader_draw(int drawOrder)
 		break;
 
 	case 3:
+/*
+		dataStorage_getMapSize(&width, &height);
+		for (i = 0; i < height; i++)
+		{
+			for (j = 0; j < width; j++)
+			{
+				console_draw(i, j, enemy_getWeightMap()->mapArray[i + j * width]);
+			}
+		}*/
 		break;
 
 	case 4:
