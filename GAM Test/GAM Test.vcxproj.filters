@@ -34,6 +34,9 @@
     <ClCompile Include="Codes\Data Storage.c">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Codes\Enemy.c">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Input.h">
@@ -53,6 +56,9 @@
     </ClInclude>
     <ClInclude Include="Codes\Data Storage.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Enemy.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

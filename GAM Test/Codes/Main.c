@@ -11,8 +11,6 @@ Possibly included will be text file reading and parsing into resizeable array.
 */
 
 #include "Game.h"
-#include<stdio.h>
-#include<conio.h>
 
 int main()
 {
@@ -20,7 +18,7 @@ int main()
 
 	game_init();
 
-	while (game_isRunning)
+	while (game_isRunning())
 	{
 /*		test = _getch();
 		test2 = _kbhit();

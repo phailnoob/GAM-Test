@@ -1,25 +1,29 @@
 
 #include "Game.h"
+#include "Enemy.h"
 #include "Console.h"
 #include "Array Reader.h"
 #include "Data Storage.h"
 #include "Input.h"
 #include <stdio.h>
 
-static bool isRunning;
+bool isRunning;
 
-static int playerX, playerY, startX, startY, mapWidth, mapHeight, fogStart, fogEnd;
+static int playerX, playerY, startX, startY, mapWidth, mapHeight, fogStart, fogEnd; 
+/* TODO Make sure to clear up all these static variables if the player goes back to main menu*/
 
+/*edited*/
 static char map[10][10] = {	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 3, 0, 0, 0, 0, 0, 0, 0, 1},
 							{1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
 							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-							{1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
+							{1, 3, 1, 1, 1, 1, 0, 1, 1, 1},
 							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 							{1, 1, 1, 1, 1, 1, 0, 1, 0, 1},
 							{1, 0, 0, 1, 0, 0, 0, 1, 0, 1},
-							{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+							{1, 3, 0, 0, 0, 1, 0, 0, 0, 1},
 							{1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };
+
 
 
 void game_init()
@@ -34,10 +38,11 @@ void game_init()
 	startY = 6;
 	mapWidth = 10;
 	mapHeight = 10;
-	fogStart = 5;
-	fogEnd = 8;
+	fogStart = 50;
+	fogEnd = 80;
 
 	game_loadMap(0);
+
 }
 
 bool game_isRunning()
@@ -50,6 +55,16 @@ void game_update()
 	input_checkInput();
 }
 
+
+
+void game_EnemyUpdate()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		enemy_Update(i);
+	}
+}
+
 void game_playerAction(int action)
 {
 	switch (action)
@@ -59,6 +74,9 @@ void game_playerAction(int action)
 			dataStorage_setPlayerPosition(playerX, --playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(playerX, ++playerY);
+			game_EnemyUpdate();
+			
+
 			dataStorage_draw(0);
 			break;
 		case 2:
@@ -66,6 +84,8 @@ void game_playerAction(int action)
 			dataStorage_setPlayerPosition(playerX, ++playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(playerX, --playerY);
+			game_EnemyUpdate();
+
 			dataStorage_draw(0);
 			break;
 		case 3:
@@ -73,6 +93,8 @@ void game_playerAction(int action)
 			dataStorage_setPlayerPosition(--playerX, playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(++playerX, playerY);
+			game_EnemyUpdate();
+
 			dataStorage_draw(0);
 			break;
 		case 4:
@@ -80,6 +102,8 @@ void game_playerAction(int action)
 			dataStorage_setPlayerPosition(++playerX, playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(--playerX, playerY);
+			game_EnemyUpdate();
+
 			dataStorage_draw(0);
 			break;
 
@@ -96,5 +120,9 @@ void game_loadMap(int mapNo)
 	dataStorage_setFogDistance(fogStart, fogEnd);
 	dataStorage_setPlayerPosition(playerX, playerY);
 	dataStorage_setMapData(map, mapWidth, mapHeight);
+
+	dataStorage_EnemyInit();
 	dataStorage_draw(0);
 }
+
+

@@ -2,6 +2,7 @@
 #include <conio.h>
 #include "Input.h"
 #include "Game.h"
+#include "Enemy.h"
 
 static int keyPress, keyDown;
 
@@ -20,6 +21,9 @@ void input_checkInput()
 	{
 		switch (keyPress)
 		{
+			case 27:
+				isRunning = false;
+				break;
 			case 87:
 			case 119:
 				game_playerAction(1);
@@ -42,6 +46,9 @@ void input_checkInput()
 	{
 		switch (keyPress)
 		{
+			case 27:
+				isRunning = false;
+				break;
 			case 72:
 				game_playerAction(1);
 				break;

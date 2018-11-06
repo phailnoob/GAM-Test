@@ -1,7 +1,7 @@
 
 #include "SpriteReference.h"
 
-int chart[] = {0, 219, 234};
+int chart[] = {0, 219, 234, 86};
 
 char spriteReference_getSprite(char input)
 {
