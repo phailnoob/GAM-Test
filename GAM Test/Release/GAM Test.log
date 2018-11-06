@@ -1,2 +1,14 @@
-﻿  main.c
-Codes\main.c(19): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
+﻿  Array Reader.c
+d:\digipen\svn\gam100\gam test\gam test\codes\array reader.c(20): warning C4013: 'free' undefined; assuming extern returning int
+d:\digipen\svn\gam100\gam test\gam test\codes\array reader.c(21): warning C4013: 'malloc' undefined; assuming extern returning int
+d:\digipen\svn\gam100\gam test\gam test\codes\array reader.c(21): warning C4047: '=': 'char *' differs in levels of indirection from 'int'
+  Data Storage.c
+  Game.c
+d:\digipen\svn\gam100\gam test\gam test\codes\game.c(102): warning C4047: 'function': 'char *' differs in levels of indirection from 'char [10][10]'
+d:\digipen\svn\gam100\gam test\gam test\codes\game.c(102): warning C4024: 'dataStorage_setMapData': different types for formal and actual parameter 1
+  Generating code
+  4 of 31 functions (12.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  GAM Test.vcxproj -> D:\Digipen\SVN\GAM100\GAM Test\Release\GAM Test.exe

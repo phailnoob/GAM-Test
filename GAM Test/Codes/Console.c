@@ -4,7 +4,7 @@
 #include "Console.h"
 #include "SpriteReference.h"
 
-static HANDLE writeHandle0, writeHandle1, readHandle;
+static HANDLE writeHandle, readHandle;
 CONSOLE_CURSOR_INFO cursorInfo;
 int width, height;
 char buffer[100][250];
@@ -13,11 +13,10 @@ void console_init()
 {
 	SetConsoleTitle(TEXT(CONSOLE_TITLE));
 
-	writeHandle0 = GetStdHandle(STD_OUTPUT_HANDLE);
-	writeHandle1 = GetStdHandle(STD_OUTPUT_HANDLE);
+	writeHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	readHandle = GetStdHandle(STD_INPUT_HANDLE);
 	
-	COORD bufferSize = GetLargestConsoleWindowSize(writeHandle0);
+	COORD bufferSize = GetLargestConsoleWindowSize(writeHandle);
 	width = bufferSize.X;
 	height = bufferSize.Y;
 
@@ -25,19 +24,17 @@ void console_init()
 	Setting Console Window size to the size of the monitor (largest possible size)
 	*/
 
-	SetConsoleScreenBufferSize(writeHandle0, bufferSize);
-	SetConsoleScreenBufferSize(writeHandle1, bufferSize);
+	SetConsoleScreenBufferSize(writeHandle, bufferSize);
 
 	SMALL_RECT windowSize = { 0, 0, width - 1, height - 1 };
 
-	SetConsoleWindowInfo(writeHandle0, 1, &windowSize);
-	SetConsoleWindowInfo(writeHandle1, 1, &windowSize);
+	SetConsoleWindowInfo(writeHandle, 1, &windowSize);
 
-	SetConsoleActiveScreenBuffer(writeHandle0);
+	SetConsoleActiveScreenBuffer(writeHandle);
 
 	cursorInfo.dwSize = 100;
 	cursorInfo.bVisible = 0;
-	SetConsoleCursorInfo(writeHandle0, &cursorInfo);
+	SetConsoleCursorInfo(writeHandle, &cursorInfo);
 
 	console_clear();
 }
@@ -55,23 +52,17 @@ int console_getConsoleHeight()
 void console_setCursorPosition(int x, int y)
 {
 	COORD pos = { x, y };
-	SetConsoleCursorPosition(writeHandle0, pos);
+	SetConsoleCursorPosition(writeHandle, pos);
 }
 
-void console_draw(int drawX, int drawY, int drawChar)
+void console_draw(char drawX, char drawY, char drawChar, char color)
 {
 	console_setCursorPosition(drawX, drawY);
-	printf_s("%c", drawChar);
+	printf_s("\u001b[3%d;%dm%c", color%10, color/10 + 1, drawChar);
 
-/*	char ch = (char)drawChar;
-	COORD size = { width, height };
-	COORD pos = { drawX, drawY };
-	SMALL_RECT rect = { 0, 0, width-1, height-1 };
-	WriteConsoleOutput(writeHandle0, ch, size, pos, &rect);
-*/
 	cursorInfo.dwSize = 100;
 	cursorInfo.bVisible = 0;
-	SetConsoleCursorInfo(writeHandle0, &cursorInfo);
+	SetConsoleCursorInfo(writeHandle, &cursorInfo);
 }
 
 void console_clear()

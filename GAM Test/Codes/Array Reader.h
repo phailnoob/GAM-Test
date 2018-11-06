@@ -5,7 +5,9 @@
 
 void arrayReader_init();
 
-void arrayReader_draw(int drawOrder, int *arr);
-void arrayReader_clear(int drawOrder, int *arr);
+void arrayReader_setMap(short size);
+
+void arrayReader_draw(int drawOrder);
+void arrayReader_clear(int drawOrder);
 
 #endif

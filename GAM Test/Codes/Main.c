@@ -20,7 +20,7 @@ int main()
 
 	game_init();
 
-	while (game_isRunning)
+	while (game_isRunning())
 	{
 /*		test = _getch();
 		test2 = _kbhit();

@@ -15,35 +15,38 @@ void arrayReader_init()
 	fogStart = fogEnd = distance = -1;
 }
 
-void arrayReader_draw(int drawOrder, char *arr)
+void arrayReader_setMap(short size)
+{
+	free(array);
+	array = malloc(size);
+}
+
+void arrayReader_draw(int drawOrder)
 {
 	switch (drawOrder)
 	{
 	case 0:
-		dataStorage_getMapSize(&width, &height);
-		dataStorage_getPlayerPosition(&playerX, &playerY);
-		dataStorage_getFogDistance(&fogStart, &fogEnd);
+		dataStorage_getMapData(&width, &height);
 
 		for (i = 0; i < height; i++)
 		{
 			for (j = 0; j < width; j++)
 			{
-				distance = (j - playerX) * (j - playerX) + (i - playerY) * (i - playerY);
-				if (distance < fogStart * fogStart)
-					console_draw(console_getConsoleWidth() / 2 + j - playerX,
-								console_getConsoleHeight() / 2 + i - playerY,
-								spriteReference_getSprite(arr[i * width + j]));
-				else if (distance > fogStart * fogStart && distance < fogEnd * fogEnd)
-					console_draw(console_getConsoleWidth() / 2 + j - playerX,
-								console_getConsoleHeight() / 2 + i - playerY,
-								88);
+				console_draw((console_getConsoleWidth() - width) / 2 + j,
+							(console_getConsoleHeight() - height) / 2 + i,
+							spriteReference_getSprite(dataStorage_getMapValue(j, i)),
+							7);
 			}
 		}
-
-		console_draw(console_getConsoleWidth() / 2, console_getConsoleHeight() / 2, spriteReference_getSprite(2));
 		break;
 
 	case 1:
+		dataStorage_getPlayerPosition(&playerX, &playerY);
+
+		console_draw((console_getConsoleWidth() - width) / 2 + playerX,
+					(console_getConsoleHeight() - height) / 2 + playerY,
+					spriteReference_getSprite(2),
+					7);
 		break;
 
 	case 2:
@@ -57,24 +60,20 @@ void arrayReader_draw(int drawOrder, char *arr)
 	}
 }
 
-void arrayReader_clear(int drawOrder, int *arr)
+void arrayReader_clear(int drawOrder)
 {
 	switch (drawOrder)
 	{
 	case 0:
-		dataStorage_getMapSize(&width, &height);
-		dataStorage_getPlayerPosition(&playerX, &playerY);
-
-		for (i = 0; i < height; i++)
-		{
-			for (j = 0; j < width; j++)
-				console_draw(console_getConsoleWidth() / 2 + j - playerX,
-							console_getConsoleHeight() / 2 + i - playerY,
-							0);
-		}
 		break;
 
 	case 1:
+		dataStorage_getPlayerPosition(&playerX, &playerY);
+
+		console_draw((console_getConsoleWidth() - width) / 2 + playerX,
+					(console_getConsoleHeight() - height) / 2 + playerY,
+					spriteReference_getSprite(0),
+					7);
 		break;
 
 	case 2:

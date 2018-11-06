@@ -12,11 +12,9 @@ void dataStorage_getPlayerPosition(int *x, int *y);
 void dataStorage_setFogDistance(int start, int end);
 void dataStorage_getFogDistance(int *start, int *end);
 
-void dataStorage_setMapData(int *arr, int width, int height);
-void dataStorage_getMapSize(int *width, int *height);
+void dataStorage_setMapData(char *arr, int width, int height);
+void dataStorage_getMapData(int *width, int *height);
+char dataStorage_getMapValue(int x, int y);
 bool dataStorage_checkWall();
-
-void dataStorage_clearDraw(int drawOrder);
-void dataStorage_draw(int drawOrder);
 
 #endif
