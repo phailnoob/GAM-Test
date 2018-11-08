@@ -1,7 +1,8 @@
 
 #include "SpriteReference.h"
 
-char chart[] = {0, 219, 234};
+
+char chart[] = {0, 219, 234 ,86};
 
 /*
 Reference Chart:
@@ -9,7 +10,6 @@ Reference Chart:
 1 - Walls
 2 - Player
 */
-
 char spriteReference_getSprite(char input)
 {
 	return chart[input];

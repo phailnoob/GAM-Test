@@ -1,25 +1,29 @@
 
 #include "Game.h"
+#include "Enemy.h"
 #include "Console.h"
 #include "Array Reader.h"
 #include "Data Storage.h"
 #include "Input.h"
 #include <stdio.h>
 
-static bool isRunning;
+bool isRunning;
 
-static int playerX, playerY, startX, startY, mapWidth, mapHeight, fogStart, fogEnd;
+static int playerX, playerY, startX, startY, mapWidth, mapHeight, fogStart, fogEnd; 
+/* TODO Make sure to clear up all these static variables if the player goes back to main menu*/
 
+/*edited*/
 static char map[10][10] = {	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+							{1, 3, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
 							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-							{1, 0, 1, 1, 1, 1, 1, 1, 0, 1},
-							{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-							{1, 1, 1, 1, 0, 1, 0, 1, 1, 1},
+							{1, 3, 1, 1, 1, 1, 0, 1, 1, 1},
 							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-							{1, 0, 1, 1, 1, 1, 1, 1, 0, 1},
+							{1, 1, 1, 1, 1, 1, 0, 1, 0, 1},
 							{1, 0, 0, 1, 0, 0, 0, 1, 0, 1},
-							{1, 1, 0, 0, 0, 1, 0, 0, 0, 1},
+							{1, 3, 0, 0, 0, 1, 0, 0, 0, 1},
 							{1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };
+
 
 
 void game_init()
@@ -32,12 +36,13 @@ void game_init()
 	isRunning = true;
 	startX = 6;
 	startY = 5;
-	mapWidth = -1;
-	mapHeight = -1;
+	mapWidth = 10;
+	mapHeight = 10;
 	fogStart = 5;
 	fogEnd = 8;
 
 	game_loadMap(0);
+
 }
 
 bool game_isRunning()
@@ -50,9 +55,13 @@ void game_update()
 	input_checkInput();
 }
 
-void game_playerUpdate()
+
+void game_EnemyUpdate()
 {
-	arrayReader_draw(1);
+	for (int i = 0; i < 10; i++)
+	{
+		enemy_Update(i);
+	}
 }
 
 void game_playerAction(int action)
@@ -63,21 +72,33 @@ void game_playerAction(int action)
 			dataStorage_setPlayerPosition(playerX, --playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(playerX, ++playerY);
+			game_EnemyUpdate();
+			
+			arrayReader_draw(0);
 			break;
 		case 2:
 			dataStorage_setPlayerPosition(playerX, ++playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(playerX, --playerY);
+			game_EnemyUpdate();
+
+			arrayReader_draw(0);
 			break;
 		case 3:
 			dataStorage_setPlayerPosition(--playerX, playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(++playerX, playerY);
+			game_EnemyUpdate();
+
+			arrayReader_draw(0);
 			break;
 		case 4:
 			dataStorage_setPlayerPosition(++playerX, playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(--playerX, playerY);
+			game_EnemyUpdate();
+
+			arrayReader_draw(0);
 			break;
 
 		case 0:
@@ -96,9 +117,17 @@ void game_loadMap(int mapNo)
 
 	dataStorage_setFogDistance(fogStart, fogEnd);
 	dataStorage_setPlayerPosition(playerX, playerY);
-	dataStorage_setMapData(map, mapWidth, mapHeight);
+	dataStorage_setMapData(*map, mapWidth, mapHeight);
 
 	arrayReader_setMap(sizeof(map));
 
+<<<<<<< HEAD
 	arrayReader_draw();
+=======
+	dataStorage_EnemyInit();
+	arrayReader_draw(0);
+	arrayReader_draw(1);
+>>>>>>> 7996e2f02c8af5b63244ff00b8836c7237ae0e20
 }
+
+

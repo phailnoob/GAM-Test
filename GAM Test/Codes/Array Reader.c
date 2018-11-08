@@ -3,6 +3,7 @@
 #include "Console.h"
 #include "SpriteReference.h"
 #include "Data Storage.h"
+#include "Enemy.h"
 
 static char *prevColor, *currColor, *prevMap, *currentMap;
 static int width, height, i ,j, playerX, playerY, fogStart, fogEnd, distance, g, f;
@@ -51,7 +52,21 @@ void arrayReader_setMap(short size)
 		}
 	}
 
+<<<<<<< HEAD
 	currentMap[playerY * height + playerX] = spriteReference_getSprite(2);
+=======
+	case 3:
+/*
+		dataStorage_getMapSize(&width, &height);
+		for (i = 0; i < height; i++)
+		{
+			for (j = 0; j < width; j++)
+			{
+				console_draw(i, j, enemy_getWeightMap()->mapArray[i + j * width]);
+			}
+		}*/
+		break;
+>>>>>>> 7996e2f02c8af5b63244ff00b8836c7237ae0e20
 
 	for (i = 0; i < height; i++)
 	{

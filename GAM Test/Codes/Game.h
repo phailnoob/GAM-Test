@@ -4,6 +4,7 @@
 #define GAME_H
 #include <stdbool.h>
 
+bool isRunning;
 void game_init();
 
 bool game_isRunning();
