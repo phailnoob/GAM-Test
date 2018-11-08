@@ -9,19 +9,19 @@
 
 bool isRunning;
 
-static int playerX, playerY, startX, startY, mapWidth, mapHeight, fogStart, fogEnd; 
+static int playerX, playerY, mapWidth, mapHeight; 
 /* TODO Make sure to clear up all these static variables if the player goes back to main menu*/
 
 /*edited*/
 static char map[10][10] = {	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-							{1, 3, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 							{1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
 							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-							{1, 3, 1, 1, 1, 1, 0, 1, 1, 1},
+							{1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
 							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 							{1, 1, 1, 1, 1, 1, 0, 1, 0, 1},
 							{1, 0, 0, 1, 0, 0, 0, 1, 0, 1},
-							{1, 3, 0, 0, 0, 1, 0, 0, 0, 1},
+							{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
 							{1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };
 
 
@@ -34,12 +34,6 @@ void game_init()
 	input_init();
 
 	isRunning = true;
-	startX = 6;
-	startY = 5;
-	mapWidth = 10;
-	mapHeight = 10;
-	fogStart = 5;
-	fogEnd = 8;
 
 	game_loadMap(0);
 
@@ -72,62 +66,54 @@ void game_playerAction(int action)
 			dataStorage_setPlayerPosition(playerX, --playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(playerX, ++playerY);
-			game_EnemyUpdate();
-			
-			arrayReader_draw(0);
 			break;
 		case 2:
 			dataStorage_setPlayerPosition(playerX, ++playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(playerX, --playerY);
-			game_EnemyUpdate();
-
-			arrayReader_draw(0);
 			break;
 		case 3:
 			dataStorage_setPlayerPosition(--playerX, playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(++playerX, playerY);
-			game_EnemyUpdate();
-
-			arrayReader_draw(0);
 			break;
 		case 4:
 			dataStorage_setPlayerPosition(++playerX, playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(--playerX, playerY);
-			game_EnemyUpdate();
-
-			arrayReader_draw(0);
 			break;
 
 		case 0:
 			break;
 	}
 
+	game_EnemyUpdate();
 	arrayReader_draw();
 }
 
 void game_loadMap(int mapNo)
 {
-	playerX = startX;
-	playerY = startY;
-	mapWidth = sizeof(map[0]);
-	mapHeight = sizeof(map)/sizeof(map[0]);
+	if (mapNo == 0)
+	{
+		playerX = 6;
+		playerY = 5;
 
-	dataStorage_setFogDistance(fogStart, fogEnd);
+		mapWidth = sizeof(map[0]);
+		mapHeight = sizeof(map) / sizeof(map[0]);
+
+		dataStorage_setMapData(*map, mapWidth, mapHeight);
+		arrayReader_setMap(sizeof(map));
+
+		dataStorage_EnemyInit(playerX, playerY);
+
+		enemy_spawnEnemy(1, 1, 0);
+		enemy_spawnEnemy(1, 5, 1);
+		enemy_spawnEnemy(1, 8, 2);
+	}
+
 	dataStorage_setPlayerPosition(playerX, playerY);
-	dataStorage_setMapData(*map, mapWidth, mapHeight);
 
-	arrayReader_setMap(sizeof(map));
-
-<<<<<<< HEAD
 	arrayReader_draw();
-=======
-	dataStorage_EnemyInit();
-	arrayReader_draw(0);
-	arrayReader_draw(1);
->>>>>>> 7996e2f02c8af5b63244ff00b8836c7237ae0e20
 }
 
 

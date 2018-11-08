@@ -1,12 +1,6 @@
-﻿  Array Reader.c
-d:\digipen\svn\gam100\gam test\gam test\codes\array reader.c(27): warning C4013: 'free' undefined; assuming extern returning int
-d:\digipen\svn\gam100\gam test\gam test\codes\array reader.c(28): warning C4013: 'malloc' undefined; assuming extern returning int
-d:\digipen\svn\gam100\gam test\gam test\codes\array reader.c(28): warning C4047: '=': 'char *' differs in levels of indirection from 'int'
-d:\digipen\svn\gam100\gam test\gam test\codes\array reader.c(31): warning C4047: '=': 'char *' differs in levels of indirection from 'int'
-d:\digipen\svn\gam100\gam test\gam test\codes\array reader.c(34): warning C4047: '=': 'char *' differs in levels of indirection from 'int'
-d:\digipen\svn\gam100\gam test\gam test\codes\array reader.c(37): warning C4047: '=': 'char *' differs in levels of indirection from 'int'
+﻿  Game.c
   Generating code
-  9 of 31 functions (29.0%) were compiled, the rest were copied from previous compilation.
+  4 of 49 functions ( 8.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

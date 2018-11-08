@@ -10,19 +10,12 @@ Includes pathfinding calculations.
 *************************************************/
 
 #include "Enemy.h"
+#include <stdio.h>
 
 
 /*FREE*/
 /*Global weightmap array to be used by all enemy objects to calculate weight*/
 static MapArray ma_WeightMap;
-
-void enemy_initPathNode(APathNode* Node)
-{
-	Node->direction = -1;
-	Node->X = -1;
-	Node->Y = -1;
-	Node->active = false;
-}
 
 MapArray* enemy_getWeightMap()
 {
@@ -410,54 +403,41 @@ void enemy_moveEnemy(int direction,int index, char *arr)
 	dataStorage_getMapSize(&width, &height);
 	if (x >= 0 && y >= 0)
 	{
-		if (arr[x + y * width] == 3)
+		switch (direction)
 		{
-			switch (direction)
-			{
-			case 1:
-				/*Checks to the top of the enemy is wall*/
-				if (y > 0)
-					if (arr[x + (y - 1) * width] != 1)
-					{
-						arr[x + y * width] = dataStorage_getEnemyObject(index)->c_prevChar;
-						dataStorage_getEnemyObject(index)->c_prevChar = arr[x + (y - 1) * width];
-						dataStorage_setEnemyPosition(x, --y, index);
-					}
-				break;
-			case 2:
-				/*Checks to the right of the enemy is wall*/
-				if(x < width - 1)
-					if (arr[(x + 1) + y * width] != 1)
-					{
-						arr[x + y * width] = dataStorage_getEnemyObject(index)->c_prevChar;
-						dataStorage_getEnemyObject(index)->c_prevChar = arr[(x + 1) + y * width];
-						dataStorage_setEnemyPosition(++x, y, index);
-					}
-				break;
-			case 3:
-				/*Checks to the bottom of the enemy is wall*/
-				if (y < height - 1)
-					if (arr[x + (y + 1) * width] != 1)
-					{
-						arr[x + y * width] = dataStorage_getEnemyObject(index)->c_prevChar;
-						dataStorage_getEnemyObject(index)->c_prevChar = arr[x + (y + 1) * width];
-						dataStorage_setEnemyPosition(x, ++y, index);
-					}
+		case 1:
+			/*Checks to the top of the enemy is wall*/
+			if (y > 0)
+				if (arr[x + (y - 1) * width] != 1)
+				{
+					dataStorage_setEnemyPosition(x, --y, index);
+				}
+			break;
+		case 2:
+			/*Checks to the right of the enemy is wall*/
+			if(x < width - 1)
+				if (arr[(x + 1) + y * width] != 1)
+				{
+					dataStorage_setEnemyPosition(++x, y, index);
+				}
+			break;
+		case 3:
+			/*Checks to the bottom of the enemy is wall*/
+			if (y < height - 1)
+				if (arr[x + (y + 1) * width] != 1)
+				{
+					dataStorage_setEnemyPosition(x, ++y, index);
+				}
 				
-				break;
-			case 4:
-				/*Checks to the left of the enemy is wall*/
-				if (x > 0)
-					if (arr[(x - 1) + y * width] != 1)
-					{
-						arr[x + y * width] = dataStorage_getEnemyObject(index)->c_prevChar;
-						dataStorage_getEnemyObject(index)->c_prevChar = arr[(x - 1) + y * width];
-						dataStorage_setEnemyPosition(--x, y, index);
-					}
-				break;
-			}
-			arr[x + y * width] = 3;
-
+			break;
+		case 4:
+			/*Checks to the left of the enemy is wall*/
+			if (x > 0)
+				if (arr[(x - 1) + y * width] != 1)
+				{
+					dataStorage_setEnemyPosition(--x, y, index);
+				}
+			break;
 		}
 	}
 }
@@ -465,16 +445,12 @@ void enemy_moveEnemy(int direction,int index, char *arr)
 /*
 
 */
-void enemy_spawnEnemy(int x, int y,char index,MapArray map)
+void enemy_spawnEnemy(int x, int y,char index)
 {
-	if (map.mapArray[x + y * map.width] != spriteReference_getSprite(1))
-	{
-		dataStorage_setEnemyPosition(x, y, index);
-		map.mapArray[x + y * map.width] = 3;
+	dataStorage_setEnemyPosition(x, y, index);
 		
-		/*TEMP to test AI*/
-		(*dataStorage_getEnemyObject(index)).active = true;
-	}
+	/*TEMP to test AI*/
+	(*dataStorage_getEnemyObject(index)).active = true;
 }
 
 
@@ -499,7 +475,6 @@ void enemy_Update(int index)
 void enemy_deactivateEnemy(int index)
 {
 	dataStorage_getEnemyObject(index)->active = false;
-	dataStorage_getEnemyObject(index)->c_prevChar = 0;
 	dataStorage_getEnemyObject(index)->x = -1;
 	dataStorage_getEnemyObject(index)->y = -1;
 }

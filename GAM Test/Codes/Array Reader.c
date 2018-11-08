@@ -6,13 +6,14 @@
 #include "Enemy.h"
 
 static char *prevColor, *currColor, *prevMap, *currentMap;
-static int width, height, i ,j, playerX, playerY, fogStart, fogEnd, distance, g, f;
+static int width, height, i ,j, playerX, playerY, fogStart, fogEnd, distance, f, g, h, playerRange = 3;
 static bool change;
+Enemy *en;
 
 void arrayReader_init()
 {
 	width = height = -1;
-	i = j = g = f = -1;
+	i = j = f = g = h = -1;
 	playerX = playerY = -1;
 	fogStart = fogEnd = distance = -1;
 }
@@ -52,21 +53,7 @@ void arrayReader_setMap(short size)
 		}
 	}
 
-<<<<<<< HEAD
 	currentMap[playerY * height + playerX] = spriteReference_getSprite(2);
-=======
-	case 3:
-/*
-		dataStorage_getMapSize(&width, &height);
-		for (i = 0; i < height; i++)
-		{
-			for (j = 0; j < width; j++)
-			{
-				console_draw(i, j, enemy_getWeightMap()->mapArray[i + j * width]);
-			}
-		}*/
-		break;
->>>>>>> 7996e2f02c8af5b63244ff00b8836c7237ae0e20
 
 	for (i = 0; i < height; i++)
 	{
@@ -93,11 +80,33 @@ void arrayReader_draw()
 			else if (currentMap[i * height + j] == spriteReference_getSprite(2))
 				currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
 
-
-			if (arrayReader_checkDistance(j, i, playerX, playerY) < 9)
+			if (arrayReader_checkDistance(j, i, playerX, playerY) < playerRange * playerRange)
+			{
 				currColor[i*height + j] = 7;
+
+				for (h = 0; h < 10; h++)
+				{
+					en = dataStorage_getEnemyObject((char)h);
+					if (en->active)
+					{
+						dataStorage_getEnemyPosition(&f, &g, (short)h);
+						if (j == f && i == g)
+						{
+							currentMap[i * height + j] = spriteReference_getSprite(3);
+							break;
+						}
+						else if (currentMap[i * height + j] == spriteReference_getSprite(3))
+							currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
+					}
+				}
+			}
 			else
+			{
 				currColor[i*height + j] = 0;
+
+				if (currentMap[i * height + j] == spriteReference_getSprite(3))
+					currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
+			}
 
 			if (currentMap[i*height + j] != prevMap[i*height + j])
 			{

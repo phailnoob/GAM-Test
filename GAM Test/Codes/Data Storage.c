@@ -5,16 +5,6 @@
 #include "Enemy.h"
 #include <stdio.h>
 
-
-
-
-typedef struct MapOffset
-{
-	int x;
-	int y;
-}
-MapOffset;
-
 static PlayerPosition playerPosition;
 static Enemy enemyObject[10];
 static FogDistance fogDistance;
@@ -29,9 +19,9 @@ void dataStorage_init()
 	mapArray.width = mapArray.height = 0;
 }
 
-void dataStorage_EnemyInit()
+void dataStorage_EnemyInit(char playerX, char playerY)
 {
-	char i,e,counter = 0;
+	char i = 0;
 
 	int width = dataStorage_getMapDataOut().width;
 	int height = dataStorage_getMapDataOut().height;
@@ -43,27 +33,11 @@ void dataStorage_EnemyInit()
 
 		dataStorage_setEnemyPosition(-1, -1, i);
 		enemyObject[i].active = false;
-		enemyObject[i].c_prevChar = 0;
-
 	}
-	
-	for (i = 0; i < dataStorage_getMapDataOut().width; i++)
-	{
-		for (e = 0; e < dataStorage_getMapDataOut().height; e++)
-		{
-			if (dataStorage_getMapDataOut().mapArray[i + e * width] == 3)
-			{
-				enemy_spawnEnemy(i, e, counter++, dataStorage_getMapDataOut());
 
-			}
-			
-		}
-	}
 	enemy_weightedMapInit(&mapArray);
-	enemy_recursiveCheckPath(&mapArray, 5, 7, 1, 1);
+	enemy_recursiveCheckPath(&mapArray, playerX, playerY, 1, 1);
 	enemy_setWallWeight(-1,&mapArray);
-
-
 
 }
 

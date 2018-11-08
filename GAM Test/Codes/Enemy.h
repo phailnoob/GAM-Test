@@ -8,15 +8,20 @@
 #include "SpriteReference.h"
 
 
-void enemy_initPathNode(APathNode* Node);
+/*
+---Enemy Movement Direction---
+1 - Left
+2 - Right
+3 - Up
+4 - Down
+*/
+void enemy_moveEnemy(int direction, int index, char *arr);
 
-void enemy_moveEnemy(char direction, char index, char *arr);
-
-void enemy_spawnEnemy(char x, char y, char index, MapArray map);
+void enemy_spawnEnemy(int x, int y, char index);
 
 void enemy_recursiveCheckPath(MapArray * levelmap, char nodeX, char nodeY, char currentWeight, char entry);
 void enemy_setWallWeight(char val, MapArray * levelmap);
-void enemy_Update(char index);
+void enemy_Update(int index);
 
 
 MapArray* enemy_getWeightMap();

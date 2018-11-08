@@ -4,22 +4,6 @@
 #define DATASTORAGE_H
 #include <stdbool.h>
 
-
-/*
-Moves enemy in direction of
-1= Left
-2= Right
-3= Up
-4= Down
-*/
-typedef struct APathNode
-{
-	char direction;
-	unsigned char X;
-	unsigned char Y;
-	bool active;
-} APathNode;
-
 typedef struct MapArray
 {
 	char *mapArray;
@@ -28,17 +12,24 @@ typedef struct MapArray
 }
 MapArray;
 
+typedef struct MapOffset
+{
+	int x;
+	int y;
+}
+MapOffset;
+
 typedef struct PlayerPosition
 {
 	short x;
 	short y;
 }
 PlayerPosition;
+
 typedef struct Enemy
 {
 	int x;
 	int y;
-	char c_prevChar;
 	bool active;
 }
 Enemy;
@@ -52,7 +43,7 @@ typedef struct FogDistance
 FogDistance;
 
 void dataStorage_init();
-void dataStorage_EnemyInit();
+void dataStorage_EnemyInit(char playerX, char playerY);
 
 void dataStorage_setPlayerPosition(int x, int y);
 void dataStorage_getPlayerPosition(int *x, int *y);
