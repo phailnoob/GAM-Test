@@ -12,7 +12,7 @@ int console_getConsoleHeight();
 void console_setCursorPosition(int x, int y);
 
 /*
-Color Chart:
+---Color Chart---
 Dark gray - 0
 Bright red - 1
 Bright green - 2

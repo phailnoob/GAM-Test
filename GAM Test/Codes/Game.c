@@ -57,7 +57,6 @@ void game_playerUpdate()
 
 void game_playerAction(int action)
 {
-	arrayReader_clear(1);
 	switch (action)
 	{
 		case 1:
@@ -85,7 +84,7 @@ void game_playerAction(int action)
 			break;
 	}
 
-	arrayReader_draw(1);
+	arrayReader_draw();
 }
 
 void game_loadMap(int mapNo)
@@ -101,6 +100,5 @@ void game_loadMap(int mapNo)
 
 	arrayReader_setMap(sizeof(map));
 
-	arrayReader_draw(0);
-	arrayReader_draw(1);
+	arrayReader_draw();
 }
