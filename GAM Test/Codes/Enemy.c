@@ -331,6 +331,7 @@ void enemy_setWallWeight(char val,MapArray * levelmap)
 void enemy_enemyChase(char index)
 {
 	int lowestValDirection = 0,direction = -1,x,y,width,height;
+	char i;
 	if ((*dataStorage_getEnemyObject(index)).active)
 	{
 		if (!enemy_checkWeightMapContainValue(-5))
@@ -372,6 +373,7 @@ void enemy_enemyChase(char index)
 			if (x > 0)
 			if (ma_WeightMap.mapArray[(x - 1) + y * width] >= 0)
 			{
+				
 				if (lowestValDirection > ma_WeightMap.mapArray[(x - 1) + y * width])
 				{
 					lowestValDirection = ma_WeightMap.mapArray[(x - 1) + y * width];
@@ -379,6 +381,39 @@ void enemy_enemyChase(char index)
 				}
 			}
 
+			for (i = 0; i < 10; i++)
+			{
+				if (dataStorage_getEnemyObject(i)->active)
+				{
+					switch (direction)
+					{
+					case 1:
+						if (dataStorage_getEnemyObject(i)->x == x && dataStorage_getEnemyObject(i)->y == (y - 1))
+						{
+							return;
+						}
+						break;
+					case 2:
+						if (dataStorage_getEnemyObject(i)->x == (x + 1) && dataStorage_getEnemyObject(i)->y == y)
+						{
+							return;
+						}
+						break;
+					case 3:
+						if (dataStorage_getEnemyObject(i)->x == x && dataStorage_getEnemyObject(i)->y == (y + 1))
+						{
+							return;
+						}
+						break;
+					case 4:
+						if (dataStorage_getEnemyObject(i)->x == (x - 1) && dataStorage_getEnemyObject(i)->y == y)
+						{
+							return;
+						}
+						break;
+					}
+				}
+			}
 			enemy_moveEnemy(direction, index, dataStorage_getMapDataOut().mapArray);
 		}
 	}
