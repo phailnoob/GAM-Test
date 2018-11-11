@@ -42,6 +42,8 @@ typedef struct FogDistance
 }
 FogDistance;
 
+
+
 void dataStorage_init();
 void dataStorage_EnemyInit(char playerX, char playerY);
 

@@ -23,9 +23,11 @@
     <ClCompile Include="Codes\Enemy.c" />
     <ClCompile Include="Codes\Game.c" />
     <ClCompile Include="Codes\Console.c" />
+    <ClCompile Include="Codes\GameStateManager.c" />
     <ClCompile Include="Codes\Input.c" />
     <ClCompile Include="Codes\Main.c" />
     <ClCompile Include="Codes\Array Reader.c" />
+    <ClCompile Include="Codes\MainMenu.c" />
     <ClCompile Include="Codes\SpriteReference.c" />
   </ItemGroup>
   <ItemGroup>
@@ -33,8 +35,10 @@
     <ClInclude Include="Codes\Enemy.h" />
     <ClInclude Include="Codes\Game.h" />
     <ClInclude Include="Codes\Console.h" />
+    <ClInclude Include="Codes\GameStateManager.h" />
     <ClInclude Include="Codes\Input.h" />
     <ClInclude Include="Codes\Array Reader.h" />
+    <ClInclude Include="Codes\MainMenu.h" />
     <ClInclude Include="Codes\SpriteReference.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

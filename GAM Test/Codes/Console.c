@@ -65,6 +65,19 @@ void console_draw(char drawX, char drawY, char drawChar, char color)
 	SetConsoleCursorInfo(writeHandle, &cursorInfo);
 }
 
+void console_drawString(char drawX, char drawY, char drawChar[], char color,int charSize)
+{
+	for (int i = 0; i < charSize; i++)
+	{
+		console_setCursorPosition(drawX+i, drawY);
+		printf_s("\u001b[3%d;%dm%c", color % 10, color / 10 + 1, drawChar[i]);
+
+		cursorInfo.dwSize = 100;
+		cursorInfo.bVisible = 0;
+		SetConsoleCursorInfo(writeHandle, &cursorInfo);
+	}
+}
+
 void console_clear()
 {
 	system("cls");

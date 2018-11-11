@@ -37,6 +37,12 @@
     <ClCompile Include="Codes\Enemy.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Codes\MainMenu.c">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\GameStateManager.c">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Input.h">
@@ -58,6 +64,12 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Codes\Enemy.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\MainMenu.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\GameStateManager.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

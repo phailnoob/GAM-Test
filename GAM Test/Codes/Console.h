@@ -31,6 +31,9 @@ Dark cyan - 16
 Bright grey - 17
 */
 void console_draw(char drawX, char drawY, char drawChar, char color);
+void console_drawString(char drawX, char drawY, char drawChar[], char color);
 void console_clear();
+int console_getConsoleWidth();
+int console_getConsoleHeight();
 
 #endif
