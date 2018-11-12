@@ -1,6 +1,7 @@
 
 #include <windows.h>
 #include <stdio.h>
+#include <wincon.h>
 #include "Console.h"
 #include "SpriteReference.h"
 
@@ -57,8 +58,36 @@ void console_setCursorPosition(int x, int y)
 
 void console_draw(char drawX, char drawY, char drawChar, char color)
 {
+	WORD textColor = 0;
+
+	if (color > 7)
+	{
+		textColor += FOREGROUND_INTENSITY;
+		color -= 8;
+	}
+
+	if (color % 2)
+	{
+		textColor += FOREGROUND_BLUE;
+	}
+
+	color /= 2;
+	if (color % 2)
+	{
+		textColor += FOREGROUND_GREEN;
+	}
+
+	color /= 2;
+	if (color % 2)
+	{
+		textColor += FOREGROUND_RED;
+	}
+
+	color /= 2;
+
 	console_setCursorPosition(drawX, drawY);
-	printf_s("\u001b[3%d;%dm%c", color%10, color/10 + 1, drawChar);
+	SetConsoleTextAttribute(writeHandle, textColor);
+	printf_s("%c", drawChar);
 
 	cursorInfo.dwSize = 100;
 	cursorInfo.bVisible = 0;

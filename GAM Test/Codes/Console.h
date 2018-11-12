@@ -13,22 +13,22 @@ void console_setCursorPosition(int x, int y);
 
 /*
 ---Color Chart---
-Dark gray - 0
-Bright red - 1
-Bright green - 2
-Bright yellow - 3
-Bright blue - 4
-Bright magenta - 5
-Bright cyan - 6
-White - 7
-Black - 10
-Dark red - 11
-Dark green - 12
-Dark yellow - 13
-Dark blue - 14
-Dark magenta - 15
-Dark cyan - 16
-Bright grey - 17
+00 - Black
+01 - Dark blue
+02 - Dark green
+03 - Dark cyan
+04 - Dark red
+05 - Dark magenta
+06 - Dark yellow
+07 - Bright grey
+08 - Dark gray
+09 - Bright blue
+10 - Bright green
+11 - Bright cyan
+12 - Bright red
+13 - Bright magenta
+14 - Bright yellow
+15 - White
 */
 void console_draw(char drawX, char drawY, char drawChar, char color);
 void console_clear();

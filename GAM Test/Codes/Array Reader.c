@@ -82,7 +82,7 @@ void arrayReader_draw()
 
 			if (arrayReader_checkDistance(j, i, playerX, playerY) < playerRange * playerRange)
 			{
-				currColor[i*height + j] = 7;
+				currColor[i*height + j] = 15;
 
 				for (h = 0; h < 10; h++)
 				{
@@ -102,7 +102,7 @@ void arrayReader_draw()
 			}
 			else
 			{
-				currColor[i*height + j] = 0;
+				currColor[i*height + j] = 8;
 
 				if (currentMap[i * height + j] == spriteReference_getSprite(3))
 					currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
