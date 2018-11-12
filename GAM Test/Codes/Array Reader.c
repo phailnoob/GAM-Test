@@ -4,18 +4,27 @@
 #include "SpriteReference.h"
 #include "Data Storage.h"
 #include "Enemy.h"
+#include "Torch.h"
+
+#include <stdlib.h>
 
 static char *prevColor, *currColor, *prevMap, *currentMap;
 static int width, height, i ,j, playerX, playerY, fogStart, fogEnd, distance, f, g, h, playerRange = 3;
 static bool change;
 Enemy *en;
+Torch *torch;
+static int k, torchX, torchY, torchRange;
+bool enemySeen;
 
 void arrayReader_init()
 {
 	width = height = -1;
-	i = j = f = g = h = -1;
+	i = j = f = g = h = k = -1;
+	torchX = torchY = -1;
+	torchRange = 3;
 	playerX = playerY = -1;
 	fogStart = fogEnd = distance = -1;
+	bool enemySeen = false;
 }
 
 /*---Returns squared value---*/
@@ -60,7 +69,9 @@ void arrayReader_setMap(short size)
 		for (j = 0; j < width; j++)
 		{
 			if (arrayReader_checkDistance(j, i, playerX, playerY) < 9)
-				currColor[i*height + j] = 7;
+				currColor[i*height + j] = 15;
+			else
+				currColor[i*height + j] = 8;
 		}
 	}
 }
@@ -75,10 +86,10 @@ void arrayReader_draw()
 		{
 			change = false;
 
-			if (j == playerX && i == playerY)
-				currentMap[i * height + j] = spriteReference_getSprite(2);
-			else if (currentMap[i * height + j] == spriteReference_getSprite(2))
-				currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
+			currColor[i*height + j] = 8;
+			enemySeen = false;
+
+			currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
 
 			if (arrayReader_checkDistance(j, i, playerX, playerY) < playerRange * playerRange)
 			{
@@ -100,13 +111,47 @@ void arrayReader_draw()
 					}
 				}
 			}
-			else
-			{
-				currColor[i*height + j] = 8;
 
-				if (currentMap[i * height + j] == spriteReference_getSprite(3))
-					currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
+			for (k = 0; k < 5; ++k)
+			{
+				torch = dataStorage_getTorchObj(k);
+				dataStorage_getTorchPos(k, &torchX, &torchY);
+
+				if (torch->active)
+				{
+					if (arrayReader_checkDistance(j, i, torchX, torchY) < torchRange * torchRange)
+					{
+						currColor[i*height + j] = 15;
+
+						for (h = 0; h < 10; h++)
+						{
+							en = dataStorage_getEnemyObject((char)h);
+							if (en->active)
+							{
+								dataStorage_getEnemyPosition(&f, &g, (short)h);
+								if (j == f && i == g)
+								{
+									currentMap[i * height + j] = spriteReference_getSprite(3);
+									break;
+								}
+								else if (currentMap[i * height + j] == spriteReference_getSprite(3))
+									currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
+							}
+						}
+					}
+
+					if (j == torchX && i == torchY)
+					{
+						currentMap[i * height + j] = spriteReference_getSprite(4);
+						break;
+					}
+				}
 			}
+	
+
+			/* draw player */
+			if (j == playerX && i == playerY)
+				currentMap[i * height + j] = spriteReference_getSprite(2);
 
 			if (currentMap[i*height + j] != prevMap[i*height + j])
 			{

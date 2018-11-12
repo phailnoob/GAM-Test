@@ -1,4 +1,3 @@
-
 #include <conio.h>
 #include <stdbool.h>
 #include "Input.h"
@@ -39,6 +38,11 @@ void input_wasd(int key)
 			game_playerAction(4);
 			keyPressed = false;
 			break;
+
+		case 116: /* 't' */
+			game_playerAction(5);
+			keyPressed = false;
+			break;
 	}
 }
 
@@ -62,6 +66,7 @@ void input_arrow(int key)
 			game_playerAction(4);
 			keyPressed = false;
 			break;
+
 	}
 }
 

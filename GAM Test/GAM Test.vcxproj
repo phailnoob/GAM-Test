@@ -27,6 +27,7 @@
     <ClCompile Include="Codes\Main.c" />
     <ClCompile Include="Codes\Array Reader.c" />
     <ClCompile Include="Codes\SpriteReference.c" />
+    <ClCompile Include="Codes\Torch.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Data Storage.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Codes\Input.h" />
     <ClInclude Include="Codes\Array Reader.h" />
     <ClInclude Include="Codes\SpriteReference.h" />
+    <ClInclude Include="Codes\Torch.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EB0C7F36-5B30-4677-B3EB-0AB9DC60C6DB}</ProjectGuid>

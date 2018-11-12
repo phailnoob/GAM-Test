@@ -31,9 +31,9 @@ typedef struct Enemy
 	int x;
 	int y;
 	bool active;
+	bool seen;
 }
 Enemy;
-
 
 typedef struct FogDistance
 {
@@ -41,6 +41,14 @@ typedef struct FogDistance
 	int fogEnd;
 }
 FogDistance;
+
+typedef struct Torch
+{
+	int x;
+	int y;
+	bool active;
+}
+Torch;
 
 void dataStorage_init();
 void dataStorage_EnemyInit(char playerX, char playerY);
@@ -63,5 +71,10 @@ char dataStorage_getMapValue(int x, int y);
 MapArray dataStorage_getMapDataOut();
 
 bool dataStorage_checkWall();
+
+void dataStorage_TorchInit();
+void dataStorage_setTorchPos(int index, int x, int y);
+void dataStorage_getTorchPos(int index, int *x, int *y);
+Torch* dataStorage_getTorchObj(int index);
 
 #endif

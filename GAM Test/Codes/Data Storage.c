@@ -9,6 +9,7 @@ static PlayerPosition playerPosition;
 static Enemy enemyObject[10];
 static FogDistance fogDistance;
 static MapArray mapArray;
+static Torch torches[5];
 
 void dataStorage_init()
 {
@@ -33,6 +34,7 @@ void dataStorage_EnemyInit(char playerX, char playerY)
 
 		dataStorage_setEnemyPosition(-1, -1, i);
 		enemyObject[i].active = false;
+		enemyObject[i].seen = false;
 	}
 
 	enemy_weightedMapInit(&mapArray);
@@ -129,4 +131,34 @@ bool dataStorage_checkWall()
 			return true;
 			break;
 	}
+}
+
+
+/* Torch Functions ---------------------------------- */
+void dataStorage_TorchInit()
+{
+	int i;
+
+	for (i = 0; i < 5; i++)
+	{
+		dataStorage_setTorchPos(i, -1, -1);
+		torches[i].active = false;
+	}
+}
+
+void dataStorage_setTorchPos(int index, int x, int y)
+{
+	torches[index].x = x;
+	torches[index].y = y;
+}
+
+void dataStorage_getTorchPos(int index, int *x, int *y)
+{
+	*x = torches[index].x;
+	*y = torches[index].y;
+}
+
+Torch* dataStorage_getTorchObj(int index)
+{
+	return &torches[index];
 }

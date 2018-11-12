@@ -5,11 +5,13 @@
 #include "Array Reader.h"
 #include "Data Storage.h"
 #include "Input.h"
+#include "Torch.h"
 #include <stdio.h>
 
 bool isRunning;
 
 static int playerX, playerY, mapWidth, mapHeight; 
+static int torch_counter;
 /* TODO Make sure to clear up all these static variables if the player goes back to main menu*/
 
 /*edited*/
@@ -24,7 +26,27 @@ static char map[10][10] = {	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 							{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
 							{1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };
 
+static char map2[10][10] = { {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 1, 1, 1, 1, 1, 0, 1, 0, 1},
+							{1, 0, 0, 1, 0, 0, 0, 1, 0, 1},
+							{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+							{1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };
 
+static char map3[10][10] = { {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+							{1, 0, 0, 1, 0, 0, 0, 1, 0, 1},
+							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+							{1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };
 
 void game_init()
 {
@@ -37,6 +59,7 @@ void game_init()
 
 	game_loadMap(0);
 
+	torch_counter = 0;
 }
 
 bool game_isRunning()
@@ -82,6 +105,12 @@ void game_playerAction(int action)
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(--playerX, playerY);
 			break;
+		case 5: /* place torch action */
+			if (torch_counter > 4)
+				torch_counter -= 5;
+			placeTorch(torch_counter, playerX, playerY);
+			torch_counter++;
+			break;
 
 		case 0:
 			break;
@@ -109,6 +138,38 @@ void game_loadMap(int mapNo)
 		enemy_spawnEnemy(1, 1, 0);
 		enemy_spawnEnemy(1, 5, 1);
 		enemy_spawnEnemy(1, 8, 2);
+
+		dataStorage_TorchInit();
+	}
+
+	if (mapNo == 1)
+	{
+		playerX = 6;
+		playerY = 5;
+
+		mapWidth = sizeof(map2[0]);
+		mapHeight = sizeof(map2) / sizeof(map2[0]);
+
+		dataStorage_setMapData(*map2, mapWidth, mapHeight);
+		arrayReader_setMap(sizeof(map2));
+
+		dataStorage_EnemyInit(playerX, playerY);
+		dataStorage_TorchInit();
+	}
+
+	if (mapNo == 2)
+	{
+		playerX = 6;
+		playerY = 5;
+
+		mapWidth = sizeof(map3[0]);
+		mapHeight = sizeof(map) / sizeof(map[0]);
+
+		dataStorage_setMapData(*map3, mapWidth, mapHeight);
+		arrayReader_setMap(sizeof(map3));
+
+		dataStorage_EnemyInit(playerX, playerY);
+		dataStorage_TorchInit();
 	}
 
 	dataStorage_setPlayerPosition(playerX, playerY);
