@@ -104,6 +104,11 @@ void arrayReader_draw()
 						if (j == f && i == g)
 						{
 							currentMap[i * height + j] = spriteReference_getSprite(3);
+
+							if (en->seen)
+								currColor[i * height + j] = 12;
+							else
+								currColor[i * height + j] = 14;
 							break;
 						}
 						else if (currentMap[i * height + j] == spriteReference_getSprite(3))
@@ -172,4 +177,16 @@ void arrayReader_draw()
 					currColor[i*height + j]);
 		}
 	}
+}
+
+
+void arrayReader_Destructor()
+{
+	free(prevColor);
+
+	free(currColor);
+
+	free(prevMap);
+
+	free(currentMap);
 }

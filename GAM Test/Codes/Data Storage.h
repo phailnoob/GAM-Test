@@ -69,7 +69,7 @@ void dataStorage_getMapSize(int *width, int *height);
 void dataStorage_setMapData(char *arr, int width, int height);
 void dataStorage_getMapData(int *width, int *height);
 char dataStorage_getMapValue(int x, int y);
-MapArray dataStorage_getMapDataOut();
+MapArray* dataStorage_getMapDataOut();
 
 bool dataStorage_checkWall();
 

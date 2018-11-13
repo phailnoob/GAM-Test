@@ -25,8 +25,8 @@ void dataStorage_EnemyInit(char playerX, char playerY)
 {
 	char i = 0;
 
-	int width = dataStorage_getMapDataOut().width;
-	int height = dataStorage_getMapDataOut().height;
+	int width = dataStorage_getMapDataOut()->width;
+	int height = dataStorage_getMapDataOut()->height;
 
 	/*Initialization of default enemies without position*/
 	/*Change the positions of enemies when needed to spawn*/
@@ -115,9 +115,9 @@ void dataStorage_getMapSize(int *width, int *height)
 }
 
 /*Edit in the future when theresmore than 1 map*/
-MapArray dataStorage_getMapDataOut()
+MapArray* dataStorage_getMapDataOut()
 {
-	return mapArray;
+	return &mapArray;
 }
 
 bool dataStorage_checkWall()

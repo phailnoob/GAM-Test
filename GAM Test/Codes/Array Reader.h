@@ -9,4 +9,5 @@ void arrayReader_setMap(short size);
 
 void arrayReader_draw();
 
+void arrayReader_Destructor();
 #endif

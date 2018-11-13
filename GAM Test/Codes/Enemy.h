@@ -21,7 +21,9 @@ void enemy_spawnEnemy(int x, int y, char index);
 
 void enemy_recursiveCheckPath(MapArray * levelmap, char nodeX, char nodeY, char currentWeight, char entry);
 void enemy_setWallWeight(char val, MapArray * levelmap);
-void enemy_Update(int index);
-
+void enemy_Update(char index, Enemy* enemyObj);
+void enemy_weightedMapReset();
+void enemy_Destructor();
+void enemy_drawDebugWeight();
 
 MapArray* enemy_getWeightMap();

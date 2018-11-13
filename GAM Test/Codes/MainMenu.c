@@ -49,10 +49,10 @@ const char *play[6] =
 	                                                                      
 {"  :NNNNNds``mN/      :NNm. `yNd` .dd. "},
 {"  /MN. .mMs`NM+     `mNmMy  `hMd-mm-  " },
-{"  /MMyyhMN:`NM+     oMo MM:  `yMMm.   " },
-{"  /MM+//:` `NM+    .NMmdMMm`  `MM/    " },
-{"  /MM.     `NMdyyy hM/..-NMo  `MM/    " },
-{"  `::`      :::::: ::    -::   ::`    " },
+{"  /MMyyhMN:`NM+     oM' MM:  `yMMm`   " },
+{"  /MM+//:` `NM+    .NMmdMMm`  `MM`    " },
+{"  /MM.     `NMdyyy hM/..-NMo  `MM`    " },
+{"  `::`      :::::: ::    -::   ::    " },
                                                   
 };
 
@@ -142,6 +142,7 @@ void mainMenu_arrow(int key,bool * keyPressed)
 			case 3:/*Changes state to Credits*/
 				break;
 			case 4:/*Changes state to Exit*/
+				gsm_setNextState(state_Exit);
 				break;
 			}
 			break;
@@ -173,7 +174,7 @@ void mainMenu_drawButtons()
 		if (selected == 1)
 			wasDrawn[0] = 0;
 		if(wasDrawn[0] == 0)
-			console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9*4 + i, play[i], selected == 1 ? 3 : 14, 38);
+			console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9*4 + i, play[i], selected == 1 ? 14 : 3, 38);
 	}
 	wasDrawn[0] = 1;
 	if (selected == 1)
@@ -184,7 +185,7 @@ void mainMenu_drawButtons()
 		if (selected == 2)
 			wasDrawn[1] = 0;
 		if (wasDrawn[1] == 0)
-		console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9 * 5 + i, options[i], selected == 2 ? 3 : 14, 64);
+		console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9 * 5 + i, options[i], selected == 2 ? 14 : 3, 64);
 	}
 	wasDrawn[1] = 1;
 	if (selected == 2)
@@ -196,7 +197,7 @@ void mainMenu_drawButtons()
 		if (selected == 3)
 			wasDrawn[2] = 0;
 		if (wasDrawn[2] == 0)
-			console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9 * 6 + i, credits[i], selected == 3 ? 3 : 14, 62);
+			console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9 * 6 + i, credits[i], selected == 3 ? 14 : 3, 62);
 	}
 	wasDrawn[2] = 1;
 	if (selected == 3)
@@ -207,7 +208,7 @@ void mainMenu_drawButtons()
 		if (selected == 4)
 			wasDrawn[3] = 0;
 		if (wasDrawn[3] == 0)
-		console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9 * 7 + i, exit1[i], selected == 4 ? 3 : 14, 34);
+		console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9 * 7 + i, exit1[i], selected == 4 ? 14 : 3, 34);
 	}
 	wasDrawn[3] = 1;
 	if (selected == 4)
@@ -238,30 +239,4 @@ void mainMenu_Update()
 	mainMenu_checkInput();
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -10,10 +10,10 @@ Includes pathfinding calculations.
 *************************************************/
 
 #include "Enemy.h"
+#include <math.h>
 #include <stdio.h>
 
 
-/*FREE*/
 /*Global weightmap array to be used by all enemy objects to calculate weight*/
 static MapArray ma_WeightMap;
 
@@ -27,7 +27,7 @@ Initialises the weighted map
 */
 void enemy_weightedMapInit(MapArray * currentMap)
 {
-	/*FREE*/
+	free(ma_WeightMap.mapArray);
 	ma_WeightMap.mapArray = malloc(sizeof(*currentMap));
 	ma_WeightMap.width = currentMap->width;
 	ma_WeightMap.height = currentMap->height;
@@ -414,7 +414,7 @@ void enemy_enemyChase(char index)
 					}
 				}
 			}
-			enemy_moveEnemy(direction, index, dataStorage_getMapDataOut().mapArray);
+			enemy_moveEnemy(direction, index, dataStorage_getMapDataOut()->mapArray);
 		}
 	}
 }
@@ -484,8 +484,52 @@ void enemy_spawnEnemy(int x, int y,char index)
 {
 	dataStorage_setEnemyPosition(x, y, index);
 		
-	/*TEMP to test AI*/
 	(*dataStorage_getEnemyObject(index)).active = true;
+}
+
+
+float enemy_returnDistanceToPlayer(Enemy *enemyC)
+{
+	float distance = -1.0f;
+	int x, y;
+	dataStorage_getPlayerPosition(&x, &y);
+	if(enemyC->x != 0 || enemyC->y != 0 || y != 0 || x != 0)
+	distance = (enemyC->x - x)*(enemyC->x - x) + (enemyC->y - y)*(enemyC->y - y);
+
+	return distance;
+}
+
+/*
+Line Of Sight
+
+Checks line of sight from enemy input to player
+Returns false if blocked by a wall
+True if LoS touches the player
+*/
+bool enemy_isInlineOfSight(Enemy * enemyC)
+{
+	int x, y;
+	dataStorage_getPlayerPosition(&x, &y);
+
+	int x0 = enemyC->x, y0 = enemyC->y;
+
+	int dx = abs(x - x0), sx = x0 < x ? 1 : -1;
+	int dy = abs(y - y0), sy = y0 < y ? 1 : -1;
+	int err = (dx > dy ? dx : -dy) / 2, e2;
+
+	for (;;) 
+	{
+		if (dataStorage_getMapValue(x0, y0) == 1)
+		{
+			return false;
+		}
+		if (x0 == x && y0 == y) break;
+		e2 = err;
+		if (e2 > -dx) { err -= dy; x0 += sx; }
+		if (e2 < dy) { err += dx; y0 += sy; }
+	}
+	return true;
+
 }
 
 
@@ -498,14 +542,44 @@ bool enemy_checkWall(char x, char y,MapArray* map)
 	return false;
 }
 
-
-void enemy_Update(int index)
+void enemy_drawDebugWeight()
 {
-	if ((*dataStorage_getEnemyObject(index)).active)
+	for (int i = 0; i < ma_WeightMap.height; i++)
 	{
-		enemy_enemyChase(index);
+		for (int j = 0; j < ma_WeightMap.width; j++)
+		{
+
+			console_setCursorPosition(j *3, i * 3);
+			printf("%3d", ma_WeightMap.mapArray[j + i * ma_WeightMap.width]);
+		}
+
 	}
 }
+
+
+void enemy_Update(char index,Enemy* enemyObj)
+{
+	if ((*enemyObj).active)
+	{
+		if (enemyObj->seen)
+		{
+			enemy_enemyChase(index);
+		}
+		else
+		{
+			if (enemy_returnDistanceToPlayer(enemyObj) < 9.0f)
+			{
+				if (enemy_isInlineOfSight(enemyObj))
+				{
+					enemyObj->seen = true;
+				}
+			}
+
+		}
+	}
+}
+
+
 
 void enemy_deactivateEnemy(int index)
 {
@@ -514,6 +588,8 @@ void enemy_deactivateEnemy(int index)
 	dataStorage_getEnemyObject(index)->y = -1;
 }
 
-
-
+void enemy_Destructor()
+{
+	free(ma_WeightMap.mapArray);
+}
 

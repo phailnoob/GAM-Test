@@ -71,10 +71,16 @@ bool game_isRunning()
 	return isRunning;
 }
 
+void game_turnOffGame()
+{
+	isRunning = false;
+	arrayReader_Destructor();
+	enemy_Destructor();
+}
+
+
 void game_update()
 {
-
-	
 	if (gsm_IsValid(gsm_returnCurrentState()))
 	{
 
@@ -87,7 +93,7 @@ void game_update()
 
 			if (gsm_IsChanging())
 			{
-				if (gsm_returnStateSystem()->next = state_Game)
+				if (gsm_returnStateSystem()->next == state_Game)
 				{
 					game_loadMap(0);
 
@@ -100,10 +106,16 @@ void game_update()
 		case state_Credits:
 			break;
 		case state_Game:
-			
 			input_checkInput();
 			break;
+		}
+	}
+	else
+	{
+		switch (gsm_returnCurrentState())
+		{
 		case state_Exit:
+			game_turnOffGame();
 			break;
 		}
 	}
@@ -118,9 +130,16 @@ void game_update()
 
 void game_EnemyUpdate()
 {
+
+	int x, y;
+	dataStorage_getPlayerPosition(&x, &y);
+	enemy_weightedMapReset();
+	enemy_recursiveCheckPath(dataStorage_getMapDataOut(), x, y, 1, 1);
+	enemy_setWallWeight(-1, dataStorage_getMapDataOut());
+	enemy_drawDebugWeight();
 	for (int i = 0; i < 10; i++)
 	{
-		enemy_Update(i);
+		enemy_Update(i,dataStorage_getEnemyObject(i));
 	}
 }
 
