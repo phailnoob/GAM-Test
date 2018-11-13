@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include <stdio.h>
 
+
 static PlayerPosition playerPosition;
 static Enemy enemyObject[10];
 static FogDistance fogDistance;

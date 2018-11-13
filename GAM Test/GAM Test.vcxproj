@@ -23,9 +23,11 @@
     <ClCompile Include="Codes\Enemy.c" />
     <ClCompile Include="Codes\Game.c" />
     <ClCompile Include="Codes\Console.c" />
+    <ClCompile Include="Codes\GameStateManager.c" />
     <ClCompile Include="Codes\Input.c" />
     <ClCompile Include="Codes\Main.c" />
     <ClCompile Include="Codes\Array Reader.c" />
+    <ClCompile Include="Codes\MainMenu.c" />
     <ClCompile Include="Codes\SpriteReference.c" />
     <ClCompile Include="Codes\Torch.c" />
   </ItemGroup>
@@ -34,8 +36,10 @@
     <ClInclude Include="Codes\Enemy.h" />
     <ClInclude Include="Codes\Game.h" />
     <ClInclude Include="Codes\Console.h" />
+    <ClInclude Include="Codes\GameStateManager.h" />
     <ClInclude Include="Codes\Input.h" />
     <ClInclude Include="Codes\Array Reader.h" />
+    <ClInclude Include="Codes\MainMenu.h" />
     <ClInclude Include="Codes\SpriteReference.h" />
     <ClInclude Include="Codes\Torch.h" />
   </ItemGroup>
@@ -49,7 +53,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

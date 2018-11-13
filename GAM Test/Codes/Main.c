@@ -12,18 +12,21 @@ Possibly included will be text file reading and parsing into resizeable array.
 
 #include "Game.h"
 
+//#include <conio.h>
+//#include <stdio.h>
+
 int main()
 {
-//	int test = 0, test2 = -1;
+//int test = 0, test2 = -1;
 
 	game_init();
 
 	while (game_isRunning())
 	{
-/*		test = _getch();
-		test2 = _kbhit();
-		printf("YOU PRESSED %c & %d\n", test, test2);
-*/		game_update();
+		//test = _getch();
+		//test2 = _kbhit();
+		//printf("YOU PRESSED %d & %d\n", test, test2);
+		game_update();
 	}
 
     return 0;

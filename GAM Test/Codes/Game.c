@@ -7,12 +7,16 @@
 #include "Input.h"
 #include "Torch.h"
 #include <stdio.h>
+#include "GameStateManager.h"
+#include "MainMenu.h"
 
 bool isRunning;
 
 static int playerX, playerY, mapWidth, mapHeight; 
 static int torch_counter;
 /* TODO Make sure to clear up all these static variables if the player goes back to main menu*/
+
+
 
 /*edited*/
 static char map[10][10] = {	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -52,12 +56,12 @@ void game_init()
 {
 	console_init();
 	console_clear();
+	gsm_gameStateInit();
 	arrayReader_init();
 	input_init();
 
 	isRunning = true;
 
-	game_loadMap(0);
 
 	torch_counter = 0;
 }
@@ -69,7 +73,46 @@ bool game_isRunning()
 
 void game_update()
 {
-	input_checkInput();
+
+	
+	if (gsm_IsValid(gsm_returnCurrentState()))
+	{
+
+		switch (gsm_returnCurrentState())
+		{
+		case state_splashScreen:
+			break;
+		case state_mainMenu:
+			mainMenu_Update();
+
+			if (gsm_IsChanging())
+			{
+				if (gsm_returnStateSystem()->next = state_Game)
+				{
+					game_loadMap(0);
+
+					gsm_returnStateSystem()->next = state_Game;
+				}
+			}
+			break;
+		case state_Options:
+			break;
+		case state_Credits:
+			break;
+		case state_Game:
+			
+			input_checkInput();
+			break;
+		case state_Exit:
+			break;
+		}
+	}
+	if (gsm_IsChanging())
+	{
+		gsm_returnStateSystem()->previous = gsm_returnStateSystem()->current;
+		gsm_returnStateSystem()->current = gsm_returnStateSystem()->next;
+	}
+
 }
 
 
@@ -83,6 +126,8 @@ void game_EnemyUpdate()
 
 void game_playerAction(int action)
 {
+
+	
 	switch (action)
 	{
 		case 1:
