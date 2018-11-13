@@ -50,6 +50,7 @@ typedef struct Torch
 }
 Torch;
 
+
 void dataStorage_init();
 void dataStorage_EnemyInit(char playerX, char playerY);
 

@@ -96,10 +96,40 @@ void console_draw(char drawX, char drawY, char drawChar, char color)
 
 void console_drawString(char drawX, char drawY, char drawChar[], char color,int charSize)
 {
+
+	WORD textColor = 0;
+
+	if (color > 7)
+	{
+		textColor += FOREGROUND_INTENSITY;
+		color -= 8;
+	}
+
+	if (color % 2)
+	{
+		textColor += FOREGROUND_BLUE;
+	}
+
+	color /= 2;
+	if (color % 2)
+	{
+		textColor += FOREGROUND_GREEN;
+	}
+
+	color /= 2;
+	if (color % 2)
+	{
+		textColor += FOREGROUND_RED;
+	}
+
+	color /= 2;
+
+	SetConsoleTextAttribute(writeHandle, textColor);
+
 	for (int i = 0; i < charSize; i++)
 	{
 		console_setCursorPosition(drawX+i, drawY);
-		printf_s("\u001b[3%d;%dm%c", color % 10, color / 10 + 1, drawChar[i]);
+		printf_s("%c",  drawChar[i]);
 
 		cursorInfo.dwSize = 100;
 		cursorInfo.bVisible = 0;
