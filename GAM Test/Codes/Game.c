@@ -1,4 +1,3 @@
-
 #include "Game.h"
 #include "Enemy.h"
 #include "Console.h"
@@ -52,6 +51,14 @@ static char map3[10][10] = { {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 							{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 							{1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };
 
+
+
+
+
+
+
+
+
 void game_init()
 {
 	console_init();
@@ -59,6 +66,7 @@ void game_init()
 	gsm_gameStateInit();
 	arrayReader_init();
 	input_init();
+	
 
 	isRunning = true;
 
@@ -106,6 +114,9 @@ void game_update()
 		case state_Credits:
 			break;
 		case state_Game:
+			game_borders();
+			drawUI();
+			UI_drawtorches();
 			input_checkInput();
 			break;
 		}
@@ -136,7 +147,7 @@ void game_EnemyUpdate()
 	enemy_weightedMapReset();
 	enemy_recursiveCheckPath(dataStorage_getMapDataOut(), x, y, 1, 1);
 	enemy_setWallWeight(-1, dataStorage_getMapDataOut());
-	enemy_drawDebugWeight();
+	//enemy_drawDebugWeight();
 	for (int i = 0; i < 10; i++)
 	{
 		enemy_Update(i,dataStorage_getEnemyObject(i));
@@ -243,64 +254,10 @@ void game_loadMap(int mapNo)
 
 
 
-void setxy(int x_coord, int y_coord)
-{
-	COORD c = { 0, 0 };
-	c.X = x_coord; c.Y = y_coord; 
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
-}
 
 
-void game_borders()
-{
-		
-		int j;
-		
-		/*Print corners*/
-		setxy(0, 0);           
-			printf("%c", 201);
-		setxy(0, console_getConsoleHeight());
-			printf("%c", 200);
-		setxy(console_getConsoleWidth(), 0);
-			printf("%c", 187);
-		setxy(console_getConsoleWidth(), console_getConsoleHeight());
-			printf("%c", 188);
 
 
-		/*top border*/
-		setxy(1,0);
-		for (j = 0; j < console_getConsoleWidth()-1; j++)
-			printf("%c", 205);
 
-		/*Bottom border*/ 
-		setxy(1, console_getConsoleHeight());
-		for (j = 0; j <= console_getConsoleWidth()-1; j++)
-			printf("%c", 205);
 
-		/*Left and right border*/
-		for (j = 0; j < console_getConsoleHeight()-1; j++)
-		{
-			setxy(0, 0 + j);
-			printf("%c", 186);
-
-			setxy(100, 0 + j);
-			printf("%c", 186);
-		}
-		
-}
-
-void drawUI()
-{
-	int i, j;
-	i = console_getConsoleHeight();
-	for (j = 0; j < (i - 1); j++)
-	{
-		setxy(30, 1 + j);
-		printf("%c", 186);
-	}
-
-	setxy(1, 20);
-	for (j = 0, j < 30; j++)
-		printf("%c", 205);
-}
 
