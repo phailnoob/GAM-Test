@@ -238,7 +238,7 @@ void game_loadMap(int mapNo)
 
 	dataStorage_setPlayerPosition(playerX, playerY);
 
-	arrayReader_draw();
+	arrayReader_draw() ;
 }
 
 
