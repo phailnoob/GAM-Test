@@ -24,5 +24,5 @@ void game_loadMap(int mapNo);
 
 void game_borders();
 
-void drawUI_border()
+void drawUI_border();
 #endif

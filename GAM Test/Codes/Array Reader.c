@@ -35,16 +35,12 @@ short arrayReader_checkDistance(short x1, short y1, short x2, short y2)
 
 void arrayReader_setMap(short size)
 {
-	free(prevColor);
 	prevColor = malloc(size);
 
-	free(currColor);
 	currColor = malloc(size);
 
-	free(prevMap);
 	prevMap = malloc(size);
 
-	free(currentMap);
 	currentMap = malloc(size);
 
 	memset(prevColor, -1, size);
@@ -178,7 +174,6 @@ void arrayReader_draw()
 		}
 	}
 }
-
 
 void arrayReader_Destructor()
 {

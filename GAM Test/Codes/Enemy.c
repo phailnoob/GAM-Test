@@ -15,7 +15,7 @@ Includes pathfinding calculations.
 
 
 /*Global weightmap array to be used by all enemy objects to calculate weight*/
-static MapArray ma_WeightMap;
+MapArray ma_WeightMap;
 
 MapArray* enemy_getWeightMap()
 {
@@ -27,8 +27,7 @@ Initialises the weighted map
 */
 void enemy_weightedMapInit(MapArray * currentMap)
 {
-	free(ma_WeightMap.mapArray);
-	ma_WeightMap.mapArray = malloc(sizeof(*currentMap));
+	ma_WeightMap.mapArray = malloc((currentMap->width)*(currentMap->height));
 	ma_WeightMap.width = currentMap->width;
 	ma_WeightMap.height = currentMap->height;
 
@@ -420,7 +419,59 @@ void enemy_enemyChase(char index)
 }
 
 
-
+void enemy_patrolEnemy(char index)
+{
+	Enemy* enemy = dataStorage_getEnemyObject(index);
+	if (enemy->patrolling)
+	{
+		if (enemy->patrolDirection)/*Move towards direction 1*/
+		{
+			if (enemy->x == enemy->patrolx1 && enemy->y == enemy->patroly1)
+			{
+				enemy->patrolDirection = !enemy->patrolDirection;
+			}
+			else if (enemy->x - enemy->patrolx1 < 0)
+			{
+				enemy_moveEnemy(2, index, dataStorage_getMapDataOut()->mapArray);
+			}
+			else if (enemy->x - enemy->patrolx1 > 0)
+			{
+				enemy_moveEnemy(4, index, dataStorage_getMapDataOut()->mapArray);
+			}
+			else if (enemy->y - enemy->patroly1 < 0)
+			{
+				enemy_moveEnemy(3, index, dataStorage_getMapDataOut()->mapArray);
+			}
+			else if (enemy->y - enemy->patroly1 > 0)
+			{
+				enemy_moveEnemy(1, index, dataStorage_getMapDataOut()->mapArray);
+			}
+		}
+		else/*Move towards direction 2*/
+		{
+			if (enemy->x == enemy->patrolx2 && enemy->y == enemy->patroly2)
+			{
+				enemy->patrolDirection = !enemy->patrolDirection;
+			}
+			else if (enemy->x - enemy->patrolx2 < 0)
+			{
+				enemy_moveEnemy(2, index, dataStorage_getMapDataOut()->mapArray);
+			}
+			else if (enemy->x - enemy->patrolx2 > 0)
+			{
+				enemy_moveEnemy(4, index, dataStorage_getMapDataOut()->mapArray);
+			}
+			else if (enemy->y - enemy->patroly2 < 0)
+			{
+				enemy_moveEnemy(3, index, dataStorage_getMapDataOut()->mapArray);
+			}
+			else if (enemy->y - enemy->patroly2 > 0)
+			{
+				enemy_moveEnemy(1, index, dataStorage_getMapDataOut()->mapArray);
+			}
+		}
+	}
+}
 
 
 /*
@@ -478,13 +529,24 @@ void enemy_moveEnemy(int direction,int index, char *arr)
 }
 
 /*
-
+Parameters
+x - x Spawn coordinate
+y - y Spawn coordinate
+index - Enemy index
+patrolling - Set true if patrolling
+x1,x2,y1,y2 - Set 2 patrol points. If not patrolling set to -1
 */
-void enemy_spawnEnemy(int x, int y,char index)
+void enemy_spawnEnemy(int x, int y,char index,bool patrolling,int x1,int y1, int x2, int y2)
 {
 	dataStorage_setEnemyPosition(x, y, index);
-		
-	(*dataStorage_getEnemyObject(index)).active = true;
+	Enemy *enemy = dataStorage_getEnemyObject(index);
+
+	enemy->patrolling = patrolling;
+	enemy->patrolx1 = x1;
+	enemy->patrolx2 = x2;
+	enemy->patroly1 = y1;
+	enemy->patroly2 = y2;
+	enemy->active = true;
 }
 
 
@@ -532,6 +594,17 @@ bool enemy_isInlineOfSight(Enemy * enemyC)
 
 }
 
+bool enemy_playerCollision(char index,int * playerX, int * playerY)
+{
+	Enemy * enemy = dataStorage_getEnemyObject(index);
+
+	if (playerX == enemy->x && playerY == enemy->y)
+	{
+		return true;
+	}
+	return false;
+}
+
 
 bool enemy_checkWall(char x, char y,MapArray* map)
 {
@@ -559,14 +632,24 @@ void enemy_drawDebugWeight()
 
 void enemy_Update(char index,Enemy* enemyObj)
 {
+	int playerx, playery;
+	dataStorage_getPlayerPosition(&playerx, &playery);
 	if ((*enemyObj).active)
 	{
 		if (enemyObj->seen)
 		{
 			enemy_enemyChase(index);
+			if (enemy_playerCollision(index, playerx, playery))
+			{
+				*dataStorage_getAliveBool() = false;
+			}
 		}
 		else
 		{
+			if (enemyObj->patrolling)
+			{
+				enemy_patrolEnemy(index);
+			}
 			if (enemy_returnDistanceToPlayer(enemyObj) < 9.0f)
 			{
 				if (enemy_isInlineOfSight(enemyObj))

@@ -74,6 +74,13 @@ bool game_isRunning()
 void game_turnOffGame()
 {
 	isRunning = false;
+/*	arrayReader_Destructor();
+	enemy_Destructor();
+*/}
+
+void game_clearGame()
+{
+	console_clear();
 	arrayReader_Destructor();
 	enemy_Destructor();
 }
@@ -95,6 +102,7 @@ void game_update()
 			{
 				if (gsm_returnStateSystem()->next == state_Game)
 				{
+					mainMenu_resetMainMenu();
 					game_loadMap(0);
 
 					gsm_returnStateSystem()->next = state_Game;
@@ -107,6 +115,10 @@ void game_update()
 			break;
 		case state_Game:
 			input_checkInput();
+			if (gsm_returnStateSystem()->next == state_mainMenu)
+			{
+				game_clearGame();
+			}
 			break;
 		}
 	}
@@ -145,8 +157,6 @@ void game_EnemyUpdate()
 
 void game_playerAction(int action)
 {
-
-	
 	switch (action)
 	{
 		case 1:
@@ -180,12 +190,24 @@ void game_playerAction(int action)
 			break;
 	}
 
+
+	/*Enemies update loop*/
 	game_EnemyUpdate();
+
+	/*Draw Loop*/
 	arrayReader_draw();
+
+	if (*dataStorage_getAliveBool() == false)
+	{
+
+		/*PLAYER COLLISION*/
+		gsm_returnStateSystem()->next = state_mainMenu;
+	}
 }
 
 void game_loadMap(int mapNo)
 {
+	*dataStorage_getAliveBool() = true;
 	if (mapNo == 0)
 	{
 		playerX = 6;
@@ -199,15 +221,22 @@ void game_loadMap(int mapNo)
 
 		dataStorage_EnemyInit(playerX, playerY);
 
-		enemy_spawnEnemy(1, 1, 0);
-		enemy_spawnEnemy(1, 5, 1);
-		enemy_spawnEnemy(1, 8, 2);
+		/***************************************
+			-Spawn Enemy locations
+			-Set patrol bool
+			-Set 2 patrol locations
+		***************************************/
+		enemy_spawnEnemy(1, 1, 0,true,1,1,8,1);
+		enemy_spawnEnemy(1, 5, 1,false,-1,-1,-1,-1);
+		enemy_spawnEnemy(1, 8, 2,false,-1,-1,-1,-1);
 
 		dataStorage_TorchInit();
 	}
 
 	if (mapNo == 1)
 	{
+
+		arrayReader_Destructor();
 		playerX = 6;
 		playerY = 5;
 
@@ -223,6 +252,8 @@ void game_loadMap(int mapNo)
 
 	if (mapNo == 2)
 	{
+
+		arrayReader_Destructor();
 		playerX = 6;
 		playerY = 5;
 
@@ -236,149 +267,153 @@ void game_loadMap(int mapNo)
 		dataStorage_TorchInit();
 	}
 
+	
+
 	dataStorage_setPlayerPosition(playerX, playerY);
 
-	arrayReader_draw() ;
+	arrayReader_draw();
 }
 
 
 
-void setxy(int x_coord, int y_coord)
-{
-	c.X = x_coord; c.Y = y_coord; 
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
-}
-
-
-void game_borders()
-{
-		COORD c = { 0, 0 };
-		int i, j;
-		
-
-		/*top border*/
-		setxy(0,0);
-		for (j = 0; j < console_getConsoleWidth(); j++)
-			printf("%c", 223);
-
-		/*Bottom border*/ 
-		setxy(0, console_getConsoleHeight());
-		for (j = 0; j <= console_getConsoleWidth(); j++)
-			printf("%c", 223);
-
-		/*Left and right border*/
-		for (j = 0; j < console_getConsoleHeight(); j++)
-		{
-			setxy(0, 0 + j);
-			printf("%c", 219);
-
-			setxy(100, 0 + j);
-			printf("%c", 219);
-		}
-		
-}
-
-void drawUI()
-{
-	int i, j;
-	i = console_getConsoleHeight();
-	for (j = 0; j < (i - 1); j++)
-	{
-		setxy(30, 1 + j);
-		printf("%c", 186);
-	}
-
-
-	setxy(1, 20);
-	for (j = 0, j < 30; j++)
-		printf("%c", 205);
-
-	/*print torches ascii art*/
-	setxy(1, 1);
-	printf("Torches:")
-
-
-	int Inv_Torch = 1;
-
-	While(Inv_Torch)
-	{
-		if (Inv_Torch == 1)
-		{
-			setxy(1, 2);
-			printf("  (\");
-				setxy(1, 3);
-			printf("   '");
-			setxy(1, 4);
-			printf("  |  |");
-			setxy(1, 5);
-			printf("  |  |");
-			setxy(1, 6);
-			printf("  |__|");
-		}
-
-
-		if (Inv_Torch == 2)
-		{
-			setxy(1, 2);
-			printf("  (\");
-				setxy(1, 3);
-			printf("   '");
-			setxy(1, 4);
-			printf("  |  |");
-			setxy(1, 5);
-			printf("  |  |");
-			setxy(1, 6);
-			printf("  |__|");
-
-			setxy(7, 2);
-			printf("  (\");
-				setxy(7, 3);
-			printf("   '");
-			setxy(7, 4);
-			printf("  |  |");
-			setxy(7, 5);
-			printf("  |  |");
-			setxy(7, 6);
-			printf("  |__|");
-
-		}
-
-		if (Inv_Torch == 3)
-		{
-			setxy(1, 2);
-				printf("  (\");
-			setxy(1, 3);
-				printf("   '");
-			setxy(1, 4);
-				printf("  |  |");
-			setxy(1, 5);
-				printf("  |  |");
-			setxy(1, 6);
-				printf("  |__|");
-
-			setxy(7, 2);
-				printf("  (\");
-			setxy(7, 3);
-				printf("   '");
-			setxy(7, 4);
-				printf("  |  |");
-			setxy(7, 5);
-				printf("  |  |");
-			setxy(7, 6);
-				printf("  |__|");
-
-
-			setxy(13, 2);
-				printf("  (\");
-			setxy(13, 3);
-				printf("   '");
-			setxy(13, 4);
-				printf("  |  |");
-			setxy(13, 5);
-				printf("  |  |");
-			setxy(13, 6);
-				printf("  |__|");
-		}
-
-	}
-} 
+//
+//
+//void setxy(int x_coord, int y_coord)
+//{
+//	c.X = x_coord; c.Y = y_coord; 
+//	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
+//}
+//
+//
+//void game_borders()
+//{
+//		COORD c = { 0, 0 };
+//		int i, j;
+//		
+//
+//		/*top border*/
+//		setxy(0,0);
+//		for (j = 0; j < console_getConsoleWidth(); j++)
+//			printf("%c", 223);
+//
+//		/*Bottom border*/ 
+//		setxy(0, console_getConsoleHeight());
+//		for (j = 0; j <= console_getConsoleWidth(); j++)
+//			printf("%c", 223);
+//
+//		/*Left and right border*/
+//		for (j = 0; j < console_getConsoleHeight(); j++)
+//		{
+//			setxy(0, 0 + j);
+//			printf("%c", 219);
+//
+//			setxy(100, 0 + j);
+//			printf("%c", 219);
+//		}
+//		
+//}
+//
+//void drawUI()
+//{
+//	int i, j;
+//	i = console_getConsoleHeight();
+//	for (j = 0; j < (i - 1); j++)
+//	{
+//		setxy(30, 1 + j);
+//		printf("%c", 186);
+//	}
+//
+//
+//	setxy(1, 20);
+//	for (j = 0, j < 30; j++)
+//		printf("%c", 205);
+//
+//	/*print torches ascii art*/
+//	setxy(1, 1);
+//	printf("Torches:")
+//
+//
+//	int Inv_Torch = 1;
+//
+//	While(Inv_Torch)
+//	{
+//		if (Inv_Torch == 1)
+//		{
+//			setxy(1, 2);
+//			printf("  (\");
+//				setxy(1, 3);
+//			printf("   '");
+//			setxy(1, 4);
+//			printf("  |  |");
+//			setxy(1, 5);
+//			printf("  |  |");
+//			setxy(1, 6);
+//			printf("  |__|");
+//		}
+//
+//
+//		if (Inv_Torch == 2)
+//		{
+//			setxy(1, 2);
+//			printf("  (\");
+//				setxy(1, 3);
+//			printf("   '");
+//			setxy(1, 4);
+//			printf("  |  |");
+//			setxy(1, 5);
+//			printf("  |  |");
+//			setxy(1, 6);
+//			printf("  |__|");
+//
+//			setxy(7, 2);
+//			printf("  (\");
+//				setxy(7, 3);
+//			printf("   '");
+//			setxy(7, 4);
+//			printf("  |  |");
+//			setxy(7, 5);
+//			printf("  |  |");
+//			setxy(7, 6);
+//			printf("  |__|");
+//
+//		}
+//
+//		if (Inv_Torch == 3)
+//		{
+//			setxy(1, 2);
+//				printf("  (\");
+//			setxy(1, 3);
+//				printf("   '");
+//			setxy(1, 4);
+//				printf("  |  |");
+//			setxy(1, 5);
+//				printf("  |  |");
+//			setxy(1, 6);
+//				printf("  |__|");
+//
+//			setxy(7, 2);
+//				printf("  (\");
+//			setxy(7, 3);
+//				printf("   '");
+//			setxy(7, 4);
+//				printf("  |  |");
+//			setxy(7, 5);
+//				printf("  |  |");
+//			setxy(7, 6);
+//				printf("  |__|");
+//
+//
+//			setxy(13, 2);
+//				printf("  (\");
+//			setxy(13, 3);
+//				printf("   '");
+//			setxy(13, 4);
+//				printf("  |  |");
+//			setxy(13, 5);
+//				printf("  |  |");
+//			setxy(13, 6);
+//				printf("  |__|");
+//		}
+//
+//	}
+//} 

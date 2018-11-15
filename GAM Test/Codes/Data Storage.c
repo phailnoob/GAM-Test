@@ -11,6 +11,7 @@ static Enemy enemyObject[10];
 static FogDistance fogDistance;
 static MapArray mapArray;
 static Torch torches[5];
+static bool playerAlive;
 
 void dataStorage_init()
 {
@@ -19,6 +20,13 @@ void dataStorage_init()
 	fogDistance.fogStart = fogDistance.fogEnd = 0;
 
 	mapArray.width = mapArray.height = 0;
+
+	playerAlive = true;
+}
+
+bool * dataStorage_getAliveBool()
+{
+	return &playerAlive;
 }
 
 void dataStorage_EnemyInit(char playerX, char playerY)
@@ -32,10 +40,15 @@ void dataStorage_EnemyInit(char playerX, char playerY)
 	/*Change the positions of enemies when needed to spawn*/
 	for (i = 0; i < 10; i++)
 	{
-
 		dataStorage_setEnemyPosition(-1, -1, i);
+		enemyObject[i].patrolling = false;
+		enemyObject[i].patrolx1 = -1;
+		enemyObject[i].patrolx2 = -1;
+		enemyObject[i].patroly1 = -1;
+		enemyObject[i].patroly2 = -1;
 		enemyObject[i].active = false;
 		enemyObject[i].seen = false;
+		enemyObject[i].patrolDirection = 0;
 	}
 
 	enemy_weightedMapInit(&mapArray);

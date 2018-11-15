@@ -30,6 +30,12 @@ typedef struct Enemy
 {
 	int x;
 	int y;
+	int patrolx1;
+	int patrolx2;
+	int patroly1;
+	int patroly2;
+	bool patrolDirection;
+	bool patrolling;
 	bool active;
 	bool seen;
 }
@@ -52,6 +58,7 @@ Torch;
 
 
 void dataStorage_init();
+bool * dataStorage_getAliveBool();
 void dataStorage_EnemyInit(char playerX, char playerY);
 
 void dataStorage_setPlayerPosition(int x, int y);
