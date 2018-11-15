@@ -245,6 +245,7 @@ void game_loadMap(int mapNo)
 
 void setxy(int x_coord, int y_coord)
 {
+	COORD c = { 0, 0 };
 	c.X = x_coord; c.Y = y_coord; 
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
@@ -252,28 +253,38 @@ void setxy(int x_coord, int y_coord)
 
 void game_borders()
 {
-		COORD c = { 0, 0 };
-		int i, j;
 		
+		int j;
+		
+		/*Print corners*/
+		setxy(0, 0);           
+			printf("%c", 201);
+		setxy(0, console_getConsoleHeight());
+			printf("%c", 200);
+		setxy(console_getConsoleWidth(), 0);
+			printf("%c", 187);
+		setxy(console_getConsoleWidth(), console_getConsoleHeight());
+			printf("%c", 188);
+
 
 		/*top border*/
-		setxy(0,0);
-		for (j = 0; j < console_getConsoleWidth(); j++)
-			printf("%c", 223);
+		setxy(1,0);
+		for (j = 0; j < console_getConsoleWidth()-1; j++)
+			printf("%c", 205);
 
 		/*Bottom border*/ 
-		setxy(0, console_getConsoleHeight());
-		for (j = 0; j <= console_getConsoleWidth(); j++)
-			printf("%c", 223);
+		setxy(1, console_getConsoleHeight());
+		for (j = 0; j <= console_getConsoleWidth()-1; j++)
+			printf("%c", 205);
 
 		/*Left and right border*/
-		for (j = 0; j < console_getConsoleHeight(); j++)
+		for (j = 0; j < console_getConsoleHeight()-1; j++)
 		{
 			setxy(0, 0 + j);
-			printf("%c", 219);
+			printf("%c", 186);
 
 			setxy(100, 0 + j);
-			printf("%c", 219);
+			printf("%c", 186);
 		}
 		
 }
@@ -288,97 +299,8 @@ void drawUI()
 		printf("%c", 186);
 	}
 
-
 	setxy(1, 20);
 	for (j = 0, j < 30; j++)
 		printf("%c", 205);
+}
 
-	/*print torches ascii art*/
-	setxy(1, 1);
-	printf("Torches:")
-
-
-	int Inv_Torch = 1;
-
-	While(Inv_Torch)
-	{
-		if (Inv_Torch == 1)
-		{
-			setxy(1, 2);
-			printf("  (\");
-				setxy(1, 3);
-			printf("   '");
-			setxy(1, 4);
-			printf("  |  |");
-			setxy(1, 5);
-			printf("  |  |");
-			setxy(1, 6);
-			printf("  |__|");
-		}
-
-
-		if (Inv_Torch == 2)
-		{
-			setxy(1, 2);
-			printf("  (\");
-				setxy(1, 3);
-			printf("   '");
-			setxy(1, 4);
-			printf("  |  |");
-			setxy(1, 5);
-			printf("  |  |");
-			setxy(1, 6);
-			printf("  |__|");
-
-			setxy(7, 2);
-			printf("  (\");
-				setxy(7, 3);
-			printf("   '");
-			setxy(7, 4);
-			printf("  |  |");
-			setxy(7, 5);
-			printf("  |  |");
-			setxy(7, 6);
-			printf("  |__|");
-
-		}
-
-		if (Inv_Torch == 3)
-		{
-			setxy(1, 2);
-				printf("  (\");
-			setxy(1, 3);
-				printf("   '");
-			setxy(1, 4);
-				printf("  |  |");
-			setxy(1, 5);
-				printf("  |  |");
-			setxy(1, 6);
-				printf("  |__|");
-
-			setxy(7, 2);
-				printf("  (\");
-			setxy(7, 3);
-				printf("   '");
-			setxy(7, 4);
-				printf("  |  |");
-			setxy(7, 5);
-				printf("  |  |");
-			setxy(7, 6);
-				printf("  |__|");
-
-
-			setxy(13, 2);
-				printf("  (\");
-			setxy(13, 3);
-				printf("   '");
-			setxy(13, 4);
-				printf("  |  |");
-			setxy(13, 5);
-				printf("  |  |");
-			setxy(13, 6);
-				printf("  |__|");
-		}
-
-	}
-} 
