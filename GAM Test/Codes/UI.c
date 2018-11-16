@@ -1,3 +1,14 @@
+/******************************************************************************
+filename    UI.c
+author      Marcus Koh Joon Yee
+DP email    k.joonyeemarcus@digipen.edu
+course      GAM -100B
+assignment  3
+
+Brief Description:
+  This file contains the function definitions for the printing of the game's
+  borders and one simple element displaying the game's torch inventory
+******************************************************************************/
 #include "UI.h"
 #include "Console.h"
 #include "Data Storage.h"
@@ -8,6 +19,15 @@ const char *UI_torch[3] = {
 							{ "  || " }
 };
 
+
+/******************************************************************************
+   Function: gameborders()
+
+Description: Prints borders for the game.
+
+     Inputs: None.         
+    Outputs: None.
+******************************************************************************/
 void game_borders()
 {
 
@@ -45,6 +65,15 @@ void game_borders()
 
 }
 
+
+/******************************************************************************
+   Function: drawUI
+
+Description: Draws the UI border to seperate UI from the game space.
+          
+	Inputs: None
+    Outputs: None.
+******************************************************************************/
 void drawUI()
 {
 	int i, j;
@@ -68,7 +97,15 @@ void drawUI()
 
 
 
+/******************************************************************************
+   Function: check_Active_Torch
 
+Description: This function currently only checks that a torch has been placed
+              down and greys out the inventory slot accordingly.
+          
+	Inputs:  None
+    Outputs: None
+******************************************************************************/
 int check_Active_Torch()
 {
 	int i = 0, j = 0;
@@ -90,6 +127,14 @@ int check_Active_Torch()
 }
 
 
+/******************************************************************************
+   Function: UI_drawtorches
+
+Description: Initializes the default UI element (i.e 5 torches)
+          
+	Inputs: None
+    Outputs: None.
+******************************************************************************/
 void UI_drawtorches()
 {
 	int i,j;
