@@ -46,7 +46,7 @@
     <ClCompile Include="Codes\Torch.c">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="UI.c">
+    <ClCompile Include="Codes\UI.c">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,7 +81,7 @@
     <ClInclude Include="Codes\Torch.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
+    <ClInclude Include="Codes\UI.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
