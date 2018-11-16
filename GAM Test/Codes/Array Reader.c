@@ -133,8 +133,13 @@ void arrayReader_draw()
 								if (j == f && i == g)
 								{
 									currentMap[i * height + j] = spriteReference_getSprite(3);
+									if (en->seen)
+										currColor[i * height + j] = 12;
+									else
+										currColor[i * height + j] = 14;
 									break;
 								}
+
 								else if (currentMap[i * height + j] == spriteReference_getSprite(3))
 									currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
 							}
