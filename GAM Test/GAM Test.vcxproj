@@ -30,6 +30,7 @@
     <ClCompile Include="Codes\MainMenu.c" />
     <ClCompile Include="Codes\SpriteReference.c" />
     <ClCompile Include="Codes\Torch.c" />
+    <ClCompile Include="UI.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Data Storage.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="Codes\MainMenu.h" />
     <ClInclude Include="Codes\SpriteReference.h" />
     <ClInclude Include="Codes\Torch.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EB0C7F36-5B30-4677-B3EB-0AB9DC60C6DB}</ProjectGuid>
