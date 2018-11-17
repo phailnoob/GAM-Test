@@ -40,7 +40,7 @@ void game_init()
 	mapUsed = false;
 	isRunning = true;
 	torch_counter = trap_counter = 0;
-	exitX = exitY = 0;
+	exitX = exitY = 1;
 
 	torch_counter = 0;
 	begin = clock();
@@ -58,16 +58,22 @@ void game_turnOffGame()
 {
 	isRunning = false;
 	if (mapUsed)
+	{
 		free(map);
-/*	arrayReader_Destructor();
-	enemy_Destructor();*/
+		arrayReader_Destructor();
+		enemy_Destructor();
+	}
 }
 
 void game_clearGame()
 {
 	console_clear();
-	arrayReader_Destructor();
-	enemy_Destructor();
+	if (mapUsed)
+	{
+		free(map);
+		arrayReader_Destructor();
+		enemy_Destructor();
+	}
 }
 
 
@@ -215,8 +221,8 @@ void game_playerAction(int action)
 	if (*dataStorage_getAliveBool() == false)
 	{
 		/*PLAYER COLLISION*/
-		console_clear();
-		gsm_returnStateSystem()->next = state_mainMenu;
+//		console_clear();
+//		gsm_returnStateSystem()->next = state_mainMenu;
 	}
 }
 
@@ -363,6 +369,7 @@ void game_loadMap(int mapNo)
 
 		dataStorage_TorchInit();
 		dataStorage_setPlayerPosition(playerX, playerY);
+		dataStorage_setExitPos(exitX, exitY);
 
 		arrayReader_draw();
 	}
