@@ -227,7 +227,7 @@ void game_modifyLoadValue(int * value, char * temp, char chara, FILE *stream)
 	while (*temp != chara)
 	{
 		fread(temp, sizeof(char), 1, stream);
-	*dataStorage_getAliveBool() = true;
+/*	*dataStorage_getAliveBool() = true;
 	if (mapNo == 0)
 	{
 		playerX = 6;
@@ -239,7 +239,7 @@ void game_modifyLoadValue(int * value, char * temp, char chara, FILE *stream)
 
 		mapWidth = sizeof(map[0]);
 		mapHeight = sizeof(map) / sizeof(map[0]);
-
+*/
 		if (*temp != chara)
 		{
 			*value *= 10;
@@ -357,7 +357,7 @@ void game_loadMap(int mapNo)
 		{
 			game_modifyLoadValue(&x, &temp, '/', stream);
 			game_modifyLoadValue(&y, &temp, '\n', stream);
-			enemy_spawnEnemy(x, y, counter);
+//			enemy_spawnEnemy(x, y, counter);
 			counter++;
 		}
 
