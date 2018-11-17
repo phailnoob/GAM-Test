@@ -11,6 +11,9 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{e0fbe39e-dbc3-461d-9238-1e4de0e10fbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Levels">
+      <UniqueIdentifier>{129357a7-79ca-425a-b806-16917b24fab3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Codes\Main.c">
@@ -78,5 +81,10 @@
     <ClInclude Include="Codes\Torch.h">
       <Filter>Game</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Levels\0.txt">
+      <Filter>Levels</Filter>
+    </Text>
   </ItemGroup>
 </Project>

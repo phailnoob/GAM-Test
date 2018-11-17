@@ -43,6 +43,9 @@
     <ClInclude Include="Codes\SpriteReference.h" />
     <ClInclude Include="Codes\Torch.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Levels\0.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EB0C7F36-5B30-4677-B3EB-0AB9DC60C6DB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

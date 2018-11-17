@@ -21,4 +21,11 @@ void game_update();
 void game_playerAction(int action);
 void game_loadMap(int mapNo);
 
+/*
+return a pointer to the string inside the file
+needs to end with a new line
+string returned contains all the new lines
+*/
+char *game_readFile(char * fileName, int *fileWidth, int *fileHeight);
+
 #endif

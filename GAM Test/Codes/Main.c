@@ -17,7 +17,7 @@ Possibly included will be text file reading and parsing into resizeable array.
 
 int main()
 {
-//int test = 0, test2 = -1;
+	//int test = 0, test2 = -1;
 
 	game_init();
 
@@ -28,6 +28,7 @@ int main()
 		//printf("YOU PRESSED %d & %d\n", test, test2);
 		game_update();
 	}
+
 
     return 0;
 }
