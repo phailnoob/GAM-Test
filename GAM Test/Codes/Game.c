@@ -6,17 +6,24 @@
 #include "Data Storage.h"
 #include "Input.h"
 #include "Torch.h"
+#include <time.h>
 #include <stdio.h>
 #include "GameStateManager.h"
 #include "MainMenu.h"
+#include "PauseMenu.h"
 
 bool isRunning;
 
 static int playerX, playerY, mapWidth, mapHeight; 
-static int torch_counter;
+static int torch_counter, trap_counter;
 /* TODO Make sure to clear up all these static variables if the player goes back to main menu*/
 
+clock_t begin;
+double time_spent, prevTime, timeLapse;
+bool isPaused;
+static int exitX, exitY;
 
+void game_EnemyUpdate();
 
 /*edited*/
 static char map[10][10] = {	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -61,9 +68,13 @@ void game_init()
 	input_init();
 
 	isRunning = true;
+	torch_counter = trap_counter = 0;
+	exitX = exitY = 0;
 
-
-	torch_counter = 0;
+	begin = clock();
+	timeLapse = 0.3;
+	time_spent = prevTime = (double)(clock() - begin) / CLOCKS_PER_SEC;
+	isPaused = false;
 }
 
 bool game_isRunning()
@@ -75,8 +86,8 @@ void game_turnOffGame()
 {
 	isRunning = false;
 /*	arrayReader_Destructor();
-	enemy_Destructor();
-*/}
+	enemy_Destructor();*/
+}
 
 void game_clearGame()
 {
@@ -114,11 +125,19 @@ void game_update()
 		case state_Credits:
 			break;
 		case state_Game:
-			input_checkInput();
-			if (gsm_returnStateSystem()->next == state_mainMenu)
+			time_spent = (double)(clock() - begin - prevTime) / CLOCKS_PER_SEC;
+
+			while (time_spent - prevTime >= timeLapse)
 			{
-				game_clearGame();
+				game_EnemyUpdate();
+				arrayReader_draw();
+				prevTime = time_spent;
 			}
+
+			input_checkInput();
+			break;
+		case state_PauseMenu:
+
 			break;
 		}
 	}
@@ -136,7 +155,6 @@ void game_update()
 		gsm_returnStateSystem()->previous = gsm_returnStateSystem()->current;
 		gsm_returnStateSystem()->current = gsm_returnStateSystem()->next;
 	}
-
 }
 
 
@@ -153,6 +171,12 @@ void game_EnemyUpdate()
 	{
 		enemy_Update(i,dataStorage_getEnemyObject(i));
 	}
+
+	printf("\nexit pos:   %d %d\n", exitX, exitY);
+	printf("player pos: %d %d\n", playerX, playerY);
+
+	if (exitX == playerX && exitY == playerY)
+		game_loadMap(0);
 }
 
 void game_playerAction(int action)
@@ -185,22 +209,39 @@ void game_playerAction(int action)
 			placeTorch(torch_counter, playerX, playerY);
 			torch_counter++;
 			break;
+		case 6: /* place trap action */
+			if (trap_counter > 4)
+				trap_counter -= 5;
+			placeTrap(trap_counter, playerX, playerY);
+			trap_counter++;
+			break;
 
+		case 7: /* pause */
+			if (isPaused)
+			{
+				gsm_returnStateSystem()->next = state_PauseMenu;
+				PauseMenu_Init();
+			}
+			else
+			{
+				gsm_returnStateSystem()->next = state_Game;
+			}
+			break;
 		case 0:
 			break;
 	}
 
 
 	/*Enemies update loop*/
-	game_EnemyUpdate();
+	/*game_EnemyUpdate();*/
 
 	/*Draw Loop*/
 	arrayReader_draw();
 
 	if (*dataStorage_getAliveBool() == false)
 	{
-
 		/*PLAYER COLLISION*/
+		console_clear();
 		gsm_returnStateSystem()->next = state_mainMenu;
 	}
 }
@@ -212,6 +253,9 @@ void game_loadMap(int mapNo)
 	{
 		playerX = 6;
 		playerY = 5;
+
+		exitX = 1;
+		exitY = 7;
 
 		mapWidth = sizeof(map[0]);
 		mapHeight = sizeof(map) / sizeof(map[0]);
@@ -239,6 +283,9 @@ void game_loadMap(int mapNo)
 		arrayReader_Destructor();
 		playerX = 6;
 		playerY = 5;
+
+		exitX = 1;
+		exitY = 7;
 
 		mapWidth = sizeof(map2[0]);
 		mapHeight = sizeof(map2) / sizeof(map2[0]);

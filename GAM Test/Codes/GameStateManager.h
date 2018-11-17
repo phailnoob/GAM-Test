@@ -10,6 +10,7 @@ typedef enum State
 	state_Options,
 	state_Credits,
 	state_Game,
+	state_PauseMenu,
 	state_Exit = -1,
 	state_Transition = -2,
 

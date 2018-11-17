@@ -11,6 +11,7 @@
 3 - Enemy
 4 - Torch
 5 - Exit
+6 - Trap
 */
 char spriteReference_getSprite(char input);
 

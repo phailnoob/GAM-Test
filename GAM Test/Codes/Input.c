@@ -43,6 +43,14 @@ void input_wasd(int key)
 			game_playerAction(5);
 			keyPressed = false;
 			break;
+		case 121: /* 'y' */
+			game_playerAction(6);
+			keyPressed = false;
+			break;
+		case 27: /* esc */
+			game_playerAction(7);
+			keyPressed = false;
+			break;
 	}
 }
 
@@ -72,11 +80,12 @@ void input_arrow(int key)
 
 void input_checkInput()
 {
-	keyPress = _getch();
+	
 	keyDown = _kbhit();
 
 	if (keyDown)
 	{
+		keyPress = _getch();
 		keyPressed = true;
 		input_wasd(keyPress);
 	}

@@ -11,7 +11,10 @@ static Enemy enemyObject[10];
 static FogDistance fogDistance;
 static MapArray mapArray;
 static Torch torches[5];
+static Torch torches[5];
+static Trap traps[5];
 static bool playerAlive;
+static Exit exitLocation;
 
 void dataStorage_init()
 {
@@ -175,4 +178,33 @@ void dataStorage_getTorchPos(int index, int *x, int *y)
 Torch* dataStorage_getTorchObj(int index)
 {
 	return &torches[index];
+}
+
+/* Trap Functions ---------------------------------- */
+void dataStorage_TrapInit()
+{
+	int i;
+
+	for (i = 0; i < 5; i++)
+	{
+		dataStorage_setTrapPos(i, -1, -1);
+		traps[i].active = false;
+	}
+}
+
+void dataStorage_setTrapPos(int index, int x, int y)
+{
+	traps[index].x = x;
+	traps[index].y = y;
+}
+
+void dataStorage_getTrapPos(int index, int *x, int *y)
+{
+	*x = traps[index].x;
+	*y = traps[index].y;
+}
+
+Trap* dataStorage_getTrapObj(int index)
+{
+	return &traps[index];
 }

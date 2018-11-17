@@ -56,6 +56,21 @@ typedef struct Torch
 }
 Torch;
 
+typedef struct Trap
+{
+	int x;
+	int y;
+	bool active;
+}
+Trap;
+
+typedef struct Exit
+{
+	int x;
+	int y;
+}
+Exit;
+
 
 void dataStorage_init();
 bool * dataStorage_getAliveBool();
@@ -84,5 +99,11 @@ void dataStorage_TorchInit();
 void dataStorage_setTorchPos(int index, int x, int y);
 void dataStorage_getTorchPos(int index, int *x, int *y);
 Torch* dataStorage_getTorchObj(int index);
+
+void dataStorage_TrapInit();
+void dataStorage_setTrapPos(int index, int x, int y);
+void dataStorage_getTrapPos(int index, int *x, int *y);
+Trap* dataStorage_getTrapObj(int index);
+
 
 #endif
