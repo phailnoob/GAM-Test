@@ -5,6 +5,7 @@
 #include "Data Storage.h"
 #include "Enemy.h"
 #include "Torch.h"
+#include "Trap.h"
 
 #include <stdlib.h>
 
@@ -12,16 +13,21 @@ static char *prevColor, *currColor, *prevMap, *currentMap;
 static int width, height, i ,j, playerX, playerY, fogStart, fogEnd, distance, f, g, h, playerRange = 3;
 static bool change;
 Enemy *en;
+
 Torch *torch;
 static int k, torchX, torchY, torchRange;
 bool enemySeen;
 
+Trap *trap;
+static int a, trapX, trapY;
+static int exitX, exitY;
+
 void arrayReader_init()
 {
 	width = height = -1;
-	i = j = f = g = h = k = -1;
+	i = j = f = g = h = k = a = -1;
 	torchX = torchY = -1;
-	torchRange = 3;
+	torchRange = 5;
 	playerX = playerY = -1;
 	fogStart = fogEnd = distance = -1;
 	bool enemySeen = false;
@@ -35,16 +41,12 @@ short arrayReader_checkDistance(short x1, short y1, short x2, short y2)
 
 void arrayReader_setMap(short size)
 {
-	free(prevColor);
 	prevColor = malloc(size);
 
-	free(currColor);
 	currColor = malloc(size);
 
-	free(prevMap);
 	prevMap = malloc(size);
 
-	free(currentMap);
 	currentMap = malloc(size);
 
 	memset(prevColor, -1, size);
@@ -53,6 +55,8 @@ void arrayReader_setMap(short size)
 
 	dataStorage_getMapData(&width, &height);
 	dataStorage_getPlayerPosition(&playerX, &playerY);
+
+	dataStorage_getExitPos(&exitX, &exitY);
 
 	for (i = 0; i < height; i++)
 	{
@@ -74,11 +78,20 @@ void arrayReader_setMap(short size)
 				currColor[i*height + j] = 8;
 		}
 	}
+
+	for (k = 0; k < 5; ++k)
+		destroyTorch(k);
+
+	for (a = 0; a < 5; ++a)
+		destroyTrap(a);
+
+
 }
 
 void arrayReader_draw()
 {
 	dataStorage_getPlayerPosition(&playerX, &playerY);
+	dataStorage_getExitPos(&exitX, &exitY);
 
 	for (i = 0; i < height; i++)
 	{
@@ -90,6 +103,9 @@ void arrayReader_draw()
 			enemySeen = false;
 
 			currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
+
+			if (exitY == i && exitX == j)
+				currentMap[i * height + j] = spriteReference_getSprite(5);
 
 			if (arrayReader_checkDistance(j, i, playerX, playerY) < playerRange * playerRange)
 			{
@@ -113,6 +129,46 @@ void arrayReader_draw()
 						}
 						else if (currentMap[i * height + j] == spriteReference_getSprite(3))
 							currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
+					}
+				}
+			}
+
+			for (a = 0; a < 5; ++a)
+			{
+				trap = dataStorage_getTrapObj(a);
+				dataStorage_getTrapPos(a, &trapX, &trapY);
+
+				if (trap->active)
+				{
+					for (h = 0; h < 10; h++)
+					{
+						en = dataStorage_getEnemyObject((char)h);
+						if (en->active)
+						{
+							dataStorage_getEnemyPosition(&f, &g, (short)h);
+							if (j == f && i == g)
+							{
+								currentMap[i * height + j] = spriteReference_getSprite(3);
+
+								if (trapX == f && trapY == g)
+								{
+									enemy_deactivateEnemy(h);
+									destroyTrap(a);
+									break;
+								}
+
+								break;
+							}
+
+							else if (currentMap[i * height + j] == spriteReference_getSprite(3))
+								currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
+						}
+					}
+
+					if (j == trapX && i == trapY)
+					{
+						currentMap[i * height + j] = spriteReference_getSprite(6);
+						break;
 					}
 				}
 			}
@@ -178,7 +234,6 @@ void arrayReader_draw()
 		}
 	}
 }
-
 
 void arrayReader_Destructor()
 {

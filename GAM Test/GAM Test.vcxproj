@@ -28,8 +28,10 @@
     <ClCompile Include="Codes\Main.c" />
     <ClCompile Include="Codes\Array Reader.c" />
     <ClCompile Include="Codes\MainMenu.c" />
+    <ClCompile Include="Codes\PauseMenu.c" />
     <ClCompile Include="Codes\SpriteReference.c" />
     <ClCompile Include="Codes\Torch.c" />
+    <ClCompile Include="Codes\Trap.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Data Storage.h" />
@@ -40,8 +42,10 @@
     <ClInclude Include="Codes\Input.h" />
     <ClInclude Include="Codes\Array Reader.h" />
     <ClInclude Include="Codes\MainMenu.h" />
+    <ClInclude Include="Codes\PauseMenu.h" />
     <ClInclude Include="Codes\SpriteReference.h" />
     <ClInclude Include="Codes\Torch.h" />
+    <ClInclude Include="Codes\Trap.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Levels\0.txt" />

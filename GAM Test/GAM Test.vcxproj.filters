@@ -49,6 +49,12 @@
     <ClCompile Include="Codes\Torch.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Codes\PauseMenu.c">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\Trap.c">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Input.h">
@@ -79,6 +85,12 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Codes\Torch.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\PauseMenu.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Trap.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

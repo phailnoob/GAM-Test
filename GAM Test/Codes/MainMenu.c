@@ -43,10 +43,10 @@ const char  *logo[12] = {
     
 };
 
-const char *play[6] = 
+const char *play[7] = 
 
 {
-	                                                                      
+{"	 ......   ..        ..    ..    ..  "},
 {"  :NNNNNds``mN/      :NNm. `yNd` .dd. "},
 {"  /MN. .mMs`NM+     `mNmMy  `hMd-mm-  " },
 {"  /MMyyhMN:`NM+     oM' MM:  `yMMm`   " },
@@ -169,7 +169,8 @@ void mainMenu_checkInput()
 /*Draws main menu buttons*/
 void mainMenu_drawButtons()
 {
-	for (int i = 0; i < 6; i++)
+	int i;
+	for (i = 0; i < 7; i++)
 	{
 		if (selected == 1)
 			wasDrawn[0] = 0;
@@ -180,7 +181,7 @@ void mainMenu_drawButtons()
 	if (selected == 1)
 		wasDrawn[0] = 0;
 
-	for (int i = 0; i < 7; i++)
+	for (i = 0; i < 7; i++)
 	{
 		if (selected == 2)
 			wasDrawn[1] = 0;
@@ -192,7 +193,7 @@ void mainMenu_drawButtons()
 		wasDrawn[1] = 0;
 
 
-	for (int i = 0; i < 7; i++)
+	for (i = 0; i < 7; i++)
 	{
 		if (selected == 3)
 			wasDrawn[2] = 0;
@@ -203,7 +204,7 @@ void mainMenu_drawButtons()
 	if (selected == 3)
 		wasDrawn[2] = 0;
 
-	for (int i = 0; i < 7; i++)
+	for (i = 0; i < 7; i++)
 	{
 		if (selected == 4)
 			wasDrawn[3] = 0;
@@ -240,3 +241,10 @@ void mainMenu_Update()
 
 }
 
+void mainMenu_resetMainMenu()
+{
+	wasDrawn[0] = 0;
+	wasDrawn[1] = 0;
+	wasDrawn[2] = 0;
+	wasDrawn[3] = 0;
+}
