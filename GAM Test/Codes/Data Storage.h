@@ -105,5 +105,7 @@ void dataStorage_setTrapPos(int index, int x, int y);
 void dataStorage_getTrapPos(int index, int *x, int *y);
 Trap* dataStorage_getTrapObj(int index);
 
+void dataStorage_setExitPos(int x, int y);
+void dataStorage_getExitPos(int *x, int *y);
 
 #endif

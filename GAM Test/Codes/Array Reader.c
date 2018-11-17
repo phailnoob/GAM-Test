@@ -20,6 +20,7 @@ bool enemySeen;
 
 Trap *trap;
 static int a, trapX, trapY;
+static int exitX, exitY;
 
 void arrayReader_init()
 {
@@ -55,6 +56,8 @@ void arrayReader_setMap(short size)
 	dataStorage_getMapData(&width, &height);
 	dataStorage_getPlayerPosition(&playerX, &playerY);
 
+	dataStorage_getExitPos(&exitX, &exitY);
+
 	for (i = 0; i < height; i++)
 	{
 		for (j = 0; j < width; j++)
@@ -81,11 +84,14 @@ void arrayReader_setMap(short size)
 
 	for (a = 0; a < 5; ++a)
 		destroyTrap(a);
+
+
 }
 
 void arrayReader_draw()
 {
 	dataStorage_getPlayerPosition(&playerX, &playerY);
+	dataStorage_getExitPos(&exitX, &exitY);
 
 	for (i = 0; i < height; i++)
 	{
@@ -97,6 +103,9 @@ void arrayReader_draw()
 			enemySeen = false;
 
 			currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
+
+			if (exitY == i && exitX == j)
+				currentMap[i * height + j] = spriteReference_getSprite(5);
 
 			if (arrayReader_checkDistance(j, i, playerX, playerY) < playerRange * playerRange)
 			{

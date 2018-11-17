@@ -208,3 +208,15 @@ Trap* dataStorage_getTrapObj(int index)
 {
 	return &traps[index];
 }
+
+void dataStorage_setExitPos(int x, int y)
+{
+	exitLocation.x = x;
+	exitLocation.y = y;
+}
+
+void dataStorage_getExitPos(int *x, int *y)
+{
+	*x = exitLocation.x;
+	*y = exitLocation.y;
+}

@@ -256,6 +256,7 @@ void game_loadMap(int mapNo)
 
 		exitX = 1;
 		exitY = 7;
+		dataStorage_setExitPos(exitX, exitY);
 
 		mapWidth = sizeof(map[0]);
 		mapHeight = sizeof(map) / sizeof(map[0]);
