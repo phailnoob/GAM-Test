@@ -28,6 +28,7 @@
     <ClCompile Include="Codes\Main.c" />
     <ClCompile Include="Codes\Array Reader.c" />
     <ClCompile Include="Codes\MainMenu.c" />
+    <ClCompile Include="Codes\Options.c" />
     <ClCompile Include="Codes\PauseMenu.c" />
     <ClCompile Include="Codes\SpriteReference.c" />
     <ClCompile Include="Codes\Torch.c" />
@@ -42,6 +43,7 @@
     <ClInclude Include="Codes\Input.h" />
     <ClInclude Include="Codes\Array Reader.h" />
     <ClInclude Include="Codes\MainMenu.h" />
+    <ClInclude Include="Codes\Options.h" />
     <ClInclude Include="Codes\PauseMenu.h" />
     <ClInclude Include="Codes\SpriteReference.h" />
     <ClInclude Include="Codes\Torch.h" />

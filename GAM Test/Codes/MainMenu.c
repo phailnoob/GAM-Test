@@ -87,6 +87,9 @@ void mainMenu_arrow(int key,bool * keyPressed)
 				system("cls");
 				break;
 			case 2:/*Changes state to Options*/
+				gsm_setNextState(state_Options);
+				mainMenu_Reset();
+				system("cls");
 				break;
 			case 3:/*Changes state to Credits*/
 				break;

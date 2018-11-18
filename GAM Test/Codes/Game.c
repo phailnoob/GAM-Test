@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include "GameStateManager.h"
 #include "MainMenu.h"
+#include "Options.h"
 #include "PauseMenu.h"
 
 bool isRunning, mapUsed;
@@ -99,9 +100,14 @@ void game_update()
 
 					gsm_returnStateSystem()->next = state_Game;
 				}
+				else if (gsm_returnStateSystem()->next == state_Options)
+				{
+					options_Init();
+				}
 			}
 			break;
 		case state_Options:
+			options_Update();
 			break;
 		case state_Credits:
 			break;

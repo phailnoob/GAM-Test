@@ -52,6 +52,9 @@
     <ClCompile Include="Codes\Torch.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Codes\Options.c">
+      <Filter>Game</Filter>
+    </ClCompile>
     <ClCompile Include="Codes\PauseMenu.c">
       <Filter>Game</Filter>
     </ClCompile>
@@ -116,5 +119,8 @@
     <Text Include="Assets\Exit.txt">
       <Filter>Assets</Filter>
     </Text>
+    <ClInclude Include="Codes\Options.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
