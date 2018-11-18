@@ -47,8 +47,7 @@ int console_getConsoleWidth()
 
 int console_getConsoleHeight()
 {
-	return height;
-}
+	return height;}
 
 void console_setCursorPosition(int x, int y)
 {
@@ -56,7 +55,7 @@ void console_setCursorPosition(int x, int y)
 	SetConsoleCursorPosition(writeHandle, pos);
 }
 
-void console_draw(char drawX, char drawY, char drawChar, char color)
+void console_draw(unsigned char drawX, unsigned char drawY, char drawChar, char color)
 {
 	WORD textColor = 0;
 

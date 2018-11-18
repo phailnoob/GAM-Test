@@ -7,7 +7,7 @@ Course: GAM100
 Brief Description:
 Main Menu functions
 *************************************************/
-
+#include "Game.h"
 #include "Console.h"
 #include <windows.h>
 #include <stdio.h>
@@ -23,83 +23,32 @@ bool logoDrawn = 0;
 
 bool wasDrawn[4] = { 0,0,0,0 };
 
-const char  *logo[12] = {                                                                                                                                            
-                                                                                                                                                                                                        
-                                                                                                                                                                                                        
-                                                                                                                                                                                                        
-                                                                                                                                                                                                        
-	{"        .''''''''''''..       .''''''''''''''.      .';:::;,.                  ....           .''''''.      .'''.   .'''''.      .''''.   .''''''''''''''.      .';:::;'.     .'''''''''''''        "},
-	{"      lNNNNNNNNNNNNXKkc.   ,0NNNNNNNNNNNNNX:   .:xKNWMMMWNXk;               :0KKd.         .xNNNNNNO,    ;KNNNx.  lXNNNNK:    'ONNN0,  :KNNNNNNNNNNNNN0;   .ckKNWMMMWNKx,  cXNNNNNNNNNNNN0,		  "},
-	{"     .OMMMMWNXXNWMMMMMWd.  lWMMMMWNNNNNNNNO' .c0WMMMWXXWMMMMXc             .kMMNl          ;KMMMMMMMO'  .dWMMWl  .OMMMMMMK:   cNMMMx. .dWMMMMWNNNNNNNNk. .lKWMMMNXXWMMMMK;.kMMMMMMMMMMMMWx.	      "},
-	{"     :XMMMM0:...:KMMMMMO. .kMMMMNo,'''''''. .xNMMMWk;..lXMMMMO.        .,:,cXMM0l;.        oWMMMMMMMWk. '0MMMK,  :XMMMMMMM0, .xMMMNc  '0MMMMXl''''''''. 'kWMMMNx,..oNMMMMx',::dXMMMMXo:::.          "},
-	{"    .dWMMMWk,..'lXMMMMNl  ;XMMMMXd:::::;.  .dWMMMWx.   .d0OOOo.     .;dO0xcxWMNxxXKd'     .OMMMMWWMMMWx.cNMMWx. .dWMMWWMMMWO';KMMM0'  cNMMMMKo:::::;.  .kWMMMNo.   .x0OOOl.   :XMMMWd.              "},
-	{"    '0WWWWWNXKXNWWWWN0c. .oNWWWWWWWWWWW0,  :XWWWW0,               .:O0dll:cKMM0lccdXKc    :XWWWWOONWWWXdxNWWX:  '0WWW0kXWWWNkdXWWNo  .xWWWWWWWWWWWWO.  lNWWWWO.              .dWWWWX:               "},
-	{"    cXNNNNNXXNNNNNXx;.   'ONNNNXK000000l. .dNNNNNd.              .xKd:ldl;dWMNl,xk:lXK;  .oNNNNXc,kNNNNXXNNNk.  cXNNNd'oXNNNXXNNNK;  ,0NNNNX000000Oc  .xNNNNXl               'ONNNNk.               "},
-	{"   .dXXXXKo'c0XXXXKc     :KXXXXx'......   .xXXXXXl    .coolc'   'OXl;do. 'OWWk. .xk;xNl  'kXXXXO' 'kXXXXXXXXl  .dXXX0; .dXXXXXXXXd.  lKXXXXo.......   'kXXXXK:    .lollc.    :KXXXKl                "},
-	{"   ,OKKKKk' .dKKKKKx.   .oKKKKKo'........ .oKKKKKx'..,dKKKKx'   ;d:.;c.  .,;,.   ,c':d,  :0KKKKo.  ,OKKKKKKO,  'kKKKx.  .xKKKKKK0:  .dKKKK0l........  .dKKKKKo'..;xKKKKd.   .oKKKKk'                "},
-	{"   c00000l.  :O0000O;   'x000000OOOOOOOx,  .d00000OkkO000Ol.            'oddo.          .o000Ox,    ;k00000o.  c0000c    'x00000x'  ,k000000OOOOOOOx'  ,x00000Okk0000kc.    'k0000o.                "},
-	{"  .oOkOOx,   .dOOOOOl.  ;kOkOOOOOOOOOOOo.   .:okOOOOOOxo:.             .dWWWk.          'dOOOo;.     :kkOOk;  .oOOOd'     ,xOOOkc.  :kOOOOOOkkOOOOkl.   .cdkO0OOOkxo;.      :kOOkk;                 "},
-	{"   ......     .......   ................       .'',,'..                 ';;;.            .....        .....    .....       ......   ................       .',,,'..         ......                  "},
-    
-};
+AsciiChar logo,play,options,credits,exit1;
 
-const char *play[7] = 
-
-{
-{"	 ......   ..        ..    ..    ..  "},
-{"  :NNNNNds``mN/      :NNm. `yNd` .dd. "},
-{"  /MN. .mMs`NM+     `mNmMy  `hMd-mm-  " },
-{"  /MMyyhMN:`NM+     oM' MM:  `yMMm`   " },
-{"  /MM+//:` `NM+    .NMmdMMm`  `MM`    " },
-{"  /MM.     `NMdyyy hM/..-NMo  `MM`    " },
-{"  `::`      :::::: ::    -::   ::    " },
-                                                  
-};
-
-const char *options[7] =
-{
-
-{"     ...    ........  ...... ...    ....    ...   ..   ....     "},
-{"   +dmhdms` :mmddmms ddmmmdd +md  :hmhdmh. `mmm:  md `ymdhmm+   " },
-{"  +MN-`.dMy /MN-..mMs..oMm..`oMm -NM+``oMm``NNNN/ Nm +MN/--+-   " },
-{"  hMd   oMN`/MMhhdNm:  oMm`  oMm +MN`  -MM:`Nd/NN+Nm .ymNNmh+   " },
-{"  sMm`  yMd /MM+::-`   oMm`  oMm :MM:  /MN.`Nd :NMMm .--.:oMM:  " },
-{"  `yNdshNd- /MM.       oMm`  oMm  ommsyNm/ `Nd  -mMm ommsshNh`  " },
-{"    -/+/-`  `:-        .:-   .:-   .:++:.   --   .:-  .:++/-`   " },
-
-
-};
-
-const char *credits[7] =
-{
-
-{"     .--.    .....    ........  ....     ..  .......  .---.   "},
-{"   +dmddmh. ommhhdmh- :mmdhhhy smmhddh:  omh hhmmmhh:ommddmy` " },
-{"  oMN: `ymy sMd  -mMh /MN:     yMd  /NM+ sMd ``yMd``.NMs-   ` " },
-{"  dMm   `.` sMNhhdMd: /MMdhhy  yMd   dMh sMd   sMd   +dmNmdy. " },
-{"  sMN.  +hs sMm:/NM+  /MN:     yMd  :NMo sMd   sMd  `    /mMy " },
-{"  `yNdyhNd- sNh  +NN: :NNhhhhy sNNhhmd+  sNd   sNd  :dmhyymm: " },
-{"    .://-`  .--   --. `------- .----.`   .--   .--   `-///-`  " },
-
-
-};
-
-const char *exit1[7] =
-{
-{"  `......` `.`   .`  .. `......`  "},
-{"  :MNmmmmd oNm:`oNs`-MN-hmmMMmmy  " },
-{"  /MN-```   +NNhNo  -MM-  :MM.    " },
-{"  /MMmddh   `hMMd`  -MM-  :MM.    " },
-{"  /MN-...` `yMsdMh` -MM-  :MM.    " },
-{"  :NNddddh`hN+ `hNh`-NN-  -NN.    " },
-{"  `.......`..   `..``..   `..     " },
-
-};
 
 /*Reset main menu variables*/
 void mainMenu_Reset()
 {
 	logoDrawn = 0;
+}
+
+void mainMenu_Init()
+{
+	logo.width = 0;
+	logo.height = 0;
+	play.width = 0;
+	options.width = 0;
+	credits.width = 0;
+	exit1.width = 0;
+	play.height = 0;
+	options.height = 0;
+	credits.height = 0;
+	exit1.height = 0;
+	logo.string = game_readFile("Assets/Logo.txt",&(logo.width), &(logo.height));
+	play.string = game_readFile("Assets/Play.txt", &(play.width), &(play.height));
+	options.string = game_readFile("Assets/Options.txt", &(options.width), &(options.height));
+	credits.string = game_readFile("Assets/Credits.txt", &(credits.width), &(credits.height));
+	exit1.string = game_readFile("Assets/Exit.txt", &(exit1.width), &(exit1.height));
 }
 
 /*Handles arrow keys input*/
@@ -166,65 +115,66 @@ void mainMenu_checkInput()
 	}
 }
 
+
+void mainMenu_draw(int x, int y, AsciiChar * image, char color)
+{
+	int j, i;
+	for (i = 0; i < image->height-1; i++)
+	{
+		for (j = 0; j < image->width; j++)
+		{
+			if (*(image->string + (i * (image->width + 1)) + j) != '\n')
+			{
+				console_draw(x  + j, y + i, *(image->string + (i * (1 + image->width)) + j), color);
+			}
+		}
+	}
+}
+
+
 /*Draws main menu buttons*/
 void mainMenu_drawButtons()
 {
 	int i;
-	for (i = 0; i < 7; i++)
-	{
-		if (selected == 1)
-			wasDrawn[0] = 0;
-		if(wasDrawn[0] == 0)
-			console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9*4 + i, play[i], selected == 1 ? 14 : 3, 38);
-	}
+	if (selected == 1)
+		wasDrawn[0] = 0;
+	if (wasDrawn[0] == 0)
+		mainMenu_draw(console_getConsoleWidth() / 12, console_getConsoleHeight() / 8 * 4, &play , selected == 1 ? 14 : 3);
 	wasDrawn[0] = 1;
 	if (selected == 1)
 		wasDrawn[0] = 0;
 
-	for (i = 0; i < 7; i++)
-	{
-		if (selected == 2)
-			wasDrawn[1] = 0;
-		if (wasDrawn[1] == 0)
-		console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9 * 5 + i, options[i], selected == 2 ? 14 : 3, 64);
-	}
+	
+	if (selected == 2)
+		wasDrawn[1] = 0;
+	if (wasDrawn[1] == 0)
+		mainMenu_draw(console_getConsoleWidth() / 12, console_getConsoleHeight() / 8 * 5, &options, selected == 2 ? 14 : 3);
 	wasDrawn[1] = 1;
 	if (selected == 2)
 		wasDrawn[1] = 0;
 
 
-	for (i = 0; i < 7; i++)
-	{
-		if (selected == 3)
-			wasDrawn[2] = 0;
-		if (wasDrawn[2] == 0)
-			console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9 * 6 + i, credits[i], selected == 3 ? 14 : 3, 62);
-	}
+	
+	if (selected == 3)
+		wasDrawn[2] = 0;
+	if (wasDrawn[2] == 0)
+		mainMenu_draw(console_getConsoleWidth() / 12, console_getConsoleHeight() / 8 * 6, &credits, selected == 3 ? 14 : 3);
 	wasDrawn[2] = 1;
 	if (selected == 3)
 		wasDrawn[2] = 0;
 
-	for (i = 0; i < 7; i++)
-	{
-		if (selected == 4)
-			wasDrawn[3] = 0;
-		if (wasDrawn[3] == 0)
-		console_drawString(console_getConsoleWidth() / 12, console_getConsoleHeight() / 9 * 7 + i, exit1[i], selected == 4 ? 14 : 3, 34);
-	}
+	
+	if (selected == 4)
+		wasDrawn[3] = 0;
+	if (wasDrawn[3] == 0)
+		mainMenu_draw(console_getConsoleWidth() / 12, console_getConsoleHeight() /  8 * 7, &exit1, selected == 4 ? 14 : 3);
 	wasDrawn[3] = 1;
 	if (selected == 4)
 		wasDrawn[3] = 0;
 
 }
 
-/*Draws logo*/
-void mainMenu_drawLogo()
-{
-	for (int i = 0; i < 12; i++)
-	{
-		console_drawString(console_getConsoleWidth() / 9, console_getConsoleHeight() / 7 + i, logo[i], 7, 196);
-	}
-}
+
 
 
 
@@ -233,7 +183,7 @@ void mainMenu_Update()
 {
 	if (!logoDrawn)
 	{
-		mainMenu_drawLogo();
+		mainMenu_draw(console_getConsoleWidth()/2 - logo.width / 2,console_getConsoleHeight()/10,&logo,15);
 		logoDrawn = 1;
 	}
 	mainMenu_drawButtons();

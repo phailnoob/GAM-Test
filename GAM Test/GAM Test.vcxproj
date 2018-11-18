@@ -48,6 +48,11 @@
     <ClInclude Include="Codes\Trap.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Assets\Credits.txt" />
+    <Text Include="Assets\Exit.txt" />
+    <Text Include="Assets\Logo.txt" />
+    <Text Include="Assets\Options.txt" />
+    <Text Include="Assets\Play.txt" />
     <Text Include="Levels\0.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -36,6 +36,7 @@ void game_init()
 	gsm_gameStateInit();
 	arrayReader_init();
 	input_init();
+	mainMenu_Init();
 
 	mapUsed = false;
 	isRunning = true;
@@ -377,7 +378,7 @@ void game_loadMap(int mapNo)
 		game_turnOffGame();
 }
 
-char *game_readFile(char * fileName, int *fileWidth, int *fileHeight)
+char * game_readFile(char * fileName, int *fileWidth, int *fileHeight)
 {
 	char *textstring;
 	FILE *stream;
@@ -424,6 +425,7 @@ char *game_readFile(char * fileName, int *fileWidth, int *fileHeight)
 	
 
 		*(textstring + *fileWidth * *fileHeight - 1) = '\0';
+		return textstring;
 	}
 	else
 		game_turnOffGame();

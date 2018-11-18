@@ -14,6 +14,9 @@
     <Filter Include="Levels">
       <UniqueIdentifier>{129357a7-79ca-425a-b806-16917b24fab3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{01fe7516-7f6d-4ac9-a21e-a2e6ff7b903c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Codes\Main.c">
@@ -97,6 +100,21 @@
   <ItemGroup>
     <Text Include="Levels\0.txt">
       <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Assets\Logo.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\Options.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\Play.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\Credits.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\Exit.txt">
+      <Filter>Assets</Filter>
     </Text>
   </ItemGroup>
 </Project>

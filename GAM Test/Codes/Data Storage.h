@@ -71,6 +71,14 @@ typedef struct Exit
 }
 Exit;
 
+typedef struct AsciiChar
+{
+	char * string;
+	int width;
+	int height;
+
+}AsciiChar;
+
 
 void dataStorage_init();
 bool * dataStorage_getAliveBool();
