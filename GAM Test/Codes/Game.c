@@ -116,7 +116,7 @@ void game_update()
 		case state_Game:
 			game_borders();
 			drawUI();
-			UI_drawtorches();
+			UI_draw_torches();
 			input_checkInput();
 			break;
 		}

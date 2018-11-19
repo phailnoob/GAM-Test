@@ -2,8 +2,8 @@
 
 void game_borders();
 
-void drawUI_border();
+void drawUI();
 
-int UI_removetorches(int Inventory_torch);
+void UI_draw_torches();
 
-void UI_drawtorches();
+void UI_draw_traps();
