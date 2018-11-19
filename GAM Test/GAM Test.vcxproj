@@ -30,9 +30,11 @@
     <ClCompile Include="Codes\MainMenu.c" />
     <ClCompile Include="Codes\Options.c" />
     <ClCompile Include="Codes\PauseMenu.c" />
+    <ClCompile Include="Codes\SplashScreens.c" />
     <ClCompile Include="Codes\SpriteReference.c" />
     <ClCompile Include="Codes\Torch.c" />
     <ClCompile Include="Codes\Trap.c" />
+    <ClCompile Include="Codes\UI.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Data Storage.h" />
@@ -45,18 +47,23 @@
     <ClInclude Include="Codes\MainMenu.h" />
     <ClInclude Include="Codes\Options.h" />
     <ClInclude Include="Codes\PauseMenu.h" />
+    <ClInclude Include="Codes\SplashScreens.h" />
     <ClInclude Include="Codes\SpriteReference.h" />
     <ClInclude Include="Codes\Torch.h" />
     <ClInclude Include="Codes\Trap.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Assets\Credits.txt" />
+    <Text Include="Assets\Digipen.txt" />
     <Text Include="Assets\Exit.txt" />
     <Text Include="Assets\Logo.txt" />
     <Text Include="Assets\Options.txt" />
     <Text Include="Assets\Play.txt" />
+    <Text Include="Assets\Studio.txt" />
     <Text Include="Levels\0.txt" />
     <ClInclude Include="Codes\UI.h" />
+    <Text Include="Levels\1.txt" />
+    <Text Include="Levels\2.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EB0C7F36-5B30-4677-B3EB-0AB9DC60C6DB}</ProjectGuid>

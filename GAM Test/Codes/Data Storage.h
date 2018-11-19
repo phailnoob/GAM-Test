@@ -76,9 +76,7 @@ typedef struct AsciiChar
 	char * string;
 	int width;
 	int height;
-
 }AsciiChar;
-
 
 void dataStorage_init();
 bool * dataStorage_getAliveBool();
@@ -117,6 +115,6 @@ void dataStorage_setExitPos(int x, int y);
 void dataStorage_getExitPos(int *x, int *y);
 
 int dataStorage_torch_counter();
-//int dataStorage_trap_counter();
+int dataStorage_trap_counter();
 
 #endif

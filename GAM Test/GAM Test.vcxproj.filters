@@ -64,6 +64,9 @@
     <ClCompile Include="Codes\UI.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Codes\SplashScreens.c">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Input.h">
@@ -102,6 +105,9 @@
     <ClInclude Include="Codes\Trap.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Codes\SplashScreens.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Levels\0.txt">
@@ -128,5 +134,17 @@
     <ClInclude Include="Codes\UI.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <Text Include="Levels\1.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Assets\Digipen.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\Studio.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Levels\2.txt">
+      <Filter>Levels</Filter>
+    </Text>
   </ItemGroup>
 </Project>

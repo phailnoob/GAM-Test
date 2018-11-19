@@ -4,47 +4,52 @@
 #include "Enemy.h"
 #include "Console.h"
 #include "Array Reader.h"
+#include "MainMenu.h"
 #include "Data Storage.h"
 #include "Input.h"
 #include "Torch.h"
+#include "Trap.h"
 #include <time.h>
 #include <stdio.h>
 #include "GameStateManager.h"
 #include "MainMenu.h"
 #include "Options.h"
 #include "PauseMenu.h"
+#include "SplashScreens.h"
 
 bool isRunning, mapUsed;
 
 static int playerX, playerY, mapWidth, mapHeight; 
-static int torch_counter, trap_counter;
+static int torch_counter, trap_counter, changingColor;
 /* TODO Make sure to clear up all these static variables if the player goes back to main menu*/
 
 clock_t begin;
 double time_spent, prevTime, timeLapse;
+int currentMapNum = 0;
 bool isPaused;
 static int exitX, exitY;
 
-void game_EnemyUpdate();
 
 /*edited*/
 static char *map;
 
 void game_init()
 {
+	dataStorage_init();
 	console_init();
 	console_clear();
 	gsm_gameStateInit();
 	arrayReader_init();
 	input_init();
 	mainMenu_Init();
+	splashScreen_Init();
+	splashScreen_Draw();
 
 	mapUsed = false;
 	isRunning = true;
-	torch_counter = trap_counter = 0;
+	torch_counter = trap_counter = changingColor = 0;
 	exitX = exitY = 1;
 
-	torch_counter = 0;
 	begin = clock();
 	timeLapse = 0.3;
 	time_spent = prevTime = (double)(clock() - begin) / CLOCKS_PER_SEC;
@@ -78,7 +83,73 @@ void game_clearGame()
 	}
 }
 
+/*Temp lose screen*/
+void game_loseTempScreen()
+{
+	if (*dataStorage_getAliveBool() == false)
+	{
+		console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU LOSE", changingColor, 8);
+		console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10+1, "PRESS ESC TO RESTART", changingColor, 20);
+	}
+}
 
+/*Temp lose screen*/
+void game_winTempScreen()
+{
+	console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU WIN!", changingColor, 8);
+	console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10 + 1, "PRESS ESC TO RESTART", changingColor, 20);
+}
+
+void game_changeColor()
+{
+	if (changingColor < 15)
+	{
+		changingColor++;
+	}
+	else
+	{
+		changingColor = 9;
+	}
+}
+
+
+
+void game_EnemyUpdate()
+{
+	int x, y;
+	dataStorage_getPlayerPosition(&x, &y);
+	enemy_weightedMapReset();
+	enemy_recursiveCheckPath(dataStorage_getMapDataOut(), x, y, 1, 1);
+	enemy_setWallWeight(-1, dataStorage_getMapDataOut());
+	//enemy_drawDebugWeight();
+	for (int i = 0; i < 10; i++)
+	{
+		enemy_Update(i, dataStorage_getEnemyObject(i));
+	}
+	/*
+		printf("\nexit pos:   %d %d\n", exitX, exitY);
+		printf("player pos: %d %d\n", playerX, playerY);
+	*/
+	if (exitX == playerX && exitY == playerY)
+	{
+		if (currentMapNum == 0)
+		{
+			game_loadMap(1);
+			currentMapNum++;
+		}
+		else if(currentMapNum == 1)
+		{
+			game_winTempScreen();
+		}
+	}
+}
+
+/*
+Main Game Update Loop
+
+Scrolls through the different game states
+
+*/
 void game_update()
 {
 	if (gsm_IsValid(gsm_returnCurrentState()))
@@ -119,6 +190,8 @@ void game_update()
 				game_EnemyUpdate();
 				arrayReader_draw();
 				prevTime = time_spent;
+				game_changeColor();
+				game_loseTempScreen();
 			}
 
 			game_borders();
@@ -149,27 +222,6 @@ void game_update()
 }
 
 
-void game_EnemyUpdate()
-{
-
-	int x, y;
-	dataStorage_getPlayerPosition(&x, &y);
-	enemy_weightedMapReset();
-	enemy_recursiveCheckPath(dataStorage_getMapDataOut(), x, y, 1, 1);
-	enemy_setWallWeight(-1, dataStorage_getMapDataOut());
-	//enemy_drawDebugWeight();
-	for (int i = 0; i < 10; i++)
-	{
-		enemy_Update(i,dataStorage_getEnemyObject(i));
-	}
-
-	printf("\nexit pos:   %d %d\n", exitX, exitY);
-	printf("player pos: %d %d\n", playerX, playerY);
-
-	if (exitX == playerX && exitY == playerY)
-		game_loadMap(0);
-}
-
 void game_playerAction(int action)
 {
 	switch (action)
@@ -195,16 +247,25 @@ void game_playerAction(int action)
 				dataStorage_setPlayerPosition(--playerX, playerY);
 			break;
 		case 5: /* place torch action */
+			UI_draw_ResetTorchDrawn();
 			if (torch_counter > 4)
 				torch_counter -= 5;
-			placeTorch(torch_counter, playerX, playerY);
-			torch_counter++;
+			if (dataStorage_torch_counter() <5)
+			{
+				placeTorch(torch_counter, playerX, playerY);
+				torch_counter++;
+			}
 			break;
 		case 6: /* place trap action */
+
+			UI_draw_ResetTrapDrawn();
 			if (trap_counter > 4)
 				trap_counter -= 5;
-			placeTrap(trap_counter, playerX, playerY);
-			trap_counter++;
+			if (dataStorage_trap_counter() <5)
+			{
+				placeTrap(trap_counter, playerX, playerY);
+				trap_counter++;
+			}
 			break;
 
 		case 7: /* pause */
@@ -229,12 +290,6 @@ void game_playerAction(int action)
 	/*Draw Loop*/
 	arrayReader_draw();
 
-	if (*dataStorage_getAliveBool() == false)
-	{
-		/*PLAYER COLLISION*/
-//		console_clear();
-//		gsm_returnStateSystem()->next = state_mainMenu;
-	}
 }
 
 void game_modifyLoadValue(int * value, char * temp, char chara, FILE *stream)
@@ -286,7 +341,10 @@ void game_loadMap(int mapNo)
 	switch (mapNo)
 	{
 		case 0:
-			fileName = "Levels/0.txt";
+			fileName = "Levels/1.txt";
+			break;
+		case 1:
+			fileName = "Levels/2.txt";
 			break;
 	}
 
@@ -353,6 +411,12 @@ void game_loadMap(int mapNo)
 		while (temp == '\n')
 			fread(&temp, sizeof(char), 1, stream);
 
+		game_modifyLoadValue(&exitX, &temp, '/', stream);
+		game_modifyLoadValue(&exitY, &temp, '\n', stream);
+
+		while (temp == '\n')
+			fread(&temp, sizeof(char), 1, stream);
+
 /*		arrayReader_Destructor();
 		playerX = 6;
 		playerY = 5;
@@ -372,17 +436,47 @@ void game_loadMap(int mapNo)
 
 		while (temp != '\n')
 		{
+			bool patrol;
+			int x1, x2, y1, y2;
+			x1 = x2 = y1 = y2 = -1;
+
 			game_modifyLoadValue(&x, &temp, '/', stream);
-			game_modifyLoadValue(&y, &temp, '\n', stream);
-//			enemy_spawnEnemy(x, y, counter);
+			game_modifyLoadValue(&y, &temp, '/', stream);
+
+			if (temp == 't' || temp == 'T')
+			{
+				patrol = true;
+				while (temp != '/')
+					fread(&temp, sizeof(char), 1, stream);
+				fread(&temp, sizeof(char), 1, stream);
+				game_modifyLoadValue(&x1, &temp, '/', stream);
+				game_modifyLoadValue(&y1, &temp, '/', stream);
+				game_modifyLoadValue(&x2, &temp, '/', stream);
+				game_modifyLoadValue(&y2, &temp, '\n', stream);
+			}
+			else
+			{
+				patrol = false;
+				while (temp != '\n')
+					fread(&temp, sizeof(char), 1, stream);
+				fread(&temp, sizeof(char), 1, stream);
+			}
+
+			enemy_spawnEnemy(x, y, counter, patrol, x1, y1, x2, y2);
+
 			counter++;
 		}
+
+
+		fclose(stream);
 
 		dataStorage_TorchInit();
 		dataStorage_setPlayerPosition(playerX, playerY);
 		dataStorage_setExitPos(exitX, exitY);
 
+		arrayReader_setInitialDraw(true);
 		arrayReader_draw();
+		arrayReader_setInitialDraw(false);
 	}
 	else
 		game_turnOffGame();

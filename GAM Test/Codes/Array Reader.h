@@ -5,7 +5,7 @@
 
 void arrayReader_init();
 
-void arrayReader_setMap(short size);
+void arrayReader_setMap(int size);
 
 void arrayReader_draw();
 

@@ -13,20 +13,20 @@ Brief Description:
 #include "Console.h"
 #include "Data Storage.h"
 
-const char *UI_torch[3] = {
+char *UI_torch[3] = {
 							{ " \\**/"},
 							{ "  || " },
 							{ "  || " }
 };
 
-const char *UI_traps[3] = {
+char *UI_traps[3] = {
                             {"/<^>\\"},
 	                        {"|>|<|"},
                            {"\\<v>/"}
 };
 
-bool torchDrawn[5] = { 0,0,0,0,0 };
-bool trapDrawn[5] = { 0,0,0,0,0 };
+bool torchDrawn = 0;
+bool trapDrawn = 0;
 bool UIdrawn = false;
 bool bordersDrawn = false;
 
@@ -146,11 +146,13 @@ void UI_draw_torches()
 
 	UI_torch_pos = 2;
 
+	if (!torchDrawn)
+	{
 		if (torch_inv == 5)
 		{
 			int i, j;
 			int UI_torch_pos = 2;
-			
+
 			/*Draw all 5 torches (Greyed Out)*/
 			UI_torch_pos = 2;
 			/*5th red*/
@@ -188,7 +190,7 @@ void UI_draw_torches()
 			}
 		}
 
-		if(torch_inv == 4)
+		if (torch_inv == 4)
 		{
 
 			UI_torch_pos = 2;
@@ -227,7 +229,7 @@ void UI_draw_torches()
 			}
 		}
 
-		if(torch_inv == 3)
+		if (torch_inv == 3)
 		{
 			UI_torch_pos = 2;
 			/*5th red */
@@ -243,20 +245,20 @@ void UI_draw_torches()
 				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
 			}
 			UI_torch_pos += 5;
-			 /*3rd grey*/
+			/*3rd grey*/
 			for (j = 0; j < 3; j++)
 			{
 				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
 			}
 			UI_torch_pos += 5;
-			
+
 			/*2nd grey*/
 			for (j = 0; j < 3; j++)
 			{
 				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
 			}
 			UI_torch_pos += 5;
-			
+
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
@@ -356,40 +358,43 @@ void UI_draw_torches()
 			}
 			UI_torch_pos += 5;
 			/*3rd red*/
-			if(torchDrawn[2]==0)
 			for (j = 0; j < 3; j++)
 			{
 				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
 			}
-		
+
 			UI_torch_pos += 5;
 
-			
+
 			/*2nd red*/
-			if (torchDrawn[1] == 0)
+			for (j = 0; j < 3; j++)
 			{
-				for (j = 0; j < 3; j++)
-				{
-					console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
-				}
-				torchDrawn[1] = 1;
-		
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
 			}
+
 
 			UI_torch_pos += 5;
 			/*1st red*/
-			if (torchDrawn[0] == 0)
+			for (j = 0; j < 3; j++)
 			{
-				for (j = 0; j < 3; j++)
-				{
-					console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
-				}
-				torchDrawn[0] = 1;
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
 			}
 		}
-
+		torchDrawn = 1;
+	}
 
 }
+
+
+void UI_draw_ResetTorchDrawn()
+{
+	torchDrawn = 0;
+}
+void UI_draw_ResetTrapDrawn()
+{
+	trapDrawn = 0;
+}
+
 
 void UI_draw_traps()
 {
@@ -399,245 +404,239 @@ void UI_draw_traps()
 
 	traps_inv = dataStorage_trap_counter();
 
-
-	if (traps_inv == 5)
+	if (!trapDrawn)
 	{
-
-		UI_trap_pos = 2;
-		/*5th red*/
-		for (j = 0; j < 3; j++)
+		if (traps_inv == 5)
 		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
 
-		/*4th grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			UI_trap_pos = 2;
+			/*5th red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*3rd grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*4th grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*2nd grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*3rd grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*1st grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			/*2nd grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
+
+			/*1st grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+
 		}
 
-	}
+		if (traps_inv == 4)
+		{
 
-	if (traps_inv == 4)
-	{
+			UI_trap_pos = 2;
+			/*5th red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		UI_trap_pos = 2;
-		/*5th red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*4th grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*4th grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*3rd grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*3rd grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*2nd grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*2nd grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			/*1st grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
 		}
-		UI_trap_pos += 5;
 
-		/*1st grey*/
-		for (j = 0; j < 3; j++)
+		if (traps_inv == 3)
 		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-	}
+			UI_trap_pos = 2;
+			/*5th red */
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-	if (traps_inv == 3)
-	{
-		UI_trap_pos = 2;
-		/*5th red */
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*4th red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
+			/*3rd grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*4th red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
-		/*3rd grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*2nd grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*2nd grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			/*1st grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
 		}
-		UI_trap_pos += 5;
 
-		/*1st grey*/
-		for (j = 0; j < 3; j++)
+		if (traps_inv == 2)
 		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-	}
+			UI_trap_pos = 2;
+			/*5th red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-	if (traps_inv == 2)
-	{
-		UI_trap_pos = 2;
-		/*5th red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*4th red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
+			/*3rd red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*4th red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
-		/*3rd red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*2nd grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*2nd grey*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			/*1st grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
 		}
-		UI_trap_pos += 5;
 
-		/*1st grey*/
-		for (j = 0; j < 3; j++)
+		if (traps_inv == 1)
 		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-	}
+			UI_trap_pos = 2;
+			/*5th red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-	if (traps_inv == 1)
-	{
-		UI_trap_pos = 2;
-		/*5th red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*4th red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
+			/*3rd red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*4th red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
-		/*3rd red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
+			/*2nd red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		/*2nd red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			/*1st grey*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+			}
 		}
-		UI_trap_pos += 5;
 
-		/*1st grey*/
-		for (j = 0; j < 3; j++)
+		if (traps_inv == 0)
 		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
-		}
-	}
+			UI_trap_pos = 2;
+			/*5th red*/
 
-	if (traps_inv == 0)
-	{
-		UI_trap_pos = 2;
-		/*5th red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
 
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
-
-		/*4th red*/
-		for (j = 0; j < 3; j++)
-		{
-			console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
-		}
-		UI_trap_pos += 5;
-		/*3rd red*/
-		if (trapDrawn[2] == 0)
+			/*4th red*/
+			for (j = 0; j < 3; j++)
+			{
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+			}
+			UI_trap_pos += 5;
+			/*3rd red*/
 			for (j = 0; j < 3; j++)
 			{
 				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
 			}
 
-		UI_trap_pos += 5;
+			UI_trap_pos += 5;
 
 
-		/*2nd red*/
-		if (trapDrawn[1] == 0)
-		{
+			/*2nd red*/
 			for (j = 0; j < 3; j++)
 			{
 				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
 			}
-			trapDrawn[1] = 1;
 
-		}
-
-		UI_trap_pos += 5;
-		/*1st red*/
-		if (trapDrawn[0] == 0)
-		{
+			UI_trap_pos += 5;
+			/*1st red*/
 			for (j = 0; j < 3; j++)
 			{
 				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
 			}
-			trapDrawn[0] = 1;
 		}
+
+		trapDrawn = true;
 	}
 
 

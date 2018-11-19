@@ -220,7 +220,7 @@ void dataStorage_getExitPos(int *x, int *y)
 	*x = exitLocation.x;
 	*y = exitLocation.y;
 }
-}
+
 
 int dataStorage_torch_counter()
 {

@@ -8,10 +8,11 @@
 #include "Trap.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 static char *prevColor, *currColor, *prevMap, *currentMap;
-static int width, height, i ,j, playerX, playerY, fogStart, fogEnd, distance, f, g, h, playerRange = 3;
-static bool change;
+static int width, height, i, j, playerX, playerY, fogStart, fogEnd, distance, f, g, h, playerRange = 3;
+static bool change, initialDraw = false;
 Enemy *en;
 
 Torch *torch;
@@ -34,13 +35,15 @@ void arrayReader_init()
 }
 
 /*---Returns squared value---*/
-short arrayReader_checkDistance(short x1, short y1, short x2, short y2)
+int arrayReader_checkDistance(int x1, int y1, int x2, int y2)
 {
 	return ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
 
-void arrayReader_setMap(short size)
+void arrayReader_setMap(int size)
 {
+	int xx;
+
 	prevColor = malloc(size);
 
 	currColor = malloc(size);
@@ -49,43 +52,17 @@ void arrayReader_setMap(short size)
 
 	currentMap = malloc(size);
 
-	memset(prevColor, -1, size);
-	memset(prevMap, -1, size);
-	memset(currColor, 0, size);
+	for (xx = 0; xx < size; xx++)
+	{
+		prevColor[xx] = -1;
+		prevMap[xx] = -1;
+		currColor[xx] = 0;
+	}
 
 	dataStorage_getMapData(&width, &height);
 	dataStorage_getPlayerPosition(&playerX, &playerY);
 
 	dataStorage_getExitPos(&exitX, &exitY);
-
-	for (i = 0; i < height; i++)
-	{
-		for (j = 0; j < width; j++)
-		{
-			currentMap[i*height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
-		}
-	}
-
-	currentMap[playerY * height + playerX] = spriteReference_getSprite(2);
-
-	for (i = 0; i < height; i++)
-	{
-		for (j = 0; j < width; j++)
-		{
-			if (arrayReader_checkDistance(j, i, playerX, playerY) < 9)
-				currColor[i*height + j] = 15;
-			else
-				currColor[i*height + j] = 8;
-		}
-	}
-
-	for (k = 0; k < 5; ++k)
-		destroyTorch(k);
-
-	for (a = 0; a < 5; ++a)
-		destroyTrap(a);
-
-
 }
 
 void arrayReader_draw()
@@ -104,19 +81,22 @@ void arrayReader_draw()
 
 			currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
 
-			if (exitY == i && exitX == j)
-				currentMap[i * height + j] = spriteReference_getSprite(5);
 
 			if (arrayReader_checkDistance(j, i, playerX, playerY) < playerRange * playerRange)
 			{
 				currColor[i*height + j] = 15;
 
+				if (exitY == i && exitX == j)
+				{
+					currentMap[i * height + j] = spriteReference_getSprite(5);
+					currColor[i*height + j] = 10;
+				}
 				for (h = 0; h < 10; h++)
 				{
-					en = dataStorage_getEnemyObject((char)h);
+					en = dataStorage_getEnemyObject((int)h);
 					if (en->active)
 					{
-						dataStorage_getEnemyPosition(&f, &g, (short)h);
+						dataStorage_getEnemyPosition(&f, &g, (int)h);
 						if (j == f && i == g)
 						{
 							currentMap[i * height + j] = spriteReference_getSprite(3);
@@ -132,7 +112,7 @@ void arrayReader_draw()
 					}
 				}
 			}
-
+			
 			for (a = 0; a < 5; ++a)
 			{
 				trap = dataStorage_getTrapObj(a);
@@ -142,13 +122,13 @@ void arrayReader_draw()
 				{
 					for (h = 0; h < 10; h++)
 					{
-						en = dataStorage_getEnemyObject((char)h);
+						en = dataStorage_getEnemyObject((int)h);
 						if (en->active)
 						{
-							dataStorage_getEnemyPosition(&f, &g, (short)h);
+							dataStorage_getEnemyPosition(&f, &g, (int)h);
 							if (j == f && i == g)
 							{
-								currentMap[i * height + j] = spriteReference_getSprite(3);
+								//currentMap[i * height + j] = spriteReference_getSprite(3);
 
 								if (trapX == f && trapY == g)
 								{
@@ -184,12 +164,17 @@ void arrayReader_draw()
 					{
 						currColor[i*height + j] = 15;
 
+						if (exitY == i && exitX == j)
+						{
+							currentMap[i * height + j] = spriteReference_getSprite(5);
+							currColor[i*height + j] = 10;
+						}
 						for (h = 0; h < 10; h++)
 						{
-							en = dataStorage_getEnemyObject((char)h);
+							en = dataStorage_getEnemyObject((int)h);
 							if (en->active)
 							{
-								dataStorage_getEnemyPosition(&f, &g, (short)h);
+								dataStorage_getEnemyPosition(&f, &g, (int)h);
 								if (j == f && i == g)
 								{
 									currentMap[i * height + j] = spriteReference_getSprite(3);
@@ -213,7 +198,9 @@ void arrayReader_draw()
 					}
 				}
 			}
-	
+
+			
+
 
 			/* draw player */
 			if (j == playerX && i == playerY)
@@ -231,11 +218,18 @@ void arrayReader_draw()
 				change = true;
 			}
 
-			if (change)
+			/*if (initialDraw)
 				console_draw((console_getConsoleWidth() - width) / 2 + j,
-					(console_getConsoleHeight() - height) / 2 + i,
+				(console_getConsoleHeight() - height) / 2 + i,
 					currentMap[i*height + j],
 					currColor[i*height + j]);
+			else if (change)*/
+				console_draw((console_getConsoleWidth() - width) / 2 + j,
+				(console_getConsoleHeight() - height) / 2 + i,
+					currentMap[i*height + j],
+					currColor[i*height + j]);
+
+			
 		}
 	}
 }
@@ -249,4 +243,9 @@ void arrayReader_Destructor()
 	free(prevMap);
 
 	free(currentMap);
+}
+
+void arrayReader_setInitialDraw(bool someBool)
+{
+	initialDraw = someBool;
 }

@@ -18,35 +18,56 @@ void input_wasd(int key)
 {
 	switch (key)
 	{
+		if (*dataStorage_getAliveBool() == true)
+		
 		case 87:
 		case 119:
-			game_playerAction(1);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(1);
+				keyPressed = false;
+			}
 			break;
 		case 83:
 		case 115:
-			game_playerAction(2);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(2);
+				keyPressed = false;
+			}
 			break;
 		case 65:
 		case 97:
-			game_playerAction(3);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(3);
+				keyPressed = false;
+			}
 			break;
 		case 68:
 		case 100:
-			game_playerAction(4);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(4);
+				keyPressed = false;
+			}
 			break;
 
 		case 116: /* 't' */
-			game_playerAction(5);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(5);
+				keyPressed = false;
+			}
 			break;
 		case 121: /* 'y' */
-			game_playerAction(6);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(6);
+				keyPressed = false;
+			}
 			break;
+
 		case 27: /* esc */
 			game_playerAction(7);
 			keyPressed = false;
@@ -59,20 +80,32 @@ void input_arrow(int key)
 	switch (key)
 	{
 		case 72:
-			game_playerAction(1);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(1);
+				keyPressed = false;
+			}
 			break;
 		case 80:
-			game_playerAction(2);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(2);
+				keyPressed = false;
+			}
 			break;
 		case 75:
-			game_playerAction(3);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(3);
+				keyPressed = false;
+			}
 			break;
 		case 77:
-			game_playerAction(4);
-			keyPressed = false;
+			if (*dataStorage_getAliveBool() == true)
+			{
+				game_playerAction(4);
+				keyPressed = false;
+			}
 			break;
 
 	}
@@ -80,7 +113,6 @@ void input_arrow(int key)
 
 void input_checkInput()
 {
-	
 	keyDown = _kbhit();
 
 	if (keyDown)
