@@ -116,4 +116,7 @@ Trap* dataStorage_getTrapObj(int index);
 void dataStorage_setExitPos(int x, int y);
 void dataStorage_getExitPos(int *x, int *y);
 
+int dataStorage_torch_counter();
+//int dataStorage_trap_counter();
+
 #endif

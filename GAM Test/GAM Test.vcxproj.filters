@@ -61,6 +61,9 @@
     <ClCompile Include="Codes\Trap.c">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Codes\UI.c">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Input.h">
@@ -120,6 +123,9 @@
       <Filter>Assets</Filter>
     </Text>
     <ClInclude Include="Codes\Options.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\UI.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
