@@ -117,6 +117,7 @@ void game_update()
 			game_borders();
 			drawUI();
 			UI_draw_torches();
+			UI_draw_traps();
 			input_checkInput();
 			break;
 		}

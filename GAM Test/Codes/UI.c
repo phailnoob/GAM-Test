@@ -104,6 +104,9 @@ void drawUI()
 		for (j = 0; j < 29; j++)
 			printf("%c", 205);
 
+		console_setCursorPosition(30, 20);
+			printf("%c", 185);
+
 		console_setCursorPosition(2, 2);
 		printf("Torches:");
 	
@@ -122,66 +125,15 @@ void drawUI()
 
 
 
-/******************************************************************************
-   Function: check_Active_Torch
 
-Description: This function currently only checks that a torch has been placed
-              down and greys out the inventory slot accordingly.
-          
-	Inputs:  None
-    Outputs: None
-******************************************************************************/
-//int check_Active_Torch()
-//{
-//	int i = 0, j = 0;
-//	/*grey out torch for every torch placed*/
-//	int UI_torch_pos = 2;
-//	for (i = 0; i < 5; i++)
-//	{
-//		if (dataStorage_getTorchObj(i)->active)
-//		{
-//			
-//			for (j = 0; j < 3; j++)
-//			{
-//				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
-//			}
-//			UI_torch_pos -= 5;
-//		}
-//
-//	}
-//}
-
-/*if bool is false then draw, after draw change to 1*/
 /******************************************************************************
    Function: UI_drawtorches
 
-Description: Initializes the default UI element (i.e 5 torches)
+Description: Initializes the default UI element and draws torches accordingly.
           
 	Inputs: None
     Outputs: None.
 ******************************************************************************/
-//void UI_drawtorches()
-//{
-//	int i,j;
-//	int UI_torch_pos = 2;
-//	console_setCursorPosition(2, 2);
-//		printf("Torches:");
-//
-//		
-//		/*Initialize drawing all 5 torches*/
-//		for (i = 0; i < 5; i++)
-//		{
-//			for (j = 0; j < 3; j++)
-//			{
-//				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
-//			}
-//			UI_torch_pos += 5;
-//		}
-//
-//
-//		check_Active_Torch();
-//}
-
 
 
 void UI_draw_torches()

@@ -79,6 +79,6 @@ void dataStorage_getTorchPos(int index, int *x, int *y);
 Torch* dataStorage_getTorchObj(int index);
 
 int dataStorage_torch_counter();
-int dataStorage_trap_counter();
+//int dataStorage_trap_counter();
 
 #endif
