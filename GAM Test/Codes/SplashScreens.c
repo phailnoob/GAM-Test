@@ -21,7 +21,7 @@ void splashScreen_Draw()
 		{
 			if (*(digipen.string + (i * (digipen.width + 1)) + j) != '\n')
 			{
-				console_draw(console_getConsoleWidth()/2-digipen.width/2 + j, console_getConsoleHeight() / 2 - digipen.height / 2 + i, *(digipen.string + (i * (1 + digipen.width)) + j), 15);
+				console_draw(console_getConsoleWidth()/2-digipen.width/2 + j, console_getConsoleHeight() / 2 - digipen.height / 2 + i, *(digipen.string + (i * (1 + digipen.width)) + j), 12);
 			}
 		}
 	}
