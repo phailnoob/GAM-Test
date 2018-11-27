@@ -10,4 +10,3 @@ void UI_draw_ResetTorchDrawn();
 void UI_draw_ResetTrapDrawn();
 
 void UI_draw_traps();
-void UI_clearDraw();

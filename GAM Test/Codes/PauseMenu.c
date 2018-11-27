@@ -250,28 +250,6 @@ void PointAtOption(int key)
 			isPaused = !isPaused;
 
 		keyPressed = false;
-	case 27: /* esc */
-		MoveBichGetOutTheWay();
-		game_playerAction(7);
-		keyPressed = false;
-		break;
-
-	case 13: /* enter */
-		switch (pointingAt)
-		{
-		case 1:
-			game_playerAction(7);
-			break;
-
-		case 2:
-			break;
-
-		case 3:
-			break;
-
-		default:
-			break;
-		}
 		break;
 	}
 }
@@ -287,6 +265,5 @@ void PauseMenu_CheckInput()
 		keyPressed = true;
 		PointAtOption(keyPress);
 		/* printf("%d", keyPress); */
-//		printf("%d", keyPress);
 	}
 }

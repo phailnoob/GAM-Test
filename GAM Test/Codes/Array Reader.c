@@ -133,7 +133,7 @@ void arrayReader_draw()
 								if (trapX == f && trapY == g)
 								{
 									enemy_deactivateEnemy(h);
-									placeTrap(a, -1, -1);
+									destroyTrap(a);
 									break;
 								}
 

@@ -80,15 +80,6 @@ void input_wasd(int key)
 			{
 				game_playerAction(7);
 			}*/
-			if (*dataStorage_getAliveBool() == true)
-			{
-				game_playerAction(7);
-			}
-			else
-			{
-				console_clear();
-				gsm_returnStateSystem()->next = state_mainMenu;
-			}
 			keyPressed = false;
 			break;
 	}

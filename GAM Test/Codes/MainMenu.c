@@ -23,7 +23,7 @@ bool logoDrawn = 0;
 
 bool wasDrawn[4] = { 0,0,0,0 };
 
-AsciiChar logo,play,options,credits,exit1,kenny;
+static AsciiChar logo,play,options,credits,exit1,kenny;
 
 
 /*Reset main menu variables*/
@@ -43,6 +43,15 @@ void mainMenu_Init()
 	credits.string = game_readFile("Assets/Credits.txt", &(credits.width), &(credits.height));
 	exit1.string = game_readFile("Assets/Exit.txt", &(exit1.width), &(exit1.height));
 	kenny.string = game_readFile("Assets/kenny.txt", &(kenny.width), &(kenny.height));
+}
+
+AsciiChar* mainMenu_getOptions()
+{
+	return &options;
+}
+AsciiChar* mainMenu_getCredits()
+{
+	return &credits;
 }
 
 /*Handles arrow keys input*/
@@ -81,13 +90,15 @@ void mainMenu_arrow(int key,bool * keyPressed)
 				mainMenu_Reset();
 				system("cls");
 				break;
-			case 2:/*Changes state to Options*/
-				/*gsm_setNextState(state_Options);
+			case 2:
+				gsm_setNextState(state_Options);
 				mainMenu_Reset();
 				system("cls");
-				REMEMBER TO CHANGE THE COLOR THANKS FUTURE BABY*/
 				break;
 			case 3:/*Changes state to Credits*/
+				gsm_setNextState(state_Credits);
+				mainMenu_Reset();
+				system("cls");
 				break;
 			case 4:/*Changes state to Exit*/
 				gsm_setNextState(state_Exit);
@@ -148,7 +159,7 @@ void mainMenu_drawButtons()
 	if (selected == 2)
 		wasDrawn[1] = 0;
 	if (wasDrawn[1] == 0)
-		mainMenu_draw(console_getConsoleWidth() / 12, console_getConsoleHeight() / 8 * 5, &options, selected == 2 ? 8 : 3);
+		mainMenu_draw(console_getConsoleWidth() / 12, console_getConsoleHeight() / 8 * 5, &options, selected == 2 ? 14 : 3);
 	wasDrawn[1] = 1;
 	if (selected == 2)
 		wasDrawn[1] = 0;
@@ -157,7 +168,7 @@ void mainMenu_drawButtons()
 	if (selected == 3)
 		wasDrawn[2] = 0;
 	if (wasDrawn[2] == 0)
-		mainMenu_draw(console_getConsoleWidth() / 12, console_getConsoleHeight() / 8 * 6, &credits, selected == 3 ? 8 : 3);
+		mainMenu_draw(console_getConsoleWidth() / 12, console_getConsoleHeight() / 8 * 6, &credits, selected == 3 ? 14 : 3);
 	wasDrawn[2] = 1;
 	if (selected == 3)
 		wasDrawn[2] = 0;

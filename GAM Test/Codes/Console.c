@@ -94,7 +94,7 @@ void console_draw(int drawX, int drawY, char drawChar, char color)
 	SetConsoleCursorInfo(writeHandle, &cursorInfo);
 }
 
-void console_drawString(char drawX, char drawY, char drawChar[], char color,int charSize)
+void console_drawString(char drawX, char drawY, char drawChar[], char color)
 {
 
 	WORD textColor = 0;
@@ -126,15 +126,14 @@ void console_drawString(char drawX, char drawY, char drawChar[], char color,int 
 
 	SetConsoleTextAttribute(writeHandle, textColor);
 
-	for (int i = 0; i < charSize; i++)
-	{
-		console_setCursorPosition(drawX+i, drawY);
-		printf_s("%c",  drawChar[i]);
+	
+	console_setCursorPosition(drawX, drawY);
+	printf_s("%s",  drawChar);
 
-		cursorInfo.dwSize = 100;
-		cursorInfo.bVisible = 0;
-		SetConsoleCursorInfo(writeHandle, &cursorInfo);
-	}
+	cursorInfo.dwSize = 100;
+	cursorInfo.bVisible = 0;
+	SetConsoleCursorInfo(writeHandle, &cursorInfo);
+	
 }
 
 void console_clear()

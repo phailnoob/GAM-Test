@@ -12,10 +12,14 @@ Main Menu functions
 #include <windows.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include "MainMenu.h"
+#include "GameStateManager.h"
 #include "Options.h"
 
 bool staticDrawn;
 short consoleWidth, consoleHeight;
+char keyDown,keyPress;
+
 
 
 
@@ -54,75 +58,29 @@ void options_DrawUIBox(short boxWidth,short boxHeight,short boxX,short boxY,char
 		}
 	}
 
-	
+	mainMenu_draw(console_getConsoleWidth() / 2-mainMenu_getOptions()->width/2, (int)(console_getConsoleHeight() / 8 *1.5), mainMenu_getOptions(), 15);
+	console_drawString(console_getConsoleWidth() / 2 - 17, (int)(console_getConsoleHeight() / 8 * 7), "Press Escape to return to main menu", 15);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void options_Update()
 {
 	if (!staticDrawn)
 	{
-		options_DrawUIBox(consoleWidth / 10 * 8, consoleHeight / 10 * 8, consoleWidth / 10, consoleHeight / 10, 9);
-
-
+		options_DrawUIBox(consoleWidth / 10 * 3, consoleHeight / 10 * 8, consoleWidth / 2 - consoleWidth/10*1.5, consoleHeight / 10, 15);
 
 		staticDrawn = !staticDrawn;
 	}
+
+
+
+	keyDown = _kbhit();
+	if (keyDown)
+	{
+		keyPress = _getch();
+		if (keyPress == 27)
+		{
+			gsm_returnStateSystem()->next = state_mainMenu;
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

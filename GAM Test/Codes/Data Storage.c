@@ -232,6 +232,7 @@ int dataStorage_torch_counter()
 		if (dataStorage_getTorchObj(counter)->active)
 		{
 			torches++;
+			continue;
 		}
 			
 	}
@@ -249,6 +250,7 @@ int dataStorage_trap_counter()
 		if (dataStorage_getTrapObj(counter)->active)
 		{
 			traps++;
+			continue;
 		}
 	}
 	return traps;

@@ -15,8 +15,8 @@
 #include "MainMenu.h"
 #include "Options.h"
 #include "PauseMenu.h"
+#include "Credits.h"
 #include "SplashScreens.h"
-#include "UI.h"
 
 bool isRunning, mapUsed;
 
@@ -26,7 +26,6 @@ static int torch_counter, trap_counter, changingColor;
 
 clock_t begin;
 double time_spent, prevTime, timeLapse;
-int currentMapNum, lastMapNum;
 int currentMapNum = 0;
 bool isPaused;
 static int exitX, exitY;
@@ -56,9 +55,6 @@ void game_init()
 	timeLapse = 0.3;
 	time_spent = prevTime = (double)(clock() - begin) / CLOCKS_PER_SEC;
 	isPaused = false;
-
-	currentMapNum = 0;
-	lastMapNum = 1;
 }
 
 bool game_isRunning()
@@ -96,13 +92,13 @@ void game_loseTempScreen()
 		console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU LOSE", changingColor, 8);
 		console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10+1, "PRESS ESC TO RESTART", changingColor, 20);
 
+
 	}
 }
 
 /*Temp lose screen*/
 void game_winTempScreen()
 {
-	*dataStorage_getAliveBool() = false;
 	console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU WIN!", changingColor, 8);
 	console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10 + 1, "PRESS ESC TO RESTART", changingColor, 20);
 }
@@ -118,6 +114,7 @@ void game_changeColor()
 		changingColor = 9;
 	}
 }
+
 
 
 void game_EnemyUpdate()
@@ -138,14 +135,14 @@ void game_EnemyUpdate()
 	*/
 	if (exitX == playerX && exitY == playerY)
 	{
-		if(currentMapNum == lastMapNum)
+		if (currentMapNum == 0)
+		{
+			game_loadMap(1);
+			currentMapNum++;
+		}
+		else if(currentMapNum == 1)
 		{
 			game_winTempScreen();
-		}
-		else
-		{
-			currentMapNum++;
-			game_loadMap(currentMapNum);
 		}
 	}
 }
@@ -175,26 +172,39 @@ void game_update()
 					mainMenu_resetMainMenu();
 					*dataStorage_getAliveBool() = true;
 					gsm_returnStateSystem()->next = state_Game;
-					currentMapNum = 0;
-					game_loadMap(currentMapNum);
+					game_loadMap(0);
 
 				}
 				else if (gsm_returnStateSystem()->next == state_Options)
 				{
 					options_Init();
 				}
+				else if (gsm_returnStateSystem()->next == state_Credits)
+				{
+					credits_Init();
+				}
 			}
 			break;
 		case state_Options:
 			options_Update();
+			if (gsm_IsChanging())
+			{
+				system("cls");
+				mainMenu_resetMainMenu();
+			}
 			break;
 		case state_Credits:
+			credits_Update();
+			if (gsm_IsChanging())
+			{
+				system("cls");
+				mainMenu_resetMainMenu();
+			}
 			break;
 		case state_Game:
 			time_spent = (double)(clock() - begin - prevTime) / CLOCKS_PER_SEC;
 			arrayReader_draw();
-
-			if (time_spent - prevTime >= timeLapse)
+			while (time_spent - prevTime >= timeLapse)
 			{
 				game_EnemyUpdate();
 				prevTime = time_spent;
@@ -335,20 +345,6 @@ void game_modifyLoadValue(int * value, char * temp, char chara, FILE *stream)
 
 void game_loadMap(int mapNo)
 {
-	for (trap_counter = 5; trap_counter > 0;)
-	{
-		trap_counter--;
-		destroyTrap(trap_counter);
-	}
-
-	for (torch_counter = 5; torch_counter > 0;)
-	{
-		torch_counter--;
-		destroyTorch(torch_counter);
-	}
-
-	UI_clearDraw();
-
 	FILE *stream;
 	bool checkHeight = true;
 	bool fileOpen = false;

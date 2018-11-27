@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Codes\Credits.c" />
     <ClCompile Include="Codes\Data Storage.c" />
     <ClCompile Include="Codes\Enemy.c" />
     <ClCompile Include="Codes\Game.c" />
@@ -37,6 +38,7 @@
     <ClCompile Include="Codes\UI.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Codes\Credits.h" />
     <ClInclude Include="Codes\Data Storage.h" />
     <ClInclude Include="Codes\Enemy.h" />
     <ClInclude Include="Codes\Game.h" />
@@ -53,10 +55,15 @@
     <ClInclude Include="Codes\Trap.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Assets\adam.txt" />
+    <Text Include="Assets\clear.txt" />
     <Text Include="Assets\Credits.txt" />
     <Text Include="Assets\Digipen.txt" />
+    <Text Include="Assets\edwin.txt" />
     <Text Include="Assets\Exit.txt" />
+    <Text Include="Assets\kailiang.txt" />
     <Text Include="Assets\Logo.txt" />
+    <Text Include="Assets\marcus.txt" />
     <Text Include="Assets\Options.txt" />
     <Text Include="Assets\Play.txt" />
     <Text Include="Assets\Studio.txt" />
