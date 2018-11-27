@@ -286,7 +286,6 @@ void game_playerAction(int action)
 			}
 			else
 			{
-				console_clear();
 				gsm_returnStateSystem()->next = state_Game;
 				isPaused = !isPaused;
 			}

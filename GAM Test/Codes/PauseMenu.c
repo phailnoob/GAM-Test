@@ -251,6 +251,7 @@ void PointAtOption(int key)
 
 		keyPressed = false;
 	case 27: /* esc */
+		MoveBichGetOutTheWay();
 		game_playerAction(7);
 		keyPressed = false;
 		break;
