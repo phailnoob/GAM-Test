@@ -120,29 +120,6 @@ void game_changeColor()
 }
 
 
-
-	}
-}
-
-/*Temp lose screen*/
-void game_winTempScreen()
-{
-	console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU WIN!", changingColor, 8);
-	console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10 + 1, "PRESS ESC TO RESTART", changingColor, 20);
-}
-
-void game_changeColor()
-{
-	if (changingColor < 15)
-	{
-		changingColor++;
-	}
-	else
-	{
-		changingColor = 9;
-	}
-}
-
 void game_EnemyUpdate()
 {
 	int x, y;
@@ -169,6 +146,7 @@ void game_EnemyUpdate()
 		{
 			currentMapNum++;
 			game_loadMap(currentMapNum);
+		}
 	}
 }
 
