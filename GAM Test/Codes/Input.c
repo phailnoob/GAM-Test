@@ -70,16 +70,7 @@ void input_wasd(int key)
 			break;
 
 		case 27: /* esc */
-			if (*dataStorage_getAliveBool() == false)
-			{
-				console_clear();
-				gsm_returnStateSystem()->next = state_mainMenu;
-				
-			}
-			/*else
-			{
-				game_playerAction(7);
-			}*/
+			game_playerAction(7);
 			keyPressed = false;
 			break;
 	}

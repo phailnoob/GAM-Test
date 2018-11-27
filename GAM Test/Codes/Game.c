@@ -90,8 +90,6 @@ void game_loseTempScreen()
 	{
 		console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU LOSE", changingColor, 8);
 		console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10+1, "PRESS ESC TO RESTART", changingColor, 20);
-
-
 	}
 }
 
@@ -114,7 +112,16 @@ void game_changeColor()
 	}
 }
 
+void resetItems()
+{
+	int i;
 
+	for (i = 0; i < 5; i++)
+		destroyTorch(i);
+
+	for (i = 0; i < 5; i++)
+		destroyTrap(i);
+}
 
 void game_EnemyUpdate()
 {
@@ -136,11 +143,14 @@ void game_EnemyUpdate()
 	{
 		if (currentMapNum == 0)
 		{
+			resetItems();
+
 			game_loadMap(1);
 			currentMapNum++;
 		}
 		else if(currentMapNum == 1)
 		{
+			resetItems();
 			game_winTempScreen();
 		}
 	}
@@ -280,6 +290,7 @@ void game_playerAction(int action)
 			}
 			else
 			{
+				console_clear();
 				gsm_returnStateSystem()->next = state_Game;
 				isPaused = !isPaused;
 			}

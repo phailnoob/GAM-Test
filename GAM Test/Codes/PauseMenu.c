@@ -240,16 +240,27 @@ void PointAtOption(int key)
 		keyPressed = false;
 		break;
 
-	case 75: /*left for now*/
-		if (isPaused)
-		{
-			gsm_returnStateSystem()->next = state_Game;
-			isPaused = !isPaused;
-		}
-		else
-			isPaused = !isPaused;
-
+	case 27: /* esc */
+		game_playerAction(7);
 		keyPressed = false;
+		break;
+
+	case 13: /* enter */
+		switch (pointingAt)
+		{
+		case 1:
+			game_playerAction(7);
+			break;
+
+		case 2:
+			break;
+
+		case 3:
+			break;
+
+		default:
+			break;
+		}
 		break;
 	}
 }
@@ -264,6 +275,6 @@ void PauseMenu_CheckInput()
 		keyPress = _getch();
 		keyPressed = true;
 		PointAtOption(keyPress);
-		/* printf("%d", keyPress); */
+		printf("%d", keyPress);
 	}
 }
