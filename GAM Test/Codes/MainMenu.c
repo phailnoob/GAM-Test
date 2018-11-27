@@ -72,7 +72,8 @@ void mainMenu_arrow(int key,bool * keyPressed)
 			}
 			*keyPressed = false;
 			break;
-		case 0:
+		case 32:
+		case 13:
 			switch (selected)
 			{
 			case 1:/*Changes state to Game*/
@@ -105,6 +106,7 @@ void mainMenu_checkInput()
 	if (keyDown)
 	{
 		keyPressed = true;
+		mainMenu_arrow(keyPress, &keyPressed);
 	}
 	else
 	{

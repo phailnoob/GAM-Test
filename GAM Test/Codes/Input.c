@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "Game.h"
 #include "Enemy.h"
+#include "GameStateManager.h"
 
 static int keyPress, keyDown;
 static bool keyPressed;
@@ -69,7 +70,16 @@ void input_wasd(int key)
 			break;
 
 		case 27: /* esc */
-			game_playerAction(7);
+			if (*dataStorage_getAliveBool() == false)
+			{
+				console_clear();
+				gsm_returnStateSystem()->next = state_mainMenu;
+				
+			}
+			/*else
+			{
+				game_playerAction(7);
+			}*/
 			keyPressed = false;
 			break;
 	}

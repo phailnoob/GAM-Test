@@ -90,6 +90,8 @@ void game_loseTempScreen()
 	{
 		console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU LOSE", changingColor, 8);
 		console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10+1, "PRESS ESC TO RESTART", changingColor, 20);
+
+
 	}
 }
 
@@ -167,9 +169,10 @@ void game_update()
 				if (gsm_returnStateSystem()->next == state_Game)
 				{
 					mainMenu_resetMainMenu();
+					*dataStorage_getAliveBool() = true;
+					gsm_returnStateSystem()->next = state_Game;
 					game_loadMap(0);
 
-					gsm_returnStateSystem()->next = state_Game;
 				}
 				else if (gsm_returnStateSystem()->next == state_Options)
 				{
@@ -184,11 +187,10 @@ void game_update()
 			break;
 		case state_Game:
 			time_spent = (double)(clock() - begin - prevTime) / CLOCKS_PER_SEC;
-
+			arrayReader_draw();
 			while (time_spent - prevTime >= timeLapse)
 			{
 				game_EnemyUpdate();
-				arrayReader_draw();
 				prevTime = time_spent;
 				game_changeColor();
 				game_loseTempScreen();
@@ -201,7 +203,7 @@ void game_update()
 			input_checkInput();
 			break;
 		case state_PauseMenu:
-
+			PauseMenu_Update();
 			break;
 		}
 	}
@@ -218,6 +220,7 @@ void game_update()
 	{
 		gsm_returnStateSystem()->previous = gsm_returnStateSystem()->current;
 		gsm_returnStateSystem()->current = gsm_returnStateSystem()->next;
+		gsm_returnStateSystem()->next = gsm_returnStateSystem()->current;
 	}
 }
 
@@ -269,14 +272,16 @@ void game_playerAction(int action)
 			break;
 
 		case 7: /* pause */
-			if (isPaused)
+			if (!isPaused)
 			{
 				gsm_returnStateSystem()->next = state_PauseMenu;
 				PauseMenu_Init();
+				isPaused = !isPaused;
 			}
 			else
 			{
 				gsm_returnStateSystem()->next = state_Game;
+				isPaused = !isPaused;
 			}
 			break;
 		case 0:
@@ -288,8 +293,8 @@ void game_playerAction(int action)
 	/*game_EnemyUpdate();*/
 
 	/*Draw Loop*/
-	arrayReader_draw();
-
+	if(!isPaused)
+		arrayReader_draw();
 }
 
 void game_modifyLoadValue(int * value, char * temp, char chara, FILE *stream)

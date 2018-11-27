@@ -1,5 +1,3 @@
-
-
 #include "GameStateManager.h"
 
 
@@ -31,7 +29,7 @@ bool gsm_IsChanging()
 
 bool gsm_IsValid(State state)
 {
-	return (state >= 0 && state <= 4);
+	return (state >= 0 && state <= 5);
 }
 
 void gsm_setNextState(State state)

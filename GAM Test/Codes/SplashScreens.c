@@ -25,7 +25,7 @@ void splashScreen_Draw()
 			}
 		}
 	}
-	Sleep(3000);
+	Sleep(3);
 	system("cls");
 	for (i = 0; i < studio.height - 1; i++)
 	{
@@ -37,7 +37,7 @@ void splashScreen_Draw()
 			}
 		}
 	}
-	Sleep(3000);
+	Sleep(3);
 	system("cls");
 }
 
