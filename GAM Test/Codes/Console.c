@@ -56,7 +56,7 @@ void console_setCursorPosition(int x, int y)
 	SetConsoleCursorPosition(writeHandle, pos);
 }
 
-void console_draw(char drawX, char drawY, char drawChar, char color)
+void console_draw(int drawX, int drawY, char drawChar, char color)
 {
 	WORD textColor = 0;
 

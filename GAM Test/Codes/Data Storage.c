@@ -220,3 +220,37 @@ void dataStorage_getExitPos(int *x, int *y)
 	*x = exitLocation.x;
 	*y = exitLocation.y;
 }
+
+
+int dataStorage_torch_counter()
+{
+	int counter;
+	int torches=0;
+	
+	for (counter = 0; counter < 5; counter++)
+	{
+		if (dataStorage_getTorchObj(counter)->active)
+		{
+			torches++;
+		}
+			
+	}
+	return torches;
+	
+}
+
+int dataStorage_trap_counter()
+{
+	int counter;
+	int traps = 0;
+
+	for (counter = 0; counter < 5; counter++)
+	{
+		if (dataStorage_getTrapObj(counter)->active)
+		{
+			traps++;
+		}
+	}
+	return traps;
+
+}

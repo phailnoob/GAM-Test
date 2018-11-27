@@ -18,6 +18,8 @@ PauseMenu functions
 static int keyPress, keyDown;
 static bool keyPressed;
 
+bool isPaused;
+
 /* border, padding, margin variables */
 static int borderWidth, borderHeight;
 static int vertiPadding, horizPadding;
@@ -37,6 +39,8 @@ void PauseMenu_Init()
 	keyPress = -1, keyDown = -1;
 	keyPressed = false;
 
+	isPaused = 0;
+
 	borderWidth = 80;
 	borderHeight = 24;
 	vertiPadding = 2;
@@ -52,6 +56,7 @@ void PauseMenu_Init()
 	prevPosX = optionPtrX;
 	prevPosY = optionPtrY;
 
+	MoveBichGetOutTheWay();
 	DrawBorder();
 	DrawOptions();
 	DrawToolTips(3);
@@ -61,7 +66,22 @@ void PauseMenu_Init()
 void PauseMenu_Update()
 {
 	PauseMenu_CheckInput();
-	DrawOptions();
+}
+
+/* clear area behind pause menu */
+void MoveBichGetOutTheWay()
+{
+	int i, j;
+
+	for (i = 0; i < borderWidth; i++)
+	{
+		for (j = 0; j < borderHeight; j++)
+		{
+			console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + i,
+				(console_getConsoleHeight() - borderHeight) / 2 + j);
+			printf("%c", 32);
+		}
+	}
 }
 
 /* draw pause menu border */
@@ -71,28 +91,29 @@ void DrawBorder()
 	int offsetX = 10;
 
 	/* border */
-	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2, 
-							  (console_getConsoleHeight() - borderHeight) / 2);
+	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2,
+		(console_getConsoleHeight() - borderHeight) / 2);
 
 	printf("%c", 201);
 
-	for(i = 0; i < borderWidth-2; ++i)
+	for (i = 0; i < borderWidth - 2; ++i)
 		printf("%c", 205);
 
 	printf("%c", 187);
 
 	for (i = 0; i < borderHeight - 2; ++i)
 	{
-		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2, 
-								  (console_getConsoleHeight() - borderHeight) / 2 + (i+1));
+		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2,
+			(console_getConsoleHeight() - borderHeight) / 2 + (i + 1));
 		printf("%c", 186);
-		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + (borderWidth-1), 
-								  (console_getConsoleHeight() - borderHeight) / 2 + (i+1));
+
+		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + (borderWidth - 1),
+			(console_getConsoleHeight() - borderHeight) / 2 + (i + 1));
 		printf("%c", 186);
 	}
 
-	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2, 
-							  (console_getConsoleHeight() - borderHeight) / 2 + (borderHeight-1));
+	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2,
+		(console_getConsoleHeight() - borderHeight) / 2 + (borderHeight - 1));
 
 	printf("%c", 200);
 
@@ -103,13 +124,13 @@ void DrawBorder()
 
 	/* horizontal divider */
 	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2,
-							  (console_getConsoleHeight() - borderHeight) / 2 + dividerPaddingTop);
+		(console_getConsoleHeight() - borderHeight) / 2 + dividerPaddingTop);
 	printf("%c", 204);
 
 	for (i = 0; i < borderWidth - 2; ++i)
 	{
 		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + (i + 1),
-								  (console_getConsoleHeight() - borderHeight) / 2 + dividerPaddingTop);
+			(console_getConsoleHeight() - borderHeight) / 2 + dividerPaddingTop);
 		printf("%c", 205);
 	}
 
@@ -144,16 +165,16 @@ void DrawOptions()
 	console_setCursorPosition(optionPtrX, optionPtrY);
 	printf("%c", 60);
 
-	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding, 
-							  (console_getConsoleHeight() - borderHeight) / 2 + vertiPadding);
+	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding,
+		(console_getConsoleHeight() - borderHeight) / 2 + vertiPadding);
 	printf("Resume");
 
-	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding, 
-							  (console_getConsoleHeight() - borderHeight) / 2 + vertiPadding + lineSpace);
+	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding,
+		(console_getConsoleHeight() - borderHeight) / 2 + vertiPadding + lineSpace);
 	printf("Options");
 
-	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding, 
-							  (console_getConsoleHeight() - borderHeight) / 2 + vertiPadding + 2 * lineSpace);
+	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding,
+		(console_getConsoleHeight() - borderHeight) / 2 + vertiPadding + 2 * lineSpace);
 	printf("Exit");
 }
 
@@ -205,6 +226,7 @@ void PointAtOption(int key)
 		{
 			optionPtrY -= 2;
 			--pointingAt;
+			DrawOptions();
 		}
 		keyPressed = false;
 		break;
@@ -213,7 +235,20 @@ void PointAtOption(int key)
 		{
 			optionPtrY += 2;
 			++pointingAt;
+			DrawOptions();
 		}
+		keyPressed = false;
+		break;
+
+	case 75: /*left for now*/
+		if (isPaused)
+		{
+			gsm_returnStateSystem()->next = state_Game;
+			isPaused = !isPaused;
+		}
+		else
+			isPaused = !isPaused;
+
 		keyPressed = false;
 		break;
 	}
@@ -229,5 +264,6 @@ void PauseMenu_CheckInput()
 		keyPress = _getch();
 		keyPressed = true;
 		PointAtOption(keyPress);
+		/* printf("%d", keyPress); */
 	}
 }

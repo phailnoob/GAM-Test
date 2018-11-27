@@ -3,6 +3,7 @@
 
 void PauseMenu_Init();
 void PauseMenu_Update();
+void MoveBichGetOutTheWay();
 void DrawBorder();
 void DrawOptions();
 void DrawToolTips(int);

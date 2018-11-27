@@ -181,8 +181,6 @@ void enemy_recursiveCheckPath(MapArray * levelmap, char nodeX, char nodeY, char 
 	}
 	char up, down, left, right;
 
-
-
 	if (nodeX >= 0 && nodeX < levelmap->width)
 	{
 		if (nodeY >= 0 && nodeY < levelmap->height)
@@ -594,6 +592,9 @@ bool enemy_isInlineOfSight(Enemy * enemyC)
 
 }
 
+/*
+Function that returns if an enemy collided with a player
+*/
 bool enemy_playerCollision(char index,int * playerX, int * playerY)
 {
 	Enemy * enemy = dataStorage_getEnemyObject(index);
@@ -650,7 +651,7 @@ void enemy_Update(char index,Enemy* enemyObj)
 			{
 				enemy_patrolEnemy(index);
 			}
-			if (enemy_returnDistanceToPlayer(enemyObj) < 9.0f)
+			if (enemy_returnDistanceToPlayer(enemyObj) <= 9.0f)
 			{
 				if (enemy_isInlineOfSight(enemyObj))
 				{

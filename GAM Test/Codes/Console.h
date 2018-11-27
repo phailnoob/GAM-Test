@@ -2,7 +2,7 @@
 #ifndef GRAPHICS_H
 
 #define GRAPHIC_H
-#define CONSOLE_TITLE "Test Window"
+#define CONSOLE_TITLE "Reconnect"
 
 void console_init();
 
