@@ -14,6 +14,7 @@ static Torch torches[5];
 static Torch torches[5];
 static Trap traps[5];
 static bool playerAlive;
+static char playerLives;
 static Exit exitLocation;
 
 void dataStorage_init()
@@ -24,12 +25,19 @@ void dataStorage_init()
 
 	mapArray.width = mapArray.height = 0;
 
+	playerLives = 5;
+
 	playerAlive = true;
 }
 
 bool * dataStorage_getAliveBool()
 {
 	return &playerAlive;
+}
+
+char * dataStorage_getLives()
+{
+	return &playerLives;
 }
 
 void dataStorage_EnemyInit(char playerX, char playerY)

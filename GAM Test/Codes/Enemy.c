@@ -12,6 +12,8 @@ Includes pathfinding calculations.
 #include "Enemy.h"
 #include <math.h>
 #include <stdio.h>
+#include "Game.h"
+#include "UI.h"
 
 
 /*Global weightmap array to be used by all enemy objects to calculate weight*/
@@ -642,7 +644,20 @@ void enemy_Update(char index,Enemy* enemyObj)
 			enemy_enemyChase(index);
 			if (enemy_playerCollision(index, playerx, playery))
 			{
-				*dataStorage_getAliveBool() = false;
+				/*COLLISION*/
+				if(*dataStorage_getAliveBool())
+				if (*dataStorage_getLives() >= 0)
+				{
+					UI_redrawSkulls();
+					if (--(*dataStorage_getLives()) == 0)
+					{
+						*dataStorage_getAliveBool() = false;
+					}
+					else
+					{
+						game_RestartCurrentMap();
+					}
+				}
 			}
 		}
 		else

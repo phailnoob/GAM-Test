@@ -97,6 +97,38 @@ void console_draw(int drawX, int drawY, char drawChar, char color)
 	SetConsoleCursorInfo(writeHandle, &cursorInfo);
 }
 
+void console_setColor(char color) 
+{
+	WORD textColor = 0;
+
+	if (color > 7)
+	{
+		textColor += FOREGROUND_INTENSITY;
+		color -= 8;
+	}
+
+	if (color % 2)
+	{
+		textColor += FOREGROUND_BLUE;
+	}
+
+	color /= 2;
+	if (color % 2)
+	{
+		textColor += FOREGROUND_GREEN;
+	}
+
+	color /= 2;
+	if (color % 2)
+	{
+		textColor += FOREGROUND_RED;
+	}
+
+	color /= 2;
+
+	SetConsoleTextAttribute(writeHandle, textColor);
+}
+
 void console_drawString(char drawX, char drawY, char drawChar[], char color)
 {
 
@@ -129,15 +161,16 @@ void console_drawString(char drawX, char drawY, char drawChar[], char color)
 
 	SetConsoleTextAttribute(writeHandle, textColor);
 
-	
+
 	console_setCursorPosition(drawX, drawY);
-	printf_s("%s",  drawChar);
+	printf_s("%s", drawChar);
 
 	cursorInfo.dwSize = 100;
 	cursorInfo.bVisible = 0;
 	SetConsoleCursorInfo(writeHandle, &cursorInfo);
-	
+
 }
+
 
 void console_clear()
 {

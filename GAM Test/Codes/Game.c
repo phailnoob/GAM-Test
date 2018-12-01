@@ -61,6 +61,14 @@ void game_init()
 	lastMapNum = 1;
 }
 
+void game_resetClock()
+{
+	begin = clock();
+	timeLapse = 0.3;
+	time_spent = prevTime = (double)(clock() - begin) / CLOCKS_PER_SEC;
+	isPaused = false;
+}
+
 bool game_isRunning()
 {
 	return isRunning;
@@ -150,6 +158,11 @@ void game_EnemyUpdate()
 	}
 }
 
+void game_RestartCurrentMap()
+{
+	game_loadMap(currentMapNum);
+}
+
 /*
 Main Game Update Loop
 
@@ -173,6 +186,8 @@ void game_update()
 				if (gsm_returnStateSystem()->next == state_Game)
 				{
 					mainMenu_resetMainMenu();
+					*dataStorage_getLives() = 5;
+					UI_clearDraw();
 					*dataStorage_getAliveBool() = true;
 					gsm_returnStateSystem()->next = state_Game;
 					currentMapNum = 0;
@@ -182,6 +197,10 @@ void game_update()
 				else if (gsm_returnStateSystem()->next == state_Options)
 				{
 					options_Init();
+				}
+				else if (gsm_returnStateSystem()->next == state_Credits)
+				{
+					credits_Init();
 				}
 			}
 			break;
@@ -193,6 +212,7 @@ void game_update()
 			if (gsm_IsChanging())
 			{
 				credits_Destructor();
+				game_resetClock();
 				system("cls");
 				mainMenu_resetMainMenu();
 			}
@@ -213,6 +233,7 @@ void game_update()
 			drawUI();
 			UI_draw_torches();
 			UI_draw_traps();
+			UI_drawSkulls();
 			input_checkInput();
 			break;
 		case state_PauseMenu:
@@ -294,6 +315,7 @@ void game_playerAction(int action)
 			else
 			{
 				console_clear();
+				UI_clearDraw();
 				gsm_returnStateSystem()->next = state_Game;
 				isPaused = !isPaused;
 			}

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Codes\Credits.c" />
     <ClCompile Include="Codes\Data Storage.c" />
     <ClCompile Include="Codes\Enemy.c" />
     <ClCompile Include="Codes\Game.c" />
@@ -37,6 +38,7 @@
     <ClCompile Include="Codes\UI.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Codes\Credits.h" />
     <ClInclude Include="Codes\Data Storage.h" />
     <ClInclude Include="Codes\Enemy.h" />
     <ClInclude Include="Codes\Game.h" />

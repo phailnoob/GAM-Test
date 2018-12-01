@@ -24,9 +24,16 @@ char *UI_traps[3] = {
 	                        {"|>|<|"},
                            {"\\<v>/"}
 };
+
+char *UI_Lives[3] = {
+						{" .-~~-. "},
+						{"(_'..'_)"},
+						{"  ||||  "}
+};
 char mission[] = { "Find the Exit!" };
 char mission2[] = { "But beware of monsters..." };
 
+bool skullsDrawn = false;
 bool torchDrawn = false;
 bool trapDrawn = false;
 bool UIdrawn = false;
@@ -42,40 +49,42 @@ Description: Prints borders for the game.
 ******************************************************************************/
 void game_borders()
 {
+	console_setColor(7);
 	if (bordersDrawn == false)
 	{
 		int j;
 
-		/*corners*/
-		console_setCursorPosition(0, 1);
-		printf("%c", 201);
-		console_setCursorPosition(0, console_getConsoleHeight() / 10 * 9);
-		printf("%c", 200);
-		console_setCursorPosition(console_getConsoleWidth() / 10 * 9, 1);
-		printf("%c", 187);
-		console_setCursorPosition(console_getConsoleWidth() / 10 * 9, console_getConsoleHeight() / 10 * 9);
-		printf("%c", 188);
+		
 
 		/*top border*/
 		console_setCursorPosition(1, 1);
-		for (j = 0; j < console_getConsoleWidth() / 10 * 9 - 1; j++)
+		for (j = 0; j < console_getConsoleWidth() ; j++)
 			printf("%c", 205);
 
 		/*Bottom border*/
-		console_setCursorPosition(1, console_getConsoleHeight() / 10 * 9);
-		for (j = 0; j <= console_getConsoleWidth() / 10 * 9 - 2; j++)
+		console_setCursorPosition(0, console_getConsoleHeight()-2);
+		for (j = 0; j <= console_getConsoleWidth()-1; j++)
 			printf("%c", 205);
 
 		/*Left and right border*/
-		for (j = 0; j < console_getConsoleHeight() / 10 * 9 - 2; j++)
+		for (j = 2; j < console_getConsoleHeight()  - 2; j++)
 		{
-			console_setCursorPosition(0, 2 + j);
+			console_setCursorPosition(0, j);
 			printf("%c", 186);
 
-			console_setCursorPosition(console_getConsoleWidth() / 10 * 9, 2 + j);
+			console_setCursorPosition(console_getConsoleWidth() -1, j);
 			printf("%c", 186);
 		}
 
+		/*corners*/
+		console_setCursorPosition(0, 1);
+		printf("%c", 201);
+		console_setCursorPosition(0, console_getConsoleHeight() - 2);
+		printf("%c", 200);
+		console_setCursorPosition(console_getConsoleWidth()-1, 1);
+		printf("%c", 187);
+		console_setCursorPosition(console_getConsoleWidth() - 1, console_getConsoleHeight() - 2);
+		printf("%c", 188);
 		bordersDrawn = true;
 	}
 	
@@ -95,15 +104,15 @@ void drawUI()
 	if (UIdrawn == false)
 	{
 		int i, j;
-		i = console_getConsoleHeight() / 10 * 9;
-		for (j = 0; j < (i - 2); j++)
+		i = console_getConsoleHeight();
+		for (j = 0; j < (i - 4); j++)
 		{
 			console_setCursorPosition(30, 2 + j);
 			printf("%c", 186);
 		}
 
-		console_drawString(15-(sizeof(mission)-1)/2, console_getConsoleHeight() / 2, mission, 15, sizeof(mission)-1);
-		console_drawString(15 - (sizeof(mission2) - 1)/2, console_getConsoleHeight() / 2+1, mission2, 15, sizeof(mission2)-1);
+		console_drawString(15-(sizeof(mission)-1)/2, console_getConsoleHeight() / 2-9, mission, 15, sizeof(mission)-1);
+		console_drawString(15 - (sizeof(mission2) - 1)/2, console_getConsoleHeight() / 2+1-9, mission2, 15, sizeof(mission2)-1);
 
 		console_setCursorPosition(1, 20);
 		for (j = 0; j < 29; j++)
@@ -400,6 +409,42 @@ void UI_draw_ResetTrapDrawn()
 	trapDrawn = 0;
 }
 
+void UI_drawSkulls()
+{
+	if (!skullsDrawn)
+	{
+		char lives = *dataStorage_getLives();
+		short x = console_getConsoleWidth(), y = console_getConsoleHeight();
+
+		console_drawString(10, console_getConsoleHeight() / 2 - 3,"Lives left",15);
+		console_setCursorPosition(10, console_getConsoleHeight() / 2 - 2);
+		for (char j = 0; j < 10; j++)
+			printf("%c", 205);
+
+		if (lives >= 0)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				if (i < lives)
+				{
+					for (int e = 0; e < 3; e++)
+						console_drawString(x / 20 - 1, y / 2 + 5 * i + e - 2 + 4, UI_Lives[e], 10);
+				}
+				else
+				{
+					for (int e = 0; e < 3; e++)
+						console_drawString(x / 20 - 1, y / 2 + 5 * i + e - 2 + 4, UI_Lives[e], 12);
+				}
+			}
+		}
+		skullsDrawn = !skullsDrawn;
+	}
+}
+
+void UI_redrawSkulls()
+{
+	skullsDrawn = false;
+}
 
 void UI_draw_traps()
 {
@@ -649,5 +694,5 @@ void UI_draw_traps()
 
 void UI_clearDraw()
 {
-	UIdrawn = bordersDrawn = trapDrawn = torchDrawn = false;
+	UIdrawn = bordersDrawn = trapDrawn = torchDrawn = skullsDrawn = false;
 }

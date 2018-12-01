@@ -80,6 +80,7 @@ typedef struct AsciiChar
 
 void dataStorage_init();
 bool * dataStorage_getAliveBool();
+char * dataStorage_getLives();
 void dataStorage_EnemyInit(char playerX, char playerY);
 
 void dataStorage_setPlayerPosition(int x, int y);

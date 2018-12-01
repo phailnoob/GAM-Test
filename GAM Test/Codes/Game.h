@@ -28,6 +28,7 @@ string returned contains all the new lines
 */
 char *game_readFile(char * fileName, int *fileWidth, int *fileHeight);
 
+void game_RestartCurrentMap();
 
 void drawUI_border();
 

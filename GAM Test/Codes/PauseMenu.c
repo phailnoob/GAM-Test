@@ -72,7 +72,7 @@ void PauseMenu_Update()
 void MoveBichGetOutTheWay()
 {
 	int i, j;
-
+	console_setColor(15);
 	for (i = 0; i < borderWidth; i++)
 	{
 		for (j = 0; j < borderHeight; j++)
@@ -89,7 +89,7 @@ void DrawBorder()
 {
 	int i = 0;
 	int offsetX = 10;
-
+	console_setColor(15);
 	/* border */
 	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2,
 		(console_getConsoleHeight() - borderHeight) / 2);
@@ -156,6 +156,7 @@ void DrawBorder()
 /* draw options */
 void DrawOptions()
 {
+	console_setColor(15);
 	console_setCursorPosition(prevPosX, prevPosY);
 	printf(" ");
 
@@ -181,6 +182,7 @@ void DrawOptions()
 /* draw tool tips */
 void DrawToolTips(int state)
 {
+	console_setColor(15);
 	switch (state)
 	{
 	case 3:

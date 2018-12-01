@@ -17,6 +17,9 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{01fe7516-7f6d-4ac9-a21e-a2e6ff7b903c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Menus">
+      <UniqueIdentifier>{37cf5dd5-31a2-4f92-ab45-aa5104ed02fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Codes\Main.c">
@@ -43,19 +46,10 @@
     <ClCompile Include="Codes\Enemy.c">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Codes\MainMenu.c">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Codes\GameStateManager.c">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Codes\Torch.c">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Codes\Options.c">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Codes\PauseMenu.c">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Codes\Trap.c">
@@ -65,7 +59,19 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Codes\SplashScreens.c">
-      <Filter>Game</Filter>
+      <Filter>Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\PauseMenu.c">
+      <Filter>Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\Options.c">
+      <Filter>Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\MainMenu.c">
+      <Filter>Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\Credits.c">
+      <Filter>Menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,23 +96,29 @@
     <ClInclude Include="Codes\Enemy.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Codes\MainMenu.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Codes\GameStateManager.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Codes\Torch.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Codes\PauseMenu.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Codes\Trap.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Codes\SplashScreens.h">
-      <Filter>Game</Filter>
+      <Filter>Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\PauseMenu.h">
+      <Filter>Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Options.h">
+      <Filter>Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\MainMenu.h">
+      <Filter>Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Credits.h">
+      <Filter>Menus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +140,6 @@
     <Text Include="Assets\Exit.txt">
       <Filter>Assets</Filter>
     </Text>
-    <ClInclude Include="Codes\Options.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Codes\UI.h">
       <Filter>Game</Filter>
     </ClInclude>

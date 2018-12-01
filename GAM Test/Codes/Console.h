@@ -36,6 +36,7 @@ void console_readFile();
 */
 void console_draw(int drawX, int drawY, char drawChar, char color);
 void console_drawString(char drawX, char drawY, char drawChar[], char color);
+void console_setColor(char color);
 void console_clear();
 int console_getConsoleWidth();
 int console_getConsoleHeight();
