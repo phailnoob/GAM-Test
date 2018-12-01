@@ -34,8 +34,8 @@ void console_readFile();
 14 - Bright yellow
 15 - White
 */
-void console_draw(char drawX, char drawY, char drawChar, char color);
-void console_drawString(char drawX, char drawY, char drawChar[], char color, int charSize);
+void console_draw(int drawX, int drawY, char drawChar, char color);
+void console_drawString(char drawX, char drawY, char drawChar[], char color);
 void console_clear();
 int console_getConsoleWidth();
 int console_getConsoleHeight();

@@ -189,6 +189,13 @@ void game_update()
 			options_Update();
 			break;
 		case state_Credits:
+			credits_Update();
+			if (gsm_IsChanging())
+			{
+				credits_Destructor();
+				system("cls");
+				mainMenu_resetMainMenu();
+			}
 			break;
 		case state_Game:
 			time_spent = (double)(clock() - begin - prevTime) / CLOCKS_PER_SEC;
@@ -553,7 +560,7 @@ char * game_readFile(char * fileName, int *fileWidth, int *fileHeight)
 			counter++;
 		}
 	
-
+		fclose(stream);
 		*(textstring + *fileWidth * *fileHeight - 1) = '\0';
 		return textstring;
 	}
