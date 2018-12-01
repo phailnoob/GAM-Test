@@ -4,6 +4,8 @@
 #define GRAPHIC_H
 #define CONSOLE_TITLE "Reconnect"
 
+#include <stdbool.h>
+
 void console_init();
 
 int console_getConsoleWidth();
@@ -32,10 +34,11 @@ void console_readFile();
 14 - Bright yellow
 15 - White
 */
-void console_draw(char drawX, char drawY, char drawChar, char color);
+void console_draw(int drawX, int drawY, char drawChar, char color);
 void console_drawString(char drawX, char drawY, char drawChar[], char color);
 void console_clear();
 int console_getConsoleWidth();
 int console_getConsoleHeight();
+void console_setFullScreen();
 
 #endif

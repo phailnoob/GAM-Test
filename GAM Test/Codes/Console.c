@@ -37,6 +37,8 @@ void console_init()
 	cursorInfo.bVisible = 0;
 	SetConsoleCursorInfo(writeHandle, &cursorInfo);
 
+	console_setFullScreen();
+
 	console_clear();
 }
 
@@ -139,4 +141,11 @@ void console_drawString(char drawX, char drawY, char drawChar[], char color)
 void console_clear()
 {
 	system("cls");
+}
+void console_setFullScreen()
+{
+	keybd_event(VK_MENU, 0x38, 0, 0);
+	keybd_event(VK_RETURN, 0x1c, 0, 0);
+	keybd_event(VK_RETURN, 0x1c, KEYEVENTF_KEYUP, 0);
+	keybd_event(VK_MENU, 0x38, KEYEVENTF_KEYUP, 0);
 }
