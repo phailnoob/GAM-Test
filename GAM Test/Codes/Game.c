@@ -197,6 +197,7 @@ void game_update()
 			credits_Update();
 			if (gsm_IsChanging())
 			{
+				credits_Destructor();
 				system("cls");
 				mainMenu_resetMainMenu();
 			}
@@ -548,7 +549,7 @@ char * game_readFile(char * fileName, int *fileWidth, int *fileHeight)
 			counter++;
 		}
 	
-
+		fclose(stream);
 		*(textstring + *fileWidth * *fileHeight - 1) = '\0';
 		return textstring;
 	}
