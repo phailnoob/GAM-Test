@@ -529,9 +529,7 @@ void game_loadMap(int mapNo)
 		dataStorage_setPlayerPosition(playerX, playerY);
 		dataStorage_setExitPos(exitX, exitY);
 
-		arrayReader_setInitialDraw(true);
 		arrayReader_draw();
-		arrayReader_setInitialDraw(false);
 	}
 	else
 		game_turnOffGame();

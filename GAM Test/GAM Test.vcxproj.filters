@@ -155,5 +155,11 @@
     <Text Include="Levels\2.txt">
       <Filter>Levels</Filter>
     </Text>
+    <Text Include="Levels\4.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="Levels\5.txt">
+      <Filter>Levels</Filter>
+    </Text>
   </ItemGroup>
 </Project>
