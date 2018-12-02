@@ -59,7 +59,7 @@ void game_init()
 	isPaused = false;
 
 	currentMapNum = 0;
-	lastMapNum = 1;
+	lastMapNum = 2;
 }
 
 void game_resetClock()
@@ -401,6 +401,9 @@ void game_loadMap(int mapNo)
 			break;
 		case 1:
 			fileName = "Levels/2.txt";
+			break;
+		case 2:
+			fileName = "Levels/3.txt";
 			break;
 	}
 
