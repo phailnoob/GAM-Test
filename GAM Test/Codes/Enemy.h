@@ -70,3 +70,6 @@ void enemy_drawDebugWeight();
 Accessor function that returns the weight map
 */
 MapArray* enemy_getWeightMap();
+
+void enemy_weightedMapInit(MapArray * currentMap);
+void enemy_deactivateEnemy(char index);

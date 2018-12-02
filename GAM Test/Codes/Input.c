@@ -19,8 +19,6 @@ void input_wasd(int key)
 {
 	switch (key)
 	{
-		if (*dataStorage_getAliveBool() == true)
-		
 		case 87:
 		case 119:
 			if (*dataStorage_getAliveBool() == true)

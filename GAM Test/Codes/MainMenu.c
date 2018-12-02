@@ -12,6 +12,7 @@ Main Menu functions
 #include <windows.h>
 #include <stdio.h>
 #include "MainMenu.h"
+#include <conio.h>
 #include <stdbool.h>
 #include "GameStateManager.h"
 
@@ -55,7 +56,7 @@ AsciiChar* mainMenu_getCredits()
 }
 
 /*Handles arrow keys input*/
-void mainMenu_arrow(int key,bool * keyPressed)
+void mainMenu_arrow(int key,bool * keyPressedL)
 {
 	switch(key)
 	{
@@ -68,7 +69,7 @@ void mainMenu_arrow(int key,bool * keyPressed)
 			{
 				selected--;
 			}
-			*keyPressed = false;
+			*keyPressedL = false;
 			break;
 		case 80:
 			if (selected == 4)
@@ -79,7 +80,7 @@ void mainMenu_arrow(int key,bool * keyPressed)
 			{
 				selected++;
 			}
-			*keyPressed = false;
+			*keyPressedL = false;
 			break;
 		case 32:
 		case 13:
@@ -146,7 +147,6 @@ void mainMenu_draw(int x, int y, AsciiChar * image, char color)
 /*Draws main menu buttons*/
 void mainMenu_drawButtons()
 {
-	int i;
 	if (selected == 1)
 		wasDrawn[0] = 0;
 	if (wasDrawn[0] == 0)

@@ -12,6 +12,7 @@ Brief Description:
 #include "UI.h"
 #include "Console.h"
 #include "Data Storage.h"
+#include <stdio.h>
 
 char *UI_torch[3] = {
 							{ " \\**/"},
@@ -111,8 +112,8 @@ void drawUI()
 			printf("%c", 186);
 		}
 
-		console_drawString(15-(sizeof(mission)-1)/2, console_getConsoleHeight() / 2-9, mission, 15, sizeof(mission)-1);
-		console_drawString(15 - (sizeof(mission2) - 1)/2, console_getConsoleHeight() / 2+1-9, mission2, 15, sizeof(mission2)-1);
+		console_drawString(15-(sizeof(mission)-1)/2, console_getConsoleHeight() / 2-9, mission, 15);
+		console_drawString(15 - (sizeof(mission2) - 1)/2, console_getConsoleHeight() / 2+1-9, mission2, 15);
 
 		console_setCursorPosition(1, 20);
 		for (j = 0; j < 29; j++)
@@ -154,7 +155,6 @@ void UI_draw_torches()
 {
 	int torch_inv= 0;
 	int UI_torch_pos;
-	int j;
 
 	torch_inv = dataStorage_torch_counter();
 
@@ -162,45 +162,45 @@ void UI_draw_torches()
 
 	if (!torchDrawn)
 	{
+		int j;
 		if (torch_inv == 5)
 		{
-			int i, j;
-			int UI_torch_pos = 2;
+			UI_torch_pos = 2;
 
 			/*Draw all 5 torches (Greyed Out)*/
 			UI_torch_pos = 2;
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*4th grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*3rd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*2nd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 		}
 
@@ -211,35 +211,35 @@ void UI_draw_torches()
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 
 			/*4th grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*3rd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*2nd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 		}
 
@@ -249,34 +249,34 @@ void UI_draw_torches()
 			/*5th red */
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 
 			/*4th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 			/*3rd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*2nd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 		}
 
@@ -286,34 +286,34 @@ void UI_draw_torches()
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 
 			/*4th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 			/*3rd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 
 			/*2nd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 			UI_torch_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 		}
 
@@ -323,34 +323,34 @@ void UI_draw_torches()
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 
 			/*4th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 			/*3rd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 
 			/*2nd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 8);
 			}
 		}
 
@@ -361,20 +361,20 @@ void UI_draw_torches()
 
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 
 			/*4th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 			UI_torch_pos += 5;
 			/*3rd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 
 			UI_torch_pos += 5;
@@ -383,7 +383,7 @@ void UI_draw_torches()
 			/*2nd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 
 
@@ -391,7 +391,7 @@ void UI_draw_torches()
 			/*1st red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12, sizeof(UI_torch - 1));
+				console_drawString(UI_torch_pos, 4 + j, UI_torch[j], 12);
 			}
 		}
 		torchDrawn = 1;
@@ -414,7 +414,7 @@ void UI_drawSkulls()
 	if (!skullsDrawn)
 	{
 		char lives = *dataStorage_getLives();
-		short x = console_getConsoleWidth(), y = console_getConsoleHeight();
+		int x = console_getConsoleWidth(), y = console_getConsoleHeight();
 
 		console_drawString(10, console_getConsoleHeight() / 2 - 3,"Lives left",15);
 		console_setCursorPosition(10, console_getConsoleHeight() / 2 - 2);
@@ -463,35 +463,35 @@ void UI_draw_traps()
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*4th grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*3rd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*2nd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 
 		}
@@ -503,35 +503,35 @@ void UI_draw_traps()
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 
 			/*4th grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*3rd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*2nd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 		}
 
@@ -541,34 +541,34 @@ void UI_draw_traps()
 			/*5th red */
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 
 			/*4th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 			/*3rd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*2nd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 		}
 
@@ -578,34 +578,34 @@ void UI_draw_traps()
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 
 			/*4th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 			/*3rd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 
 			/*2nd grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 			UI_trap_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 		}
 
@@ -615,34 +615,34 @@ void UI_draw_traps()
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 
 			/*4th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 			/*3rd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 
 			/*2nd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 
 			/*1st grey*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 8);
 			}
 		}
 
@@ -653,20 +653,20 @@ void UI_draw_traps()
 
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 
 			/*4th red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 			UI_trap_pos += 5;
 			/*3rd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 
 			UI_trap_pos += 5;
@@ -675,14 +675,14 @@ void UI_draw_traps()
 			/*2nd red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 
 			UI_trap_pos += 5;
 			/*1st red*/
 			for (j = 0; j < 3; j++)
 			{
-				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12, sizeof(UI_traps - 1));
+				console_drawString(UI_trap_pos, 12 + j, UI_traps[j], 12);
 			}
 		}
 

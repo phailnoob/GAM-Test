@@ -7,11 +7,12 @@
 #include <time.h>
 #include "MainMenu.h"
 #include "Game.h"
+#include <conio.h>
 #include "GameStateManager.h"
 
 bool staticDrawn,faceDrawn;
 short consoleWidth, consoleHeight;
-char keyDown, keyPress,selected;
+int keyDown, keyPress,selected;
 
 clock_t begin;
 double time_spent, prevTime, timeLapse;
@@ -138,23 +139,23 @@ void credits_Update()
 		{
 		case 1:
 			credits_draw(consoleWidth / 10 * 4, consoleHeight / 10 * 4, &adam, 15);
-			console_drawString(consoleWidth / 2 - strlen(adamName)/2, consoleHeight / 10 * 7, adamName, 14);
-			console_drawString(consoleWidth / 2 - strlen(adamJob) / 2, consoleHeight / 10 * 7+1, adamJob, 14);
+			console_drawString(consoleWidth / 2 - (int)strlen(adamName)/2, consoleHeight / 10 * 7, adamName, 14);
+			console_drawString(consoleWidth / 2 - (int)strlen(adamJob) / 2, consoleHeight / 10 * 7+1, adamJob, 14);
 			break;
 		case 2:
 			credits_draw(consoleWidth / 10 * 4, consoleHeight / 10 * 4, &edwin, 15);
-			console_drawString(consoleWidth / 2 - strlen(edwinName) / 2, consoleHeight / 10 * 7, edwinName, 14);
-			console_drawString(consoleWidth / 2 - strlen(edwinJob) / 2, consoleHeight / 10 * 7 + 1, edwinJob, 14);
+			console_drawString(consoleWidth / 2 - (int)strlen(edwinName) / 2, consoleHeight / 10 * 7, edwinName, 14);
+			console_drawString(consoleWidth / 2 - (int)strlen(edwinJob) / 2, consoleHeight / 10 * 7 + 1, edwinJob, 14);
 			break;
 		case 3:
 			credits_draw(consoleWidth / 10 * 4, consoleHeight / 10 * 4, &marcus, 15);
-			console_drawString(consoleWidth / 2 - strlen(marcusName) / 2, consoleHeight / 10 * 7, marcusName, 14);
-			console_drawString(consoleWidth / 2 - strlen(marcusJob) / 2, consoleHeight / 10 * 7 + 1, marcusJob, 14);
+			console_drawString(consoleWidth / 2 - (int)strlen(marcusName) / 2, consoleHeight / 10 * 7, marcusName, 14);
+			console_drawString(consoleWidth / 2 - (int)strlen(marcusJob) / 2, consoleHeight / 10 * 7 + 1, marcusJob, 14);
 			break;
 		case 4:
 			credits_draw(consoleWidth / 10 * 4, consoleHeight / 10 * 4, &kailiang, 15);
-			console_drawString(consoleWidth / 2 - strlen(kailiangName) / 2, consoleHeight / 10 * 7, kailiangName, 14);
-			console_drawString(consoleWidth / 2 - strlen(kailiangJob) / 2, consoleHeight / 10 * 7 + 1, kailiangJob, 14);
+			console_drawString(consoleWidth / 2 - (int)strlen(kailiangName) / 2, consoleHeight / 10 * 7, kailiangName, 14);
+			console_drawString(consoleWidth / 2 - (int)strlen(kailiangJob) / 2, consoleHeight / 10 * 7 + 1, kailiangJob, 14);
 			break;
 		}
 		faceDrawn = 1;

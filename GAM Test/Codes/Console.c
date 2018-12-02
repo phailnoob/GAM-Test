@@ -28,7 +28,9 @@ void console_init()
 
 	SetConsoleScreenBufferSize(writeHandle, bufferSize);
 
-	SMALL_RECT windowSize = { 0, 0, width - 1, height - 1 };
+	SMALL_RECT windowSize = { 0, 0};
+	windowSize.Right = (short)(width - 1);
+	windowSize.Bottom = (short)(height - 1);
 
 	SetConsoleWindowInfo(writeHandle, 1, &windowSize);
 
@@ -55,7 +57,9 @@ int console_getConsoleHeight()
 
 void console_setCursorPosition(int x, int y)
 {
-	COORD pos = { x, y };
+	COORD pos;
+	pos.X = (short)x;
+	pos.Y = (short)y;
 	SetConsoleCursorPosition(writeHandle, pos);
 }
 
@@ -129,7 +133,7 @@ void console_setColor(char color)
 	SetConsoleTextAttribute(writeHandle, textColor);
 }
 
-void console_drawString(char drawX, char drawY, char drawChar[], char color)
+void console_drawString(int drawX, int drawY, char drawChar[], char color)
 {
 
 	WORD textColor = 0;

@@ -44,7 +44,7 @@ void enemy_weightedMapInit(MapArray * currentMap)
 
 void enemy_weightedMapReset()
 {
-	if (ma_WeightMap.mapArray[0] != NULL)
+	if (ma_WeightMap.mapArray != NULL)
 	{
 		for (int i = 0; i < ma_WeightMap.height; i++)
 		{
@@ -556,7 +556,7 @@ float enemy_returnDistanceToPlayer(Enemy *enemyC)
 	int x, y;
 	dataStorage_getPlayerPosition(&x, &y);
 	if(enemyC->x != 0 || enemyC->y != 0 || y != 0 || x != 0)
-	distance = (enemyC->x - x)*(enemyC->x - x) + (enemyC->y - y)*(enemyC->y - y);
+	distance = (float)((enemyC->x - x)*(enemyC->x - x) + (enemyC->y - y)*(enemyC->y - y));
 
 	return distance;
 }
@@ -601,7 +601,7 @@ bool enemy_playerCollision(char index,int * playerX, int * playerY)
 {
 	Enemy * enemy = dataStorage_getEnemyObject(index);
 
-	if (playerX == enemy->x && playerY == enemy->y)
+	if (*playerX == enemy->x && *playerY == enemy->y)
 	{
 		return true;
 	}
@@ -642,7 +642,7 @@ void enemy_Update(char index,Enemy* enemyObj)
 		if (enemyObj->seen)
 		{
 			enemy_enemyChase(index);
-			if (enemy_playerCollision(index, playerx, playery))
+			if (enemy_playerCollision(index, &playerx, &playery))
 			{
 				/*COLLISION*/
 				if(*dataStorage_getAliveBool())
@@ -680,7 +680,7 @@ void enemy_Update(char index,Enemy* enemyObj)
 
 
 
-void enemy_deactivateEnemy(int index)
+void enemy_deactivateEnemy(char index)
 {
 	dataStorage_getEnemyObject(index)->active = false;
 	dataStorage_getEnemyObject(index)->x = -1;

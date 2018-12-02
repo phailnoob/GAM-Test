@@ -1,5 +1,5 @@
-#ifndef TORCH_H
-#define TORCH_H
+#ifndef TRAP_H
+#define TRAP_H
 
 #include "Data Storage.h"
 

@@ -31,7 +31,7 @@ void arrayReader_init()
 	torchRange = 5;
 	playerX = playerY = -1;
 	fogStart = fogEnd = distance = -1;
-	bool enemySeen = false;
+	enemySeen = false;
 }
 
 /*---Returns squared value---*/
@@ -93,10 +93,10 @@ void arrayReader_draw()
 				}
 				for (h = 0; h < 10; h++)
 				{
-					en = dataStorage_getEnemyObject((int)h);
+					en = dataStorage_getEnemyObject((char)h);
 					if (en->active)
 					{
-						dataStorage_getEnemyPosition(&f, &g, (int)h);
+						dataStorage_getEnemyPosition(&f, &g, (short)h);
 						if (j == f && i == g)
 						{
 							currentMap[i * height + j] = spriteReference_getSprite(3);
@@ -122,17 +122,17 @@ void arrayReader_draw()
 				{
 					for (h = 0; h < 10; h++)
 					{
-						en = dataStorage_getEnemyObject((int)h);
+						en = dataStorage_getEnemyObject((char)h);
 						if (en->active)
 						{
-							dataStorage_getEnemyPosition(&f, &g, (int)h);
+							dataStorage_getEnemyPosition(&f, &g, (short)h);
 							if (j == f && i == g)
 							{
 								//currentMap[i * height + j] = spriteReference_getSprite(3);
 
 								if (trapX == f && trapY == g)
 								{
-									enemy_deactivateEnemy(h);
+									enemy_deactivateEnemy((char)h);
 									placeTrap(a, -1, -1);
 									break;
 								}
@@ -171,7 +171,7 @@ void arrayReader_draw()
 						}
 						for (h = 0; h < 10; h++)
 						{
-							en = dataStorage_getEnemyObject((int)h);
+							en = dataStorage_getEnemyObject((char)h);
 							if (en->active)
 							{
 								dataStorage_getEnemyPosition(&f, &g, (int)h);
