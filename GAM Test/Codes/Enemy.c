@@ -664,8 +664,10 @@ void enemy_Update(char index,Enemy* enemyObj)
 					}
 					else
 					{
+						char len = (char)strlen(oofMessages[rand() % 9]);
 						PauseClearScreen();
-						console_setCursorPosition(console_getConsoleWidth() / 2 - (strlen(oofMessages)/2), console_getConsoleHeight() / 2);
+						
+						console_setCursorPosition(console_getConsoleWidth() / 2 - (len/2), console_getConsoleHeight() / 2);
 						printf("%s", oofMessages[rand()%9]);
 						Sleep(2000);
 						PauseClearScreen();

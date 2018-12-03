@@ -89,7 +89,7 @@ void dataStorage_getPlayerPosition(int *x, int *y);
 void dataStorage_setEnemyPosition(int x, int y, int index);
 void dataStorage_getEnemyPosition(int *x, int *y, int index);
 void dataStorage_activateEnemy(char index);
-Enemy* dataStorage_getEnemyObject(char index);
+Enemy* dataStorage_getEnemyObject(int index);
 
 void dataStorage_setFogDistance(int start, int end);
 void dataStorage_getFogDistance(int *start, int *end); 

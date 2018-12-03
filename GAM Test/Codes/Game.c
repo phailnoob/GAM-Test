@@ -61,7 +61,7 @@ void game_init()
 	isPaused = false;
 
 	currentMapNum = 0;
-	lastMapNum = 2;
+	lastMapNum = 4;
 }
 
 void game_resetClock()
@@ -140,7 +140,7 @@ void game_EnemyUpdate()
 	enemy_weightedMapReset();
 	enemy_recursiveCheckPath(dataStorage_getMapDataOut(), (char)x, (char)y, (char)1, (char)1);
 	enemy_setWallWeight(-1, dataStorage_getMapDataOut());
-	//enemy_drawDebugWeight();
+	enemy_drawDebugWeight();
 	for (char i = 0; i < 10; i++)
 	{
 		enemy_Update(i, dataStorage_getEnemyObject(i));
@@ -416,6 +416,12 @@ void game_loadMap(int mapNo)
 			break;
 		case 2:
 			fileName = "Levels/3.txt";
+			break;
+		case 3:
+			fileName = "Levels/4.txt";
+			break;
+		case 4:
+			fileName = "Levels/5.txt";
 			break;
 	}
 

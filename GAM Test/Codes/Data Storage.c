@@ -95,7 +95,7 @@ void dataStorage_activateEnemy(char index)
 	enemyObject[index].active = true;
 }
 
-Enemy* dataStorage_getEnemyObject(char index)
+Enemy* dataStorage_getEnemyObject(int index)
 {
 	return &enemyObject[index];
 }

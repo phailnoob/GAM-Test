@@ -31,7 +31,7 @@ void arrayReader_init()
 	torchRange = 5;
 	playerX = playerY = -1;
 	fogStart = fogEnd = distance = -1;
-	enemySeen = false;
+//	enemySeen = false;
 }
 
 /*---Returns squared value---*/
@@ -42,8 +42,6 @@ int arrayReader_checkDistance(int x1, int y1, int x2, int y2)
 
 void arrayReader_setMap(int size)
 {
-	int xx;
-
 	currColor = malloc(size);
 
 	currentMap = malloc(size);

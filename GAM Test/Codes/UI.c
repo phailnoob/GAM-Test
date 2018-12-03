@@ -112,8 +112,8 @@ void drawUI()
 			printf("%c", 186);
 		}
 
-		console_drawString(15 - (sizeof(mission) - 1)/2, console_getConsoleHeight() / 2-9, mission, 15, sizeof(mission)-1);
-		console_drawString(15 - (sizeof(mission2) - 1)/2, console_getConsoleHeight() / 2+1-9, mission2, 15, sizeof(mission2)-1);
+		console_drawString(15 - (sizeof(mission) - 1)/2, console_getConsoleHeight() / 2-9, mission, 15);
+		console_drawString(15 - (sizeof(mission2) - 1)/2, console_getConsoleHeight() / 2+1-9, mission2, 15);
 
 		console_setCursorPosition(1, 20);
 		for (j = 0; j < 29; j++)
