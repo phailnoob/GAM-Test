@@ -161,6 +161,7 @@ void game_EnemyUpdate()
 		else
 		{
 			currentMapNum++;
+			system("cls");
 			game_loadMap(currentMapNum);
 		}
 	}
