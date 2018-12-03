@@ -129,9 +129,6 @@
     <ClInclude Include="Codes\MainMenu.h">
       <Filter>Menus</Filter>
     </ClInclude>
-    <ClInclude Include="Codes\Credits.h">
-      <Filter>Menus</Filter>
-    </ClInclude>
     <ClInclude Include="Codes\VictoryScreen.h">
       <Filter>Menus</Filter>
     </ClInclude>
