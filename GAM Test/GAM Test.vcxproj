@@ -28,6 +28,7 @@
     <ClCompile Include="Codes\Main.c" />
     <ClCompile Include="Codes\Array Reader.c" />
     <ClCompile Include="Codes\MainMenu.c" />
+    <ClCompile Include="Codes\Music.c" />
     <ClCompile Include="Codes\Options.c" />
     <ClCompile Include="Codes\PauseMenu.c" />
     <ClCompile Include="Codes\SplashScreens.c" />
@@ -37,6 +38,13 @@
     <ClCompile Include="Codes\UI.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\inc\fmod.h" />
+    <ClInclude Include="..\inc\fmod_codec.h" />
+    <ClInclude Include="..\inc\fmod_common.h" />
+    <ClInclude Include="..\inc\fmod_dsp.h" />
+    <ClInclude Include="..\inc\fmod_dsp_effects.h" />
+    <ClInclude Include="..\inc\fmod_errors.h" />
+    <ClInclude Include="..\inc\fmod_output.h" />
     <ClInclude Include="Codes\Data Storage.h" />
     <ClInclude Include="Codes\Enemy.h" />
     <ClInclude Include="Codes\Game.h" />
@@ -45,6 +53,7 @@
     <ClInclude Include="Codes\Input.h" />
     <ClInclude Include="Codes\Array Reader.h" />
     <ClInclude Include="Codes\MainMenu.h" />
+    <ClInclude Include="Codes\Music.h" />
     <ClInclude Include="Codes\Options.h" />
     <ClInclude Include="Codes\PauseMenu.h" />
     <ClInclude Include="Codes\SplashScreens.h" />
@@ -64,6 +73,23 @@
     <ClInclude Include="Codes\UI.h" />
     <Text Include="Levels\1.txt" />
     <Text Include="Levels\2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Music\Ambience.wav" />
+    <Media Include="Music\Chasing.wav" />
+    <Media Include="Music\MainMenuLoop.wav" />
+    <Media Include="Music\Step1.wav" />
+    <Media Include="Music\Step2.wav" />
+    <Media Include="Music\Step3.wav" />
+    <Media Include="Music\Step4.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Codes\fmod64_vc.lib" />
+    <Library Include="Codes\fmodL64_vc.lib" />
+    <Library Include="Codes\fmodL_vc.lib" />
+    <Library Include="Codes\fmod_vc.lib" />
+    <Library Include="Codes\libfmod.a" />
+    <Library Include="Codes\libfmodL.a" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EB0C7F36-5B30-4677-B3EB-0AB9DC60C6DB}</ProjectGuid>
@@ -121,12 +147,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\Marcus\Desktop\GAM-TEST Master\lib;$(SolutionDir)inc;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Marcus\Desktop\GAM-TEST Master\lib;$(SolutionDir)inc;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -153,6 +183,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>fmodL_vc.lib;fmod_vc.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -188,6 +219,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>fmod_vc.lib;fmodL_vc.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
