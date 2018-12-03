@@ -73,7 +73,7 @@
     <ClCompile Include="Codes\Credits.c">
       <Filter>Menus</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\idk\GAM-Test-master\GAM Test\Codes\VictoryScreen.c">
+    <ClCompile Include="Codes\VictoryScreen.c">
       <Filter>Menus</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,7 +123,7 @@
     <ClInclude Include="Codes\Credits.h">
       <Filter>Menus</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\idk\GAM-Test-master\GAM Test\Codes\VictoryScreen.h">
+    <ClInclude Include="Codes\VictoryScreen.h">
       <Filter>Menus</Filter>
     </ClInclude>
   </ItemGroup>
