@@ -16,6 +16,7 @@
 #include "Options.h"
 #include "PauseMenu.h"
 #include "SplashScreens.h"
+#include "Credits.h"
 #include "UI.h"
 #include "VictoryScreen.h"
 
@@ -60,7 +61,7 @@ void game_init()
 	isPaused = false;
 
 	currentMapNum = 0;
-	lastMapNum = 1;
+	lastMapNum = 2;
 }
 
 void game_resetClock()
@@ -105,10 +106,9 @@ void game_loseTempScreen()
 {
 	if (*dataStorage_getAliveBool() == false)
 	{
-		console_setCursorPosition(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10 + 5);
-		printf("YOU DEAD");
-		console_setCursorPosition(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10 + 7);
-		printf("PRESS ESC TO RESTART");
+		console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU LOSE", (char)changingColor);
+		console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10+1, "PRESS ESC TO RESTART", (char)changingColor);
+
 	}
 }
 
@@ -116,8 +116,8 @@ void game_loseTempScreen()
 void game_winTempScreen()
 {
 	*dataStorage_getAliveBool() = false;
-	console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU WIN!", changingColor, 8);
-	console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10 + 1, "PRESS ESC TO RESTART", changingColor, 20);
+	console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU WIN!", (char)changingColor);
+	console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10 + 1, "PRESS ESC TO RESTART", (char)changingColor);
 }
 
 void game_changeColor()
@@ -138,10 +138,10 @@ void game_EnemyUpdate()
 	int x, y;
 	dataStorage_getPlayerPosition(&x, &y);
 	enemy_weightedMapReset();
-	enemy_recursiveCheckPath(dataStorage_getMapDataOut(), x, y, 1, 1);
+	enemy_recursiveCheckPath(dataStorage_getMapDataOut(), (char)x, (char)y, (char)1, (char)1);
 	enemy_setWallWeight(-1, dataStorage_getMapDataOut());
 	//enemy_drawDebugWeight();
-	for (int i = 0; i < 10; i++)
+	for (char i = 0; i < 10; i++)
 	{
 		enemy_Update(i, dataStorage_getEnemyObject(i));
 	}
@@ -394,7 +394,7 @@ void game_loadMap(int mapNo)
 	FILE *stream;
 	bool checkHeight = true;
 	bool fileOpen = false;
-	char *fileName = NULL, temp = NULL;
+	char *fileName = (char *)NULL, temp = 0;
 	int counter = 0, x = 0, y = 0;
 
 		/***************************************
@@ -414,6 +414,9 @@ void game_loadMap(int mapNo)
 		case 1:
 			fileName = "Levels/2.txt";
 			break;
+		case 2:
+			fileName = "Levels/3.txt";
+			break;
 	}
 
 	fileOpen = (fopen_s(&stream, fileName, "r+t") == 0);
@@ -425,7 +428,7 @@ void game_loadMap(int mapNo)
 		fread(&temp, sizeof(char), 1, stream);
 
 		while (temp != '\n')
-			mapWidth += fread(&temp, sizeof(char), 1, stream);
+			mapWidth += (int)fread(&temp, sizeof(char), 1, stream);
 
 		while (checkHeight)
 		{
@@ -455,7 +458,7 @@ void game_loadMap(int mapNo)
 			fread(&temp, sizeof(char), 1, stream);
 			if (temp != '\n')
 			{
-				*(map + counter) = atoi(&temp);
+				*(map + counter) = (char)atoi(&temp);
 				/****************************************************************
 
 				this here changes the the current map loaded into their int form.
@@ -498,7 +501,7 @@ void game_loadMap(int mapNo)
 		dataStorage_setMapData(map, mapWidth, mapHeight);
 		arrayReader_setMap(mapWidth * mapHeight);
 
-		dataStorage_EnemyInit(playerX, playerY);
+		dataStorage_EnemyInit((char)playerX, (char)playerY);
 
 		counter = 0;
 
@@ -530,7 +533,7 @@ void game_loadMap(int mapNo)
 				fread(&temp, sizeof(char), 1, stream);
 			}
 
-			enemy_spawnEnemy(x, y, counter, patrol, x1, y1, x2, y2);
+			enemy_spawnEnemy(x, y, (char)counter, patrol, x1, y1, x2, y2);
 
 			counter++;
 		}
@@ -556,7 +559,7 @@ char * game_readFile(char * fileName, int *fileWidth, int *fileHeight)
 	FILE *stream;
 	bool checkHeight = true;
 	bool fileOpen = false;
-	char temp = NULL;
+	char temp = 0;
 	int counter = 0;
 
 	fileOpen = (fopen_s(&stream, fileName, "r+t") == 0);
@@ -568,7 +571,7 @@ char * game_readFile(char * fileName, int *fileWidth, int *fileHeight)
 		fread(&temp, sizeof(char), 1, stream);
 
 		while (temp != '\n')
-			*fileWidth += fread(&temp, sizeof(char), 1, stream);
+			*fileWidth += (int)fread(&temp, sizeof(char), 1, stream);
 
 		while (checkHeight)
 		{
@@ -600,7 +603,10 @@ char * game_readFile(char * fileName, int *fileWidth, int *fileHeight)
 		return textstring;
 	}
 	else
+	{
 		game_turnOffGame();
+		return (char*)NULL;
+	}
 }
 
 

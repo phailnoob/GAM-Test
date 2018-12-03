@@ -21,8 +21,8 @@ MapOffset;
 
 typedef struct PlayerPosition
 {
-	short x;
-	short y;
+	int x;
+	int y;
 }
 PlayerPosition;
 
@@ -86,8 +86,8 @@ void dataStorage_EnemyInit(char playerX, char playerY);
 void dataStorage_setPlayerPosition(int x, int y);
 void dataStorage_getPlayerPosition(int *x, int *y);
 
-void dataStorage_setEnemyPosition(int x, int y, short index);
-void dataStorage_getEnemyPosition(int *x, int *y, short index);
+void dataStorage_setEnemyPosition(int x, int y, int index);
+void dataStorage_getEnemyPosition(int *x, int *y, int index);
 void dataStorage_activateEnemy(char index);
 Enemy* dataStorage_getEnemyObject(char index);
 

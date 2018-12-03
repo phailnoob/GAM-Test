@@ -10,8 +10,10 @@ PauseMenu functions
 
 #include <stdio.h>
 #include <stdbool.h>
+#include "Console.h"
 #include <conio.h>
 #include "PauseMenu.h"
+#include "Game.h"
 #include "GameStateManager.h"
 
 /* input variables */
@@ -88,7 +90,6 @@ void PauseClearScreen()
 void DrawBorder()
 {
 	int i = 0;
-	int offsetX = 10;
 	console_setColor(15);
 	/* border */
 	console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2,

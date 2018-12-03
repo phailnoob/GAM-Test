@@ -2,6 +2,7 @@
 #include "SplashScreens.h"
 #include "Game.h"
 #include "windows.h"
+#include "Console.h"
 
 AsciiChar digipen, studio;
 

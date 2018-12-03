@@ -161,5 +161,23 @@
     <Text Include="Levels\2.txt">
       <Filter>Levels</Filter>
     </Text>
+    <Text Include="Assets\marcus.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\adam.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\clear.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\edwin.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\kailiang.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Assets\kenny.txt">
+      <Filter>Assets</Filter>
+    </Text>
   </ItemGroup>
 </Project>

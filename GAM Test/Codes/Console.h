@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 
+
 void console_init();
 
 int console_getConsoleWidth();
@@ -13,7 +14,8 @@ int console_getConsoleHeight();
 
 void console_setCursorPosition(int x, int y);
 
-void console_readFile();
+
+
 
 /*
 ---Color Chart---
@@ -35,7 +37,7 @@ void console_readFile();
 15 - White
 */
 void console_draw(int drawX, int drawY, char drawChar, char color);
-void console_drawString(char drawX, char drawY, char drawChar[], char color);
+void console_drawString(int drawX, int drawY, char drawChar[], char color);
 void console_setColor(char color);
 void console_clear();
 int console_getConsoleWidth();

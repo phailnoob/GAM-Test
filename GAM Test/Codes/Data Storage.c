@@ -44,9 +44,6 @@ void dataStorage_EnemyInit(char playerX, char playerY)
 {
 	char i = 0;
 
-	int width = dataStorage_getMapDataOut()->width;
-	int height = dataStorage_getMapDataOut()->height;
-
 	/*Initialization of default enemies without position*/
 	/*Change the positions of enemies when needed to spawn*/
 	for (i = 0; i < 10; i++)
@@ -81,13 +78,13 @@ void dataStorage_getPlayerPosition(int *x, int *y)
 	*y = playerPosition.y;
 }
 
-void dataStorage_setEnemyPosition(int x, int y,short index)
+void dataStorage_setEnemyPosition(int x, int y,int index)
 {
 	enemyObject[index].x = x;
 	enemyObject[index].y = y;
 }
 
-void dataStorage_getEnemyPosition(int *x, int *y, short index)
+void dataStorage_getEnemyPosition(int *x, int *y, int index)
 {
 	*x = enemyObject[index].x;
 	*y = enemyObject[index].y;
@@ -156,6 +153,7 @@ bool dataStorage_checkWall()
 			return true;
 			break;
 	}
+	return 0;
 }
 
 
@@ -233,32 +231,32 @@ void dataStorage_getExitPos(int *x, int *y)
 int dataStorage_torch_counter()
 {
 	int counter;
-	int torches=0;
+	int torchesL=0;
 	
 	for (counter = 0; counter < 5; counter++)
 	{
 		if (dataStorage_getTorchObj(counter)->active)
 		{
-			torches++;
+			torchesL++;
 		}
 			
 	}
-	return torches;
+	return torchesL;
 	
 }
 
 int dataStorage_trap_counter()
 {
 	int counter;
-	int traps = 0;
+	int trapsL = 0;
 
 	for (counter = 0; counter < 5; counter++)
 	{
 		if (dataStorage_getTrapObj(counter)->active)
 		{
-			traps++;
+			trapsL++;
 		}
 	}
-	return traps;
+	return trapsL;
 
 }

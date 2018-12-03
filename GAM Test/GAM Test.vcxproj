@@ -57,10 +57,16 @@
     <ClInclude Include="Codes\VictoryScreen.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Assets\adam.txt" />
+    <Text Include="Assets\clear.txt" />
     <Text Include="Assets\Credits.txt" />
     <Text Include="Assets\Digipen.txt" />
+    <Text Include="Assets\edwin.txt" />
     <Text Include="Assets\Exit.txt" />
+    <Text Include="Assets\kailiang.txt" />
+    <Text Include="Assets\kenny.txt" />
     <Text Include="Assets\Logo.txt" />
+    <Text Include="Assets\marcus.txt" />
     <Text Include="Assets\Options.txt" />
     <Text Include="Assets\Play.txt" />
     <Text Include="Assets\Studio.txt" />
@@ -149,7 +155,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
