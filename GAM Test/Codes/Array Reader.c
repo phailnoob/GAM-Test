@@ -94,45 +94,11 @@ void arrayReader_draw()
 					}
 				}
 			}
-			
-			for (a = 0; a < 5; ++a)
+			if (arrayReader_checkDistance(j, i, playerX, playerY) < torchRange * torchRange &&
+				arrayReader_checkDistance(j, i, playerX, playerY) >= playerRange * playerRange)
 			{
-				trap = dataStorage_getTrapObj(a);
-				dataStorage_getTrapPos(a, &trapX, &trapY);
 
-				if (trap->active)
-				{
-					for (h = 0; h < 10; h++)
-					{
-						en = dataStorage_getEnemyObject(h);
-						if (en->active)
-						{
-							dataStorage_getEnemyPosition(&f, &g, (short)h);
-							if (j == f && i == g)
-							{
-								//currentMap[i * height + j] = spriteReference_getSprite(3);
-
-								if (trapX == f && trapY == g)
-								{
-									enemy_deactivateEnemy((char)h);
-									placeTrap(a, -1, -1);
-									break;
-								}
-
-								break;
-							}
-
-							else if (currentMap[i * height + j] == spriteReference_getSprite(3))
-								currentMap[i * height + j] = spriteReference_getSprite(dataStorage_getMapValue(j, i));
-						}
-					}
-
-					if (j == trapX && i == trapY)
-					{
-						currentMap[i * height + j] = spriteReference_getSprite(6);
-						break;
-					}
-				}
+				currColor[i*height + j] = 7;
 			}
 
 			for (k = 0; k < 5; ++k)
