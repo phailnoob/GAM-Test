@@ -56,7 +56,7 @@ void PauseMenu_Init()
 	prevPosX = optionPtrX;
 	prevPosY = optionPtrY;
 
-	MoveBichGetOutTheWay();
+	PauseClearScreen();
 	DrawBorder();
 	DrawOptions();
 	DrawToolTips(3);
@@ -69,7 +69,7 @@ void PauseMenu_Update()
 }
 
 /* clear area behind pause menu */
-void MoveBichGetOutTheWay()
+void PauseClearScreen()
 {
 	int i, j;
 	console_setColor(15);
@@ -188,11 +188,11 @@ void DrawToolTips(int state)
 	case 3:
 		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding + dividerPaddingLeft,
 			(console_getConsoleHeight() - borderHeight) / 2 + vertiPadding + 2 * toolTipHeight);
-		printf("Lala (l)");
+		printf("help im lost (l)");
 
 		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding + dividerPaddingLeft,
 			(console_getConsoleHeight() - borderHeight) / 2 + vertiPadding + 1 + 2 * toolTipHeight);
-		printf(" - Hai");
+		printf(" - who am i where am i");
 
 	case 2:
 		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding + dividerPaddingLeft,
@@ -201,7 +201,7 @@ void DrawToolTips(int state)
 
 		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding + dividerPaddingLeft,
 			(console_getConsoleHeight() - borderHeight) / 2 + vertiPadding + 1 + toolTipHeight);
-		printf(" - Hey");
+		printf(" - Destroys any enemy that step on it.");
 
 	case 1:
 		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding + dividerPaddingLeft,
@@ -210,7 +210,7 @@ void DrawToolTips(int state)
 
 		console_setCursorPosition((console_getConsoleWidth() - borderWidth) / 2 + horizPadding + dividerPaddingLeft,
 			(console_getConsoleHeight() - borderHeight) / 2 + vertiPadding + 1);
-		printf(" - Brighten up your life <3");
+		printf(" - Light up 5 spaces around it. Reveals enemies.");
 		break;
 
 	default:
@@ -268,9 +268,8 @@ void PointAtOption(int key)
 			break;
 
 		case 3:
-			break;
-
-		default:
+			console_clear();
+			gsm_returnStateSystem()->next = state_mainMenu;
 			break;
 		}
 		break;
@@ -288,6 +287,5 @@ void PauseMenu_CheckInput()
 		keyPressed = true;
 		PointAtOption(keyPress);
 		/* printf("%d", keyPress); */
-//		printf("%d", keyPress);
 	}
 }

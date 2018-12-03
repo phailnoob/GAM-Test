@@ -73,6 +73,9 @@
     <ClCompile Include="Codes\Credits.c">
       <Filter>Menus</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\idk\GAM-Test-master\GAM Test\Codes\VictoryScreen.c">
+      <Filter>Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Input.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="Codes\Credits.h">
       <Filter>Menus</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\idk\GAM-Test-master\GAM Test\Codes\VictoryScreen.h">
+      <Filter>Menus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Levels\0.txt">
@@ -153,12 +159,6 @@
       <Filter>Assets</Filter>
     </Text>
     <Text Include="Levels\2.txt">
-      <Filter>Levels</Filter>
-    </Text>
-    <Text Include="Levels\4.txt">
-      <Filter>Levels</Filter>
-    </Text>
-    <Text Include="Levels\5.txt">
       <Filter>Levels</Filter>
     </Text>
   </ItemGroup>

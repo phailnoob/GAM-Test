@@ -17,6 +17,7 @@
 #include "PauseMenu.h"
 #include "SplashScreens.h"
 #include "UI.h"
+#include "VictoryScreen.h"
 
 bool isRunning, mapUsed;
 
@@ -37,6 +38,7 @@ static char *map;
 
 void game_init()
 {
+	PauseMenu_Init();
 	dataStorage_init();
 	console_init();
 	console_clear();
@@ -96,14 +98,17 @@ void game_clearGame()
 	}
 }
 
+
+
 /*Temp lose screen*/
 void game_loseTempScreen()
 {
 	if (*dataStorage_getAliveBool() == false)
 	{
-		console_drawString(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10, "YOU LOSE", changingColor, 8);
-		console_drawString(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10+1, "PRESS ESC TO RESTART", changingColor, 20);
-
+		console_setCursorPosition(console_getConsoleWidth() / 2 - 4, console_getConsoleHeight() / 10 + 5);
+		printf("YOU DEAD");
+		console_setCursorPosition(console_getConsoleWidth() / 2 - 10, console_getConsoleHeight() / 10 + 7);
+		printf("PRESS ESC TO RESTART");
 	}
 }
 
@@ -148,7 +153,10 @@ void game_EnemyUpdate()
 	{
 		if(currentMapNum == lastMapNum)
 		{
-			game_winTempScreen();
+			console_clear();
+			gsm_returnStateSystem()->next = state_Victory;
+			VictoryScreen_Init();
+			/* game_winTempScreen(); */
 		}
 		else
 		{
@@ -239,6 +247,9 @@ void game_update()
 		case state_PauseMenu:
 			PauseMenu_Update();
 			break;
+		case state_Victory:
+			VictoryScreen_Update();
+			break;
 		}
 	}
 	else
@@ -309,6 +320,7 @@ void game_playerAction(int action)
 			if (!isPaused)
 			{
 				gsm_returnStateSystem()->next = state_PauseMenu;
+				PauseClearScreen();
 				PauseMenu_Init();
 				isPaused = !isPaused;
 			}
@@ -384,6 +396,7 @@ void game_loadMap(int mapNo)
 	bool fileOpen = false;
 	char *fileName = NULL, temp = NULL;
 	int counter = 0, x = 0, y = 0;
+
 		/***************************************
 			-Spawn Enemy locations
 			-Set patrol bool
@@ -529,7 +542,9 @@ void game_loadMap(int mapNo)
 		dataStorage_setPlayerPosition(playerX, playerY);
 		dataStorage_setExitPos(exitX, exitY);
 
+		arrayReader_setInitialDraw(true);
 		arrayReader_draw();
+		arrayReader_setInitialDraw(false);
 	}
 	else
 		game_turnOffGame();

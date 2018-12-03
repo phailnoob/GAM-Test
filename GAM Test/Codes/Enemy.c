@@ -12,12 +12,24 @@ Includes pathfinding calculations.
 #include "Enemy.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "Game.h"
 #include "UI.h"
+#include "PauseMenu.h"
 
 
 /*Global weightmap array to be used by all enemy objects to calculate weight*/
 MapArray ma_WeightMap;
+
+const char * oofMessages[9] = { "Try placing down some torches.",
+								"You can use traps to get rid of enemies.",
+								"Don worri, ish sho shimple.",
+								"It's still early for you to apply for withdrawal.",
+								"There are only 2 actually useful tips.",
+								"Noob mistake.",
+								"if(youreBad) { gitGud() };",
+								"Freshmen starts with F.",
+								"GG! *FLIP TABLE*" };
 
 MapArray* enemy_getWeightMap()
 {
@@ -55,9 +67,6 @@ void enemy_weightedMapReset()
 		}
 	}
 }
-
-
-
 
 /*Returns true if weight map contains specified value*/
 bool enemy_checkWeightMapContainValue(char val)
@@ -655,6 +664,11 @@ void enemy_Update(char index,Enemy* enemyObj)
 					}
 					else
 					{
+						PauseClearScreen();
+						console_setCursorPosition(console_getConsoleWidth() / 2 - (strlen(oofMessages)/2), console_getConsoleHeight() / 2);
+						printf("%s", oofMessages[rand()%9]);
+						Sleep(2000);
+						PauseClearScreen();
 						game_RestartCurrentMap();
 					}
 				}
@@ -673,7 +687,6 @@ void enemy_Update(char index,Enemy* enemyObj)
 					enemyObj->seen = true;
 				}
 			}
-
 		}
 	}
 }

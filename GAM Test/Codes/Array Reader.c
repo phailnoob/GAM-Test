@@ -14,6 +14,8 @@ static char *currColor, *currentMap;
 static int width, height, i, j, playerX, playerY, fogStart, fogEnd, distance, f, g, h, playerRange = 3;
 Enemy *en;
 
+static bool change, initialDraw = false;
+
 Torch *torch;
 static int k, torchX, torchY, torchRange;
 
@@ -189,4 +191,9 @@ void arrayReader_Destructor()
 	free(currColor);
 
 	free(currentMap);
+}
+
+void arrayReader_setInitialDraw(bool someBool)
+{
+	initialDraw = someBool;
 }

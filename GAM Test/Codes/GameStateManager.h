@@ -11,6 +11,7 @@ typedef enum State
 	state_Credits,
 	state_Game,
 	state_PauseMenu,
+	state_Victory,
 	state_Exit = -1,
 	state_Transition = -2,
 

@@ -184,10 +184,6 @@ void mainMenu_drawButtons()
 
 }
 
-
-
-
-
 /*Handles main menu updates. Only call this outside of this function*/
 void mainMenu_Update()
 {

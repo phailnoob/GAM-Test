@@ -26,9 +26,9 @@ char *UI_traps[3] = {
 };
 
 char *UI_Lives[3] = {
-						{" .-~~-. "},
-						{"(_'..'_)"},
-						{"  ||||  "}
+						{" .-~-. "},
+						{"(_'-'_)"},
+						{"/|||||\\  "}
 };
 char mission[] = { "Find the Exit!" };
 char mission2[] = { "But beware of monsters..." };
@@ -111,7 +111,7 @@ void drawUI()
 			printf("%c", 186);
 		}
 
-		console_drawString(15-(sizeof(mission)-1)/2, console_getConsoleHeight() / 2-9, mission, 15, sizeof(mission)-1);
+		console_drawString(15 - (sizeof(mission) - 1)/2, console_getConsoleHeight() / 2-9, mission, 15, sizeof(mission)-1);
 		console_drawString(15 - (sizeof(mission2) - 1)/2, console_getConsoleHeight() / 2+1-9, mission2, 15, sizeof(mission2)-1);
 
 		console_setCursorPosition(1, 20);
