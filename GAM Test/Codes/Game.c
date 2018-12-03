@@ -19,6 +19,7 @@
 #include "Credits.h"
 #include "UI.h"
 #include "VictoryScreen.h"
+#include "Music.h"
 
 bool isRunning, mapUsed;
 
@@ -49,6 +50,7 @@ void game_init()
 	mainMenu_Init();
 	splashScreen_Init();
 	splashScreen_Draw();
+	Music_Init();
 
 	mapUsed = false;
 	isRunning = true;
@@ -62,6 +64,7 @@ void game_init()
 
 	currentMapNum = 0;
 	lastMapNum = 4;
+	music_Update();
 }
 
 void game_resetClock()
@@ -190,6 +193,8 @@ void game_update()
 		case state_mainMenu:
 			mainMenu_Update();
 
+			music_Update();
+
 			if (gsm_IsChanging())
 			{
 				if (gsm_returnStateSystem()->next == state_Game)
@@ -201,6 +206,7 @@ void game_update()
 					gsm_returnStateSystem()->next = state_Game;
 					currentMapNum = 0;
 					game_loadMap(currentMapNum);
+					music_Update();
 
 				}
 				else if (gsm_returnStateSystem()->next == state_Options)
@@ -244,6 +250,7 @@ void game_update()
 			UI_draw_traps();
 			UI_drawSkulls();
 			input_checkInput();
+			music_Update();
 			break;
 		case state_PauseMenu:
 			PauseMenu_Update();
@@ -279,21 +286,29 @@ void game_playerAction(int action)
 			dataStorage_setPlayerPosition(playerX, --playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(playerX, ++playerY);
+			else
+				footstep_loop();
 			break;
 		case 2:
 			dataStorage_setPlayerPosition(playerX, ++playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(playerX, --playerY);
+			else
+				footstep_loop();
 			break;
 		case 3:
 			dataStorage_setPlayerPosition(--playerX, playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(++playerX, playerY);
+			else
+				footstep_loop();
 			break;
 		case 4:
 			dataStorage_setPlayerPosition(++playerX, playerY);
 			if (dataStorage_checkWall())
 				dataStorage_setPlayerPosition(--playerX, playerY);
+			else
+				footstep_loop();
 			break;
 		case 5: /* place torch action */
 			UI_draw_ResetTorchDrawn();

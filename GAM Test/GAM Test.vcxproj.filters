@@ -20,6 +20,12 @@
     <Filter Include="Menus">
       <UniqueIdentifier>{37cf5dd5-31a2-4f92-ab45-aa5104ed02fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Music">
+      <UniqueIdentifier>{2e6de7e2-dc36-4faf-abe9-12eae0a6c612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FMOD">
+      <UniqueIdentifier>{88bc1ca5-4c3c-4d60-a880-10fd1f490788}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Codes\Main.c">
@@ -76,6 +82,9 @@
     <ClCompile Include="Codes\VictoryScreen.c">
       <Filter>Menus</Filter>
     </ClCompile>
+    <ClCompile Include="Codes\Music.c">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Codes\Input.h">
@@ -125,6 +134,30 @@
     </ClInclude>
     <ClInclude Include="Codes\VictoryScreen.h">
       <Filter>Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Music.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\fmod_common.h">
+      <Filter>FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\fmod_dsp.h">
+      <Filter>FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\fmod_dsp_effects.h">
+      <Filter>FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\fmod_errors.h">
+      <Filter>FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\fmod_output.h">
+      <Filter>FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\fmod.h">
+      <Filter>FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\fmod_codec.h">
+      <Filter>FMOD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,5 +212,48 @@
     <Text Include="Assets\kenny.txt">
       <Filter>Assets</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Music\Ambience.wav">
+      <Filter>Music</Filter>
+    </Media>
+    <Media Include="Music\Chasing.wav">
+      <Filter>Music</Filter>
+    </Media>
+    <Media Include="Music\MainMenuLoop.wav">
+      <Filter>Music</Filter>
+    </Media>
+    <Media Include="Music\Step1.wav">
+      <Filter>Music</Filter>
+    </Media>
+    <Media Include="Music\Step2.wav">
+      <Filter>Music</Filter>
+    </Media>
+    <Media Include="Music\Step3.wav">
+      <Filter>Music</Filter>
+    </Media>
+    <Media Include="Music\Step4.wav">
+      <Filter>Music</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Codes\libfmodL.a">
+      <Filter>FMOD</Filter>
+    </Library>
+    <Library Include="Codes\fmod_vc.lib">
+      <Filter>FMOD</Filter>
+    </Library>
+    <Library Include="Codes\fmod64_vc.lib">
+      <Filter>FMOD</Filter>
+    </Library>
+    <Library Include="Codes\fmodL_vc.lib">
+      <Filter>FMOD</Filter>
+    </Library>
+    <Library Include="Codes\fmodL64_vc.lib">
+      <Filter>FMOD</Filter>
+    </Library>
+    <Library Include="Codes\libfmod.a">
+      <Filter>FMOD</Filter>
+    </Library>
   </ItemGroup>
 </Project>

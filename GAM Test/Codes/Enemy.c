@@ -687,6 +687,7 @@ void enemy_Update(char index,Enemy* enemyObj)
 				if (enemy_isInlineOfSight(enemyObj))
 				{
 					enemyObj->seen = true;
+					chasing_music();
 				}
 			}
 		}
