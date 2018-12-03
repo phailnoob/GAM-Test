@@ -51,7 +51,7 @@ void input_wasd(int key)
 				keyPressed = false;
 			}
 			break;
-
+		case 84:
 		case 116: /* 't' */
 			if (*dataStorage_getAliveBool() == true)
 			{
@@ -59,6 +59,7 @@ void input_wasd(int key)
 				keyPressed = false;
 			}
 			break;
+		case 89:
 		case 121: /* 'y' */
 			if (*dataStorage_getAliveBool() == true)
 			{
