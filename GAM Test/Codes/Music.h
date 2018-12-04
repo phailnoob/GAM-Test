@@ -1,3 +1,14 @@
+/************************************************
+Filename: Music.h
+Author: Koh Joon Yee Marcus
+DP Email: k.joonyeemarcus@digipen.edu
+Course: GAM100
+
+Brief Description:
+FMOD music header includes and struct definintion
+*************************************************/
+
+
 #include "fmod.h" //FMOD Ex
 #include <stdbool.h>
 #include <stdio.h>

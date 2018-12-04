@@ -1,6 +1,12 @@
+/************************************************
+Filename: Music.c
+Author: Koh Joon Yee Marcus
+DP Email: k.joonyeemarcus@digipen.edu
+Course: GAM100
 
-
-
+Brief Description:
+FMOD music implementations
+*************************************************/
 #include "music.h"
 #include "fmod.h"
 #include "fmod_common.h"
