@@ -14,10 +14,12 @@ Main Menu functions
 #include "MainMenu.h"
 #include "GameStateManager.h"
 #include "Options.h"
+#include <conio.h>
+#include <stdio.h>
 
 bool staticDrawn;
 short consoleWidth, consoleHeight;
-char keyDown, keyPress;
+char keyDown2, keyPress;
 
 void options_Init()
 {
@@ -67,10 +69,10 @@ void options_Update()
 		staticDrawn = !staticDrawn;
 	}
 
-	keyDown = _kbhit();
-	if (keyDown)
+	keyDown2 = (char)_kbhit();
+	if (keyDown2)
 	{
-		keyPress = _getch();
+		keyPress = (char)_getch();
 		if (keyPress == 27)
 		{
 			console_clear();

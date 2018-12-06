@@ -15,6 +15,7 @@ Includes pathfinding calculations.
 #include <stdlib.h>
 #include "Game.h"
 #include "UI.h"
+#include "Music.h"
 #include "PauseMenu.h"
 
 

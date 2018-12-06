@@ -411,13 +411,13 @@ typedef struct FMOD_DSP_PARAMETER_DESC
     char                      label[16];            /* [w] Short string to be put next to value to denote the unit type (ie "hz"). */
     const char               *description;          /* [w] Description of the parameter to be displayed as a help item / tooltip for this parameter. */
 
-    union
+    union ThisUnion
     {
         FMOD_DSP_PARAMETER_DESC_FLOAT   floatdesc;  /* [w] Struct containing information about the parameter in floating point format.  Use when type is FMOD_DSP_PARAMETER_TYPE_FLOAT. */
         FMOD_DSP_PARAMETER_DESC_INT     intdesc;    /* [w] Struct containing information about the parameter in integer format.  Use when type is FMOD_DSP_PARAMETER_TYPE_INT. */
         FMOD_DSP_PARAMETER_DESC_BOOL    booldesc;   /* [w] Struct containing information about the parameter in boolean format.  Use when type is FMOD_DSP_PARAMETER_TYPE_BOOL. */
         FMOD_DSP_PARAMETER_DESC_DATA    datadesc;   /* [w] Struct containing information about the parameter in data format.  Use when type is FMOD_DSP_PARAMETER_TYPE_DATA. */
-    };
+    }ThisUnion;
 } FMOD_DSP_PARAMETER_DESC;
 
 

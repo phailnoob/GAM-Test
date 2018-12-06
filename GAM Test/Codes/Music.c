@@ -26,7 +26,6 @@ char footstep_num;
 void LoadSound()
 {
 	FMOD_RESULT result;
-	FMOD_SOUND * sound;
 	result = FMOD_System_CreateSound(GameMusic.fmodsystem, "Music/MainMenuLoop.wav", FMOD_LOOP_NORMAL, 0,GameMusic.sound + 0);
 	if(result!= FMOD_OK)
 		printf("FMOD error! (%d) %s\n", result, FMOD_ErrorString(result));
@@ -110,7 +109,6 @@ void music_Update()
 {
 	/*1) if mainmenu music is not playing, play music and loop(Mainmenuloop already initialised in forward looping mode */
 	FMOD_RESULT result;
-	FMOD_BOOL pause = true;
 
 		if (!isPlaying)
 		{

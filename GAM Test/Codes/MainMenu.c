@@ -18,7 +18,7 @@ Main Menu functions
 
 
 char selected = 1;
-int keyPress, keyDown;
+int keyPress2, keyDown;
 bool keyPressed = false;
 bool logoDrawn = 0;
 
@@ -111,10 +111,10 @@ void mainMenu_arrow(int key,bool * keyPressedL)
 /*Gets in raw keyboard input*/
 void mainMenu_checkInput()
 {
-	keyPress = _getch();
+	keyPress2 = _getch();
 
 	keyPressed = true;
-	mainMenu_arrow(keyPress, &keyPressed);
+	mainMenu_arrow(keyPress2, &keyPressed);
 }
 
 

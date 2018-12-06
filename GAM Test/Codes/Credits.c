@@ -12,7 +12,7 @@
 
 bool staticDrawn,faceDrawn;
 short consoleWidth, consoleHeight;
-int keyDown, keyPress,selected;
+int keyDown1, keyPress1,selected1;
 
 clock_t begin;
 double time_spent, prevTime, timeLapse;
@@ -38,7 +38,7 @@ void credits_Init()
 	edwinJob = "Lead Engine Developer";
 	marcusJob = "UI & SFX Engineer";
 
-	selected = 1;
+	selected1 = 1;
 	faceDrawn = 0;
 	begin = clock();
 	timeLapse = 2;
@@ -101,8 +101,8 @@ void credits_draw(int x, int y, AsciiChar * image, char color)
 		}
 	}
 
-	for (i = 0; i < strlen("All content <C> 2018 DigiPen Institure of Technology Singapore, all rights reserved."); i++)
-		console_draw((consoleWidth - strlen("All content <C> 2018 DigiPen Institure of Technology Singapore, all rights reserved."))/2  + i, 5, *("All content <C> 2018 DigiPen Institure of Technology Singapore, all rights reserved." + i), color);
+	for (i = 0; i < (int)strlen("All content <C> 2018 DigiPen Institure of Technology Singapore, all rights reserved."); i++)
+		console_draw((consoleWidth - (int)strlen("All content <C> 2018 DigiPen Institure of Technology Singapore, all rights reserved."))/2  + i, 5, *("All content <C> 2018 DigiPen Institure of Technology Singapore, all rights reserved." + i), color);
 }
 
 
@@ -112,13 +112,13 @@ void credits_slideShow()
 	
 	if (time_spent - prevTime >= timeLapse)
 	{
-		if (selected < 4)
+		if (selected1 < 4)
 		{
-			selected++;
+			selected1++;
 		}
 		else
 		{
-			selected = 1;
+			selected1 = 1;
 		}
 		faceDrawn = 0;
 		prevTime = time_spent;
@@ -138,7 +138,7 @@ void credits_Update()
 
 	if (!faceDrawn)
 	{
-		switch (selected)
+		switch (selected1)
 		{
 		case 1:
 			credits_draw(consoleWidth / 10 * 4, consoleHeight / 10 * 4, &adam, 15);
@@ -164,11 +164,11 @@ void credits_Update()
 		faceDrawn = 1;
 	}
 
-	keyDown = _kbhit();
-	if (keyDown)
+	keyDown1 = _kbhit();
+	if (keyDown1)
 	{
-		keyPress = _getch();
-		if (keyPress == 27)
+		keyPress1 = _getch();
+		if (keyPress1 == 27)
 		{
 			gsm_returnStateSystem()->next = state_mainMenu;
 		}
