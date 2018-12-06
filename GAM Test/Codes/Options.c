@@ -62,7 +62,7 @@ void options_Update()
 {
 	if (!staticDrawn)
 	{
-		options_DrawUIBox(consoleWidth / 10 * 3, consoleHeight / 10 * 8, consoleWidth / 2 - consoleWidth / 10 * 1.5, consoleHeight / 10, 15);
+		options_DrawUIBox(consoleWidth / 10 * 6, consoleHeight / 10 * 8, consoleWidth / 2 - consoleWidth / 10 * 3, consoleHeight / 10, 15);
 
 		staticDrawn = !staticDrawn;
 	}
