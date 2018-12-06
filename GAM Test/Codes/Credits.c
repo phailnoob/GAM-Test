@@ -100,6 +100,9 @@ void credits_draw(int x, int y, AsciiChar * image, char color)
 			}
 		}
 	}
+
+	for (i = 0; i < strlen("All content <C> 2018 DigiPen Institure of Technology Singapore, all rights reserved."); i++)
+		console_draw((consoleWidth - strlen("All content <C> 2018 DigiPen Institure of Technology Singapore, all rights reserved."))/2  + i, 5, *("All content <C> 2018 DigiPen Institure of Technology Singapore, all rights reserved." + i), color);
 }
 
 

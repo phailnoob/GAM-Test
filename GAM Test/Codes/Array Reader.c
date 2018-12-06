@@ -191,8 +191,8 @@ void arrayReader_draw()
 			if (j == playerX && i == playerY)
 				currentMap[i * height + j] = spriteReference_getSprite(2);
 
-				console_draw((console_getConsoleWidth() - width) / 2 + j,
-				(console_getConsoleHeight() - height) / 2 + i,
+				console_draw((console_getConsoleWidth() - width) / 2 + j + 18,
+				(console_getConsoleHeight() - height) / 2 + i + 2,
 					currentMap[i*height + j],
 					currColor[i*height + j]);
 

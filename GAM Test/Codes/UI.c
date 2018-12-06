@@ -14,6 +14,8 @@ Brief Description:
 #include "Data Storage.h"
 #include <stdio.h>
 
+#define LIFE_SIZE 5
+
 char *UI_torch[3] = {
 							{ " \\**/"},
 							{ "  || " },
@@ -26,11 +28,12 @@ char *UI_traps[3] = {
                            {"<v>"}
 };
 
-char *UI_Lives[4] = {
-						{" _    _  "},
-						{"( `\\/' ) "},
-						{" \\    /' "},
-						{"  `\\/'   "}
+char *UI_Lives[LIFE_SIZE] = {
+						{" __  __  "},
+						{"(  \\/  ) "},
+						{" \\    / "},
+						{"  \\  / "},
+						{"   \\/   "}
 };
 char mission[] = { "Find the Exit!" };
 char mission2[] = { "But beware of monsters..." };
@@ -113,20 +116,16 @@ void drawUI()
 			printf("%c", 186);
 		}
 
-		console_drawString(15 - (sizeof(mission) - 1)/2, console_getConsoleHeight() / 2-9, mission, 15);
-		console_drawString(15 - (sizeof(mission2) - 1)/2, console_getConsoleHeight() / 2+1-9, mission2, 15);
-
-		console_setCursorPosition(1, 20);
-		for (j = 0; j < 29; j++)
-			printf("%c", 205);
+		console_drawString(15 - (sizeof(mission) - 1)/2, 5, mission, 15);
+		console_drawString(15 - (sizeof(mission2) - 1)/2, 6, mission2, 15);
 
 		console_setCursorPosition(30, 20);
 			printf("%c", 185);
 
-		console_setCursorPosition(2, 2);
+		console_setCursorPosition(72, 2);
 		printf("Torches:");
 	
-		console_setCursorPosition(console_getConsoleWidth() - 28, 2);
+		console_setCursorPosition(console_getConsoleWidth() - 33, 2);
 		printf("Traps:");
 
 		UIdrawn = true;
@@ -159,17 +158,13 @@ void UI_draw_torches()
 
 	torch_inv = dataStorage_torch_counter();
 
-	UI_torch_pos = 2;
+	UI_torch_pos = 72;
 
 	if (!torchDrawn)
 	{
 		int j;
 		if (torch_inv == 5)
 		{
-			UI_torch_pos = 2;
-
-			/*Draw all 5 torches (Greyed Out)*/
-			UI_torch_pos = 2;
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
@@ -207,8 +202,6 @@ void UI_draw_torches()
 
 		if (torch_inv == 4)
 		{
-
-			UI_torch_pos = 2;
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
@@ -246,7 +239,6 @@ void UI_draw_torches()
 
 		if (torch_inv == 3)
 		{
-			UI_torch_pos = 2;
 			/*5th red */
 			for (j = 0; j < 3; j++)
 			{
@@ -283,7 +275,6 @@ void UI_draw_torches()
 
 		if (torch_inv == 2)
 		{
-			UI_torch_pos = 2;
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
@@ -320,7 +311,6 @@ void UI_draw_torches()
 
 		if (torch_inv == 1)
 		{
-			UI_torch_pos = 2;
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
@@ -357,7 +347,6 @@ void UI_draw_torches()
 
 		if (torch_inv == 0)
 		{
-			UI_torch_pos = 2;
 			/*5th red*/
 
 			for (j = 0; j < 3; j++)
@@ -415,10 +404,9 @@ void UI_drawSkulls()
 	if (!skullsDrawn)
 	{
 		char lives = *dataStorage_getLives();
-		int x = console_getConsoleWidth(), y = console_getConsoleHeight();
 
-		console_drawString(10, console_getConsoleHeight() / 2 - 3,"Lives left",15);
-		console_setCursorPosition(10, console_getConsoleHeight() / 2 - 2);
+		console_drawString(10, 10,"Lives left",15);
+		console_setCursorPosition(10, 11);
 		for (char j = 0; j < 10; j++)
 			printf("%c", 205);
 
@@ -428,13 +416,13 @@ void UI_drawSkulls()
 			{
 				if (i < lives)
 				{
-					for (int e = 0; e < 4; e++)
-						console_drawString(x / 20 - 1, y / 2 + 5 * i + e - 2 + 4, UI_Lives[e], 10);
+					for (int e = 0; e < LIFE_SIZE; e++)
+						console_drawString(11, 16 + 8 * i + e, UI_Lives[e], 10);
 				}
 				else
 				{
-					for (int e = 0; e < 4; e++)
-						console_drawString(x / 20 - 1, y / 2 + 5 * i + e - 2 + 4, UI_Lives[e], 12);
+					for (int e = 0; e < LIFE_SIZE; e++)
+						console_drawString(11, 16 + 8 * i + e, UI_Lives[e], 12);
 				}
 			}
 		}
@@ -455,12 +443,12 @@ void UI_draw_traps()
 
 	traps_inv = dataStorage_trap_counter();
 
+	UI_trap_pos = console_getConsoleWidth() - 33;
+
 	if (!trapDrawn)
 	{
 		if (traps_inv == 5)
 		{
-
-			UI_trap_pos = console_getConsoleWidth()-27;
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
@@ -499,8 +487,6 @@ void UI_draw_traps()
 
 		if (traps_inv == 4)
 		{
-
-			UI_trap_pos = console_getConsoleWidth() -27;
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
@@ -538,7 +524,6 @@ void UI_draw_traps()
 
 		if (traps_inv == 3)
 		{
-			UI_trap_pos = console_getConsoleWidth() - 27;
 			/*5th red */
 			for (j = 0; j < 3; j++)
 			{
@@ -575,7 +560,6 @@ void UI_draw_traps()
 
 		if (traps_inv == 2)
 		{
-			UI_trap_pos = console_getConsoleWidth() - 27;
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
@@ -612,7 +596,6 @@ void UI_draw_traps()
 
 		if (traps_inv == 1)
 		{
-			UI_trap_pos = console_getConsoleWidth() - 27;
 			/*5th red*/
 			for (j = 0; j < 3; j++)
 			{
@@ -649,7 +632,6 @@ void UI_draw_traps()
 
 		if (traps_inv == 0)
 		{
-			UI_trap_pos = console_getConsoleWidth()-27;
 			/*5th red*/
 
 			for (j = 0; j < 3; j++)

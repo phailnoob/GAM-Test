@@ -143,6 +143,5 @@ void input_checkInput()
 	{
 		if (keyPressed)
 			input_arrow(keyPress);
-		input_wasd(keyPress);
 	}
 }

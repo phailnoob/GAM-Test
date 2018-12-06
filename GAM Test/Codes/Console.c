@@ -1,5 +1,6 @@
 
 #include <windows.h>
+#include <WinUser.h>
 #include <stdio.h>
 #include <wincon.h>
 #include <conio.h>
@@ -39,8 +40,8 @@ void console_init()
 	cursorInfo.dwSize = 100;
 	cursorInfo.bVisible = 0;
 	SetConsoleCursorInfo(writeHandle, &cursorInfo);
-
-	console_setFullScreen();
+	
+	//console_setFullScreen();
 
 	console_clear();
 }
