@@ -18,9 +18,9 @@ void console_init()
 	writeHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	readHandle = GetStdHandle(STD_INPUT_HANDLE);
 	
-	COORD bufferSize = GetLargestConsoleWindowSize(writeHandle);
-	width = bufferSize.X;
-	height = bufferSize.Y;
+	COORD bufferSize = {140,60};
+	width = 140;
+	height = 60;
 
 	/*
 	Setting Console Window size to the size of the monitor (largest possible size)

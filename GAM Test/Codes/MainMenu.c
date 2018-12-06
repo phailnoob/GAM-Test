@@ -82,7 +82,6 @@ void mainMenu_arrow(int key,bool * keyPressedL)
 			}
 			*keyPressedL = false;
 			break;
-		case 32:
 		case 13:
 			switch (selected)
 			{
@@ -113,18 +112,9 @@ void mainMenu_arrow(int key,bool * keyPressedL)
 void mainMenu_checkInput()
 {
 	keyPress = _getch();
-	keyDown = _kbhit();
 
-	if (keyDown)
-	{
-		keyPressed = true;
-		mainMenu_arrow(keyPress, &keyPressed);
-	}
-	else
-	{
-		if (keyPressed)
-			mainMenu_arrow(keyPress, &keyPressed);
-	}
+	keyPressed = true;
+	mainMenu_arrow(keyPress, &keyPressed);
 }
 
 
