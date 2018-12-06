@@ -192,7 +192,6 @@ void game_update()
 			break;
 		case state_mainMenu:
 			mainMenu_Update();
-
 			music_Update();
 
 			if (gsm_IsChanging())
