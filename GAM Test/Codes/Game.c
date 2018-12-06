@@ -170,6 +170,11 @@ void game_EnemyUpdate()
 	}
 }
 
+void SetMapNum(int mapNum)
+{
+	currentMapNum = mapNum;
+}
+
 void game_RestartCurrentMap()
 {
 	game_loadMap(currentMapNum);
