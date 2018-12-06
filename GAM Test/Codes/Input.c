@@ -7,6 +7,7 @@
 
 static int keyPress, keyDown;
 static bool keyPressed;
+bool devMode = false;
 
 void input_init()
 {
@@ -89,6 +90,55 @@ void input_wasd(int key)
 				gsm_returnStateSystem()->next = state_mainMenu;
 			}
 			keyPressed = false;
+			break;
+
+		case 96:
+			devMode = !devMode;
+			break;
+
+		case 49:
+			if (devMode)
+			{
+				SetMapNum(0);
+				console_clear();
+				game_loadMap(0);
+			}
+			break;
+
+		case 50:
+			if (devMode)
+			{
+				SetMapNum(1);
+				console_clear();
+				game_loadMap(1);
+			}
+			break;
+
+		case 51:
+			if (devMode)
+			{
+				SetMapNum(2);
+				console_clear();
+				game_loadMap(2);
+			}
+			break;
+
+		case 52:
+			if (devMode)
+			{
+				SetMapNum(3);
+				console_clear();
+				game_loadMap(3);
+			}
+			break;
+
+		case 53:
+			if (devMode)
+			{
+				SetMapNum(4);
+				console_clear();
+				game_loadMap(4);
+			}
 			break;
 	}
 }

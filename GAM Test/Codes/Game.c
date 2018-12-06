@@ -170,6 +170,11 @@ void game_EnemyUpdate()
 	}
 }
 
+void SetMapNum(int mapNum)
+{
+	currentMapNum = mapNum;
+}
+
 void game_RestartCurrentMap()
 {
 	game_loadMap(currentMapNum);
@@ -192,7 +197,6 @@ void game_update()
 			break;
 		case state_mainMenu:
 			mainMenu_Update();
-
 			music_Update();
 
 			if (gsm_IsChanging())
